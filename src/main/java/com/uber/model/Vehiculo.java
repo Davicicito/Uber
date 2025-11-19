@@ -10,21 +10,19 @@ public class Vehiculo {
     private String marca;
     private String modelo;
     private EstadoVehiculo estadoVehiculo;
-    private int idEstacion;
+    private Estacion estacion;
     private double nivelBateria;
     private double kilometraje;
 
     public Vehiculo() {}
 
-    public Vehiculo(int idVehiculo, TipoVehiculo tipo, String marca, String modelo,
-                    EstadoVehiculo estadoVehiculo, int idEstacion,
-                    double nivelBateria, double kilometraje) {
+    public Vehiculo(int idVehiculo, TipoVehiculo tipo, String marca, String modelo, EstadoVehiculo estadoVehiculo, Estacion estacion, double nivelBateria, double kilometraje) {
         this.idVehiculo = idVehiculo;
         this.tipo = tipo;
         this.marca = marca;
         this.modelo = modelo;
         this.estadoVehiculo = estadoVehiculo;
-        this.idEstacion = idEstacion;
+        this.estacion = estacion;
         this.nivelBateria = nivelBateria;
         this.kilometraje = kilometraje;
     }
@@ -46,8 +44,13 @@ public class Vehiculo {
     public EstadoVehiculo getEstadoVehiculo() { return estadoVehiculo; }
     public void setEstadoVehiculo(EstadoVehiculo estadoVehiculo) { this.estadoVehiculo = estadoVehiculo; }
 
-    public int getIdEstacion() { return idEstacion; }
-    public void setIdEstacion(int idEstacion) { this.idEstacion = idEstacion; }
+    public Estacion getEstacion() {
+        return estacion;
+    }
+
+    public void setEstacion(Estacion estacion) {
+        this.estacion = estacion;
+    }
 
     public double getNivelBateria() { return nivelBateria; }
     public void setNivelBateria(double nivelBateria) { this.nivelBateria = nivelBateria; }

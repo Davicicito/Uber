@@ -4,38 +4,39 @@ import java.time.LocalDateTime;
 
 public class Tiene {
 
-    private int idVehiculo;
-    private int idMantenimiento;
+    private Vehiculo vehiculo;
+    private Mantenimiento mantenimiento;
     private LocalDateTime fechaHora;
     private double coste;
     private String notas;
 
     public Tiene() {}
 
-    public Tiene(int idVehiculo, int idMantenimiento,
-                 LocalDateTime fechaHora, double coste, String notas) {
-        this.idVehiculo = idVehiculo;
-        this.idMantenimiento = idMantenimiento;
+    public Tiene(Vehiculo vehiculo, Mantenimiento mantenimiento, LocalDateTime fechaHora, double coste, String notas) {
+        this.vehiculo = vehiculo;
+        this.mantenimiento = mantenimiento;
         this.fechaHora = fechaHora;
         this.coste = coste;
         this.notas = notas;
     }
 
     // Getters y setters
-    public int getIdVehiculo() {
-        return idVehiculo;
+
+
+    public Vehiculo getVehiculo() {
+        return vehiculo;
     }
 
-    public void setIdVehiculo(int idVehiculo) {
-        this.idVehiculo = idVehiculo;
+    public void setVehiculo(Vehiculo vehiculo) {
+        this.vehiculo = vehiculo;
     }
 
-    public int getIdMantenimiento() {
-        return idMantenimiento;
+    public Mantenimiento getMantenimiento() {
+        return mantenimiento;
     }
 
-    public void setIdMantenimiento(int idMantenimiento) {
-        this.idMantenimiento = idMantenimiento;
+    public void setMantenimiento(Mantenimiento mantenimiento) {
+        this.mantenimiento = mantenimiento;
     }
 
     public LocalDateTime getFechaHora() {
@@ -64,7 +65,7 @@ public class Tiene {
 
     @Override
     public String toString() {
-        return "Mantenimiento aplicado al vehículo " + idVehiculo +
-                " el " + fechaHora + " (tipo " + idMantenimiento + ")";
+        return "Mantenimiento aplicado al vehículo " + vehiculo +
+                " el " + fechaHora + " (tipo " + mantenimiento + ")";
     }
 }
