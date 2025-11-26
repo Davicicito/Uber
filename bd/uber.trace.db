@@ -1,0 +1,606 @@
+2025-11-24 09:05:22.186495+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USUARIO" not found (this database is empty); SQL statement:
+SELECT * FROM Usuario [42104-224]
+2025-11-24 09:05:22.190495+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USUARIO" not found (this database is empty); SQL statement:
+INSERT INTO Usuario (nombre, apellidos, email, contrasena, telefono, metodo_pago, saldo, estado_cuenta) VALUES (?, ?, ?, ?, ?, ?, ?, ?) [42104-224]
+2025-11-24 09:05:22.192489+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USUARIO" not found (this database is empty); SQL statement:
+SELECT * FROM Usuario [42104-224]
+2025-11-24 09:05:22.201546+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "ESTACION" not found (this database is empty); SQL statement:
+SELECT * FROM Estacion [42104-224]
+2025-11-24 09:05:22.203545+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "VEHICULO" not found (this database is empty); SQL statement:
+SELECT v.*, e.id_estacion, e.nombre_estacion, e.direccion, e.capacidad, e.ciudad FROM Vehiculo v INNER JOIN Estacion e ON v.id_estacion = e.id_estacion [42104-224]
+2025-11-24 09:05:22.204546+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "MANTENIMIENTO" not found (this database is empty); SQL statement:
+SELECT * FROM Mantenimiento [42104-224]
+2025-11-24 09:05:22.205544+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "VEHICULO" not found (this database is empty); SQL statement:
+SELECT v.*, e.id_estacion, e.nombre_estacion, e.direccion, e.capacidad, e.ciudad FROM Vehiculo v INNER JOIN Estacion e ON v.id_estacion = e.id_estacion [42104-224]
+2025-11-24 09:05:22.206544+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USUARIO" not found (this database is empty); SQL statement:
+SELECT * FROM Usuario [42104-224]
+2025-11-24 09:05:22.207547+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "VEHICULO" not found (this database is empty); SQL statement:
+SELECT v.*, e.id_estacion, e.nombre_estacion, e.direccion, e.capacidad, e.ciudad FROM Vehiculo v INNER JOIN Estacion e ON v.id_estacion = e.id_estacion [42104-224]
+2025-11-24 09:05:22.209546+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "RESERVA" not found (this database is empty); SQL statement:
+SELECT * FROM Reserva [42104-224]
+2025-11-24 09:05:35.334898+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USUARIO" not found (this database is empty); SQL statement:
+SELECT * FROM Usuario [42104-224]
+2025-11-24 09:05:35.343899+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USUARIO" not found (this database is empty); SQL statement:
+INSERT INTO Usuario (nombre, apellidos, email, contrasena, telefono, metodo_pago, saldo, estado_cuenta) VALUES (?, ?, ?, ?, ?, ?, ?, ?) [42104-224]
+2025-11-24 09:05:35.344898+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USUARIO" not found (this database is empty); SQL statement:
+SELECT * FROM Usuario [42104-224]
+2025-11-24 09:05:35.346900+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "ESTACION" not found (this database is empty); SQL statement:
+SELECT * FROM Estacion [42104-224]
+2025-11-24 09:05:35.348898+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "VEHICULO" not found (this database is empty); SQL statement:
+SELECT v.*, e.id_estacion, e.nombre_estacion, e.direccion, e.capacidad, e.ciudad FROM Vehiculo v INNER JOIN Estacion e ON v.id_estacion = e.id_estacion [42104-224]
+2025-11-24 09:05:35.350969+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "MANTENIMIENTO" not found (this database is empty); SQL statement:
+SELECT * FROM Mantenimiento [42104-224]
+2025-11-24 09:05:35.352897+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "VEHICULO" not found (this database is empty); SQL statement:
+SELECT v.*, e.id_estacion, e.nombre_estacion, e.direccion, e.capacidad, e.ciudad FROM Vehiculo v INNER JOIN Estacion e ON v.id_estacion = e.id_estacion [42104-224]
+2025-11-24 09:05:35.353978+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USUARIO" not found (this database is empty); SQL statement:
+SELECT * FROM Usuario [42104-224]
+2025-11-24 09:05:35.355904+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "VEHICULO" not found (this database is empty); SQL statement:
+SELECT v.*, e.id_estacion, e.nombre_estacion, e.direccion, e.capacidad, e.ciudad FROM Vehiculo v INNER JOIN Estacion e ON v.id_estacion = e.id_estacion [42104-224]
+2025-11-24 09:05:35.356937+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "RESERVA" not found (this database is empty); SQL statement:
+SELECT * FROM Reserva [42104-224]
+2025-11-24 09:17:18.440077+01:00 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "-- phpMyAdmin SQL Dump\000a-- version 5.2.1\000a-- https://www.phpmyadmin.net/\000a--\000a-- Servidor: 127.0.0.1\000a-- Tiempo de generación: 24-11-2025 a las 08:58:46\000a-- Versión del servidor: 10.4.32-MariaDB\000a-- Versión de PHP: 8.2.12\000a\000aSET [*]SQL_MODE = ""NO_AUTO_VALUE_ON_ZERO"""; se esperaba "@, AUTOCOMMIT, EXCLUSIVE, IGNORECASE, PASSWORD, SALT, MODE, DATABASE, COLLATION, CLUSTER, DATABASE_EVENT_LISTENER, ALLOW_LITERALS, DEFAULT_TABLE_TYPE, SCHEMA, CATALOG, SCHEMA_SEARCH_PATH, JAVA_OBJECT_SERIALIZER, IGNORE_CATALOGS, SESSION, TRANSACTION, TIME, NON_KEYWORDS, DEFAULT_NULL_ORDERING"
+Syntax error in SQL statement "-- phpMyAdmin SQL Dump\000a-- version 5.2.1\000a-- https://www.phpmyadmin.net/\000a--\000a-- Servidor: 127.0.0.1\000a-- Tiempo de generación: 24-11-2025 a las 08:58:46\000a-- Versión del servidor: 10.4.32-MariaDB\000a-- Versión de PHP: 8.2.12\000a\000aSET [*]SQL_MODE = ""NO_AUTO_VALUE_ON_ZERO"""; expected "@, AUTOCOMMIT, EXCLUSIVE, IGNORECASE, PASSWORD, SALT, MODE, DATABASE, COLLATION, CLUSTER, DATABASE_EVENT_LISTENER, ALLOW_LITERALS, DEFAULT_TABLE_TYPE, SCHEMA, CATALOG, SCHEMA_SEARCH_PATH, JAVA_OBJECT_SERIALIZER, IGNORE_CATALOGS, SESSION, TRANSACTION, TIME, NON_KEYWORDS, DEFAULT_NULL_ORDERING"; SQL statement:
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 24-11-2025 a las 08:58:46
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.2.12
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO" [42001-224]
+2025-11-24 09:19:47.081008+01:00 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "--\000a-- Estructura de tabla para la tabla `estacion`\000a--\000a\000aCREATE TABLE `estacion` (\000a  `id_estacion` int[*](11) NOT NULL,\000a  `ciudad` varchar(50) NOT NULL,\000a  `nombre_estacion` varchar(80) NOT NULL,\000a  `direccion` varchar(120) NOT NULL,\000a  `capacidad` int(11) NOT NULL\000a) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci"; se esperaba "ARRAY, INVISIBLE, VISIBLE, NOT NULL, DEFAULT, GENERATED, ON UPDATE, NOT NULL, DEFAULT ON NULL, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, CHECK, REFERENCES, ,, )"
+Syntax error in SQL statement "--\000a-- Estructura de tabla para la tabla `estacion`\000a--\000a\000aCREATE TABLE `estacion` (\000a  `id_estacion` int[*](11) NOT NULL,\000a  `ciudad` varchar(50) NOT NULL,\000a  `nombre_estacion` varchar(80) NOT NULL,\000a  `direccion` varchar(120) NOT NULL,\000a  `capacidad` int(11) NOT NULL\000a) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci"; expected "ARRAY, INVISIBLE, VISIBLE, NOT NULL, DEFAULT, GENERATED, ON UPDATE, NOT NULL, DEFAULT ON NULL, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, CHECK, REFERENCES, ,, )"; SQL statement:
+--
+-- Estructura de tabla para la tabla `estacion`
+--
+
+CREATE TABLE `estacion` (
+  `id_estacion` int(11) NOT NULL,
+  `ciudad` varchar(50) NOT NULL,
+  `nombre_estacion` varchar(80) NOT NULL,
+  `direccion` varchar(120) NOT NULL,
+  `capacidad` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci [42001-224]
+2025-11-24 09:20:15.291598+01:00 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "--\000d\000a-- Estructura de tabla para la tabla `estacion`\000d\000a--\000d\000a\000d\000aCREATE TABLE `estacion` (\000d\000a  `id_estacion` int[*](11) NOT NULL,\000d\000a  `ciudad` varchar(50) NOT NULL,\000d\000a  `nombre_estacion` varchar(80) NOT NULL,\000d\000a  `direccion` varchar(120) NOT NULL,\000d\000a  `capacidad` int(11) NOT NULL\000d\000a) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci"; se esperaba "ARRAY, INVISIBLE, VISIBLE, NOT NULL, DEFAULT, GENERATED, ON UPDATE, NOT NULL, DEFAULT ON NULL, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, CHECK, REFERENCES, ,, )"
+Syntax error in SQL statement "--\000d\000a-- Estructura de tabla para la tabla `estacion`\000d\000a--\000d\000a\000d\000aCREATE TABLE `estacion` (\000d\000a  `id_estacion` int[*](11) NOT NULL,\000d\000a  `ciudad` varchar(50) NOT NULL,\000d\000a  `nombre_estacion` varchar(80) NOT NULL,\000d\000a  `direccion` varchar(120) NOT NULL,\000d\000a  `capacidad` int(11) NOT NULL\000d\000a) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci"; expected "ARRAY, INVISIBLE, VISIBLE, NOT NULL, DEFAULT, GENERATED, ON UPDATE, NOT NULL, DEFAULT ON NULL, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, CHECK, REFERENCES, ,, )"; SQL statement:
+--
+-- Estructura de tabla para la tabla `estacion`
+--
+
+CREATE TABLE `estacion` (
+  `id_estacion` int(11) NOT NULL,
+  `ciudad` varchar(50) NOT NULL,
+  `nombre_estacion` varchar(80) NOT NULL,
+  `direccion` varchar(120) NOT NULL,
+  `capacidad` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci [42001-224]
+2025-11-24 09:20:15.294039+01:00 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "ESTACION" not found (this database is empty); SQL statement:
+--
+-- Volcado de datos para la tabla `estacion`
+--
+
+INSERT INTO `estacion` (`id_estacion`, `ciudad`, `nombre_estacion`, `direccion`, `capacidad`) VALUES
+(1, 'Madrid', 'Estación Atocha', 'Calle Atocha 23', 10),
+(2, 'Barcelona', 'Estación Sants', 'Carrer de Tarragona 52', 12),
+(3, 'Sevilla', 'Estación Santa Justa', 'Av. Kansas City 1', 8) [42104-224]
+2025-11-24 09:20:15.296541+01:00 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "-- --------------------------------------------------------\000d\000a\000d\000a--\000d\000a-- Estructura de tabla para la tabla `mantenimiento`\000d\000a--\000d\000a\000d\000aCREATE TABLE `mantenimiento` (\000d\000a  `id_mantenimiento` int[*](11) NOT NULL,\000d\000a  `nombre_mantenimiento` enum('CAMBIO_RUEDAS','REVISION_GENERAL','CAMBIO_BATERIA','FRENOS','DIAGNOSTICO') NOT NULL,\000d\000a  `descripcion` varchar(200) DEFAULT NULL\000d\000a) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci"; se esperaba "ARRAY, INVISIBLE, VISIBLE, NOT NULL, DEFAULT, GENERATED, ON UPDATE, NOT NULL, DEFAULT ON NULL, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, CHECK, REFERENCES, ,, )"
+Syntax error in SQL statement "-- --------------------------------------------------------\000d\000a\000d\000a--\000d\000a-- Estructura de tabla para la tabla `mantenimiento`\000d\000a--\000d\000a\000d\000aCREATE TABLE `mantenimiento` (\000d\000a  `id_mantenimiento` int[*](11) NOT NULL,\000d\000a  `nombre_mantenimiento` enum('CAMBIO_RUEDAS','REVISION_GENERAL','CAMBIO_BATERIA','FRENOS','DIAGNOSTICO') NOT NULL,\000d\000a  `descripcion` varchar(200) DEFAULT NULL\000d\000a) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci"; expected "ARRAY, INVISIBLE, VISIBLE, NOT NULL, DEFAULT, GENERATED, ON UPDATE, NOT NULL, DEFAULT ON NULL, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, CHECK, REFERENCES, ,, )"; SQL statement:
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `mantenimiento`
+--
+
+CREATE TABLE `mantenimiento` (
+  `id_mantenimiento` int(11) NOT NULL,
+  `nombre_mantenimiento` enum('CAMBIO_RUEDAS','REVISION_GENERAL','CAMBIO_BATERIA','FRENOS','DIAGNOSTICO') NOT NULL,
+  `descripcion` varchar(200) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci [42001-224]
+2025-11-24 09:20:15.298984+01:00 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "MANTENIMIENTO" not found (this database is empty); SQL statement:
+--
+-- Volcado de datos para la tabla `mantenimiento`
+--
+
+INSERT INTO `mantenimiento` (`id_mantenimiento`, `nombre_mantenimiento`, `descripcion`) VALUES
+(1, 'CAMBIO_RUEDAS', 'Sustitución de ruedas'),
+(2, 'REVISION_GENERAL', 'Revisión completa del vehículo'),
+(3, 'CAMBIO_BATERIA', 'Sustitución de batería'),
+(4, 'FRENOS', 'Ajuste o cambio de frenos'),
+(5, 'DIAGNOSTICO', 'Diagnóstico eléctrico') [42104-224]
+2025-11-24 09:20:15.299985+01:00 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "-- --------------------------------------------------------\000d\000a\000d\000a--\000d\000a-- Estructura de tabla para la tabla `reserva`\000d\000a--\000d\000a\000d\000aCREATE TABLE `reserva` (\000d\000a  `id_reserva` int[*](11) NOT NULL,\000d\000a  `id_usuario` int(11) NOT NULL,\000d\000a  `id_vehiculo` int(11) NOT NULL,\000d\000a  `fecha_hora_inicio` datetime NOT NULL,\000d\000a  `fecha_hora_fin` datetime DEFAULT NULL,\000d\000a  `coste` double DEFAULT NULL,\000d\000a  `estado` enum('ACTIVA','FINALIZADA','CANCELADA') NOT NULL\000d\000a) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci"; se esperaba "ARRAY, INVISIBLE, VISIBLE, NOT NULL, DEFAULT, GENERATED, ON UPDATE, NOT NULL, DEFAULT ON NULL, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, CHECK, REFERENCES, ,, )"
+Syntax error in SQL statement "-- --------------------------------------------------------\000d\000a\000d\000a--\000d\000a-- Estructura de tabla para la tabla `reserva`\000d\000a--\000d\000a\000d\000aCREATE TABLE `reserva` (\000d\000a  `id_reserva` int[*](11) NOT NULL,\000d\000a  `id_usuario` int(11) NOT NULL,\000d\000a  `id_vehiculo` int(11) NOT NULL,\000d\000a  `fecha_hora_inicio` datetime NOT NULL,\000d\000a  `fecha_hora_fin` datetime DEFAULT NULL,\000d\000a  `coste` double DEFAULT NULL,\000d\000a  `estado` enum('ACTIVA','FINALIZADA','CANCELADA') NOT NULL\000d\000a) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci"; expected "ARRAY, INVISIBLE, VISIBLE, NOT NULL, DEFAULT, GENERATED, ON UPDATE, NOT NULL, DEFAULT ON NULL, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, CHECK, REFERENCES, ,, )"; SQL statement:
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `reserva`
+--
+
+CREATE TABLE `reserva` (
+  `id_reserva` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `id_vehiculo` int(11) NOT NULL,
+  `fecha_hora_inicio` datetime NOT NULL,
+  `fecha_hora_fin` datetime DEFAULT NULL,
+  `coste` double DEFAULT NULL,
+  `estado` enum('ACTIVA','FINALIZADA','CANCELADA') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci [42001-224]
+2025-11-24 09:20:15.301986+01:00 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "RESERVA" not found (this database is empty); SQL statement:
+--
+-- Volcado de datos para la tabla `reserva`
+--
+
+INSERT INTO `reserva` (`id_reserva`, `id_usuario`, `id_vehiculo`, `fecha_hora_inicio`, `fecha_hora_fin`, `coste`, `estado`) VALUES
+(1, 1, 1, '2025-01-10 10:00:00', '2025-01-10 11:15:00', 12.5, 'FINALIZADA'),
+(2, 2, 3, '2025-01-11 09:30:00', NULL, NULL, 'ACTIVA'),
+(3, 4, 5, '2025-01-12 17:20:00', '2025-01-12 18:10:00', 9.2, 'FINALIZADA') [42104-224]
+2025-11-24 09:20:15.302984+01:00 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "-- --------------------------------------------------------\000d\000a\000d\000a--\000d\000a-- Estructura de tabla para la tabla `tiene`\000d\000a--\000d\000a\000d\000aCREATE TABLE `tiene` (\000d\000a  `id_vehiculo` int[*](11) NOT NULL,\000d\000a  `id_mantenimiento` int(11) NOT NULL,\000d\000a  `fecha_hora` datetime NOT NULL,\000d\000a  `coste` double DEFAULT NULL,\000d\000a  `notas` varchar(200) DEFAULT NULL\000d\000a) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci"; se esperaba "ARRAY, INVISIBLE, VISIBLE, NOT NULL, DEFAULT, GENERATED, ON UPDATE, NOT NULL, DEFAULT ON NULL, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, CHECK, REFERENCES, ,, )"
+Syntax error in SQL statement "-- --------------------------------------------------------\000d\000a\000d\000a--\000d\000a-- Estructura de tabla para la tabla `tiene`\000d\000a--\000d\000a\000d\000aCREATE TABLE `tiene` (\000d\000a  `id_vehiculo` int[*](11) NOT NULL,\000d\000a  `id_mantenimiento` int(11) NOT NULL,\000d\000a  `fecha_hora` datetime NOT NULL,\000d\000a  `coste` double DEFAULT NULL,\000d\000a  `notas` varchar(200) DEFAULT NULL\000d\000a) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci"; expected "ARRAY, INVISIBLE, VISIBLE, NOT NULL, DEFAULT, GENERATED, ON UPDATE, NOT NULL, DEFAULT ON NULL, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, CHECK, REFERENCES, ,, )"; SQL statement:
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tiene`
+--
+
+CREATE TABLE `tiene` (
+  `id_vehiculo` int(11) NOT NULL,
+  `id_mantenimiento` int(11) NOT NULL,
+  `fecha_hora` datetime NOT NULL,
+  `coste` double DEFAULT NULL,
+  `notas` varchar(200) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci [42001-224]
+2025-11-24 09:20:15.304923+01:00 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "TIENE" not found (this database is empty); SQL statement:
+--
+-- Volcado de datos para la tabla `tiene`
+--
+
+INSERT INTO `tiene` (`id_vehiculo`, `id_mantenimiento`, `fecha_hora`, `coste`, `notas`) VALUES
+(2, 2, '2025-01-08 09:10:00', 40, 'Revisión rutinaria'),
+(4, 1, '2025-01-05 12:00:00', 25, 'Ruedas desgastadas'),
+(4, 4, '2025-01-05 12:30:00', 15, 'Ajuste de frenos'),
+(6, 5, '2025-01-15 16:00:00', 10, 'Diagnóstico por apagado inesperado') [42104-224]
+2025-11-24 09:20:15.307976+01:00 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "-- --------------------------------------------------------\000d\000a\000d\000a--\000d\000a-- Estructura de tabla para la tabla `usuario`\000d\000a--\000d\000a\000d\000aCREATE TABLE `usuario` (\000d\000a  `id_usuario` int[*](11) NOT NULL,\000d\000a  `nombre` varchar(50) NOT NULL,\000d\000a  `apellidos` varchar(80) NOT NULL,\000d\000a  `email` varchar(80) NOT NULL,\000d\000a  `contrasena` varchar(200) NOT NULL,\000d\000a  `telefono` varchar(20) DEFAULT NULL,\000d\000a  `metodo_pago` varchar(50) DEFAULT NULL,\000d\000a  `saldo` double DEFAULT 0,\000d\000a  `estado_cuenta` enum('ACTIVO','SUSPENDIDO','BLOQUEADO') NOT NULL\000d\000a) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci"; se esperaba "ARRAY, INVISIBLE, VISIBLE, NOT NULL, DEFAULT, GENERATED, ON UPDATE, NOT NULL, DEFAULT ON NULL, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, CHECK, REFERENCES, ,, )"
+Syntax error in SQL statement "-- --------------------------------------------------------\000d\000a\000d\000a--\000d\000a-- Estructura de tabla para la tabla `usuario`\000d\000a--\000d\000a\000d\000aCREATE TABLE `usuario` (\000d\000a  `id_usuario` int[*](11) NOT NULL,\000d\000a  `nombre` varchar(50) NOT NULL,\000d\000a  `apellidos` varchar(80) NOT NULL,\000d\000a  `email` varchar(80) NOT NULL,\000d\000a  `contrasena` varchar(200) NOT NULL,\000d\000a  `telefono` varchar(20) DEFAULT NULL,\000d\000a  `metodo_pago` varchar(50) DEFAULT NULL,\000d\000a  `saldo` double DEFAULT 0,\000d\000a  `estado_cuenta` enum('ACTIVO','SUSPENDIDO','BLOQUEADO') NOT NULL\000d\000a) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci"; expected "ARRAY, INVISIBLE, VISIBLE, NOT NULL, DEFAULT, GENERATED, ON UPDATE, NOT NULL, DEFAULT ON NULL, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, CHECK, REFERENCES, ,, )"; SQL statement:
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuario`
+--
+
+CREATE TABLE `usuario` (
+  `id_usuario` int(11) NOT NULL,
+  `nombre` varchar(50) NOT NULL,
+  `apellidos` varchar(80) NOT NULL,
+  `email` varchar(80) NOT NULL,
+  `contrasena` varchar(200) NOT NULL,
+  `telefono` varchar(20) DEFAULT NULL,
+  `metodo_pago` varchar(50) DEFAULT NULL,
+  `saldo` double DEFAULT 0,
+  `estado_cuenta` enum('ACTIVO','SUSPENDIDO','BLOQUEADO') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci [42001-224]
+2025-11-24 09:20:15.308978+01:00 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USUARIO" not found (this database is empty); SQL statement:
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`id_usuario`, `nombre`, `apellidos`, `email`, `contrasena`, `telefono`, `metodo_pago`, `saldo`, `estado_cuenta`) VALUES
+(1, 'Juan', 'García López', 'juan@example.com', 'pass123', '612345678', 'Tarjeta', 25.5, 'ACTIVO'),
+(2, 'María', 'Santos Ruiz', 'maria@example.com', 'pass123', '698745321', 'PayPal', 40, 'ACTIVO'),
+(3, 'Luis', 'Pérez Soto', 'luis@example.com', 'pass123', '666555444', 'Tarjeta', 10, 'SUSPENDIDO'),
+(4, 'Ana', 'Martín Díaz', 'ana@example.com', 'pass123', '677889900', 'Bizum', 90, 'ACTIVO') [42104-224]
+2025-11-24 09:20:15.309975+01:00 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "-- --------------------------------------------------------\000d\000a\000d\000a--\000d\000a-- Estructura de tabla para la tabla `vehiculo`\000d\000a--\000d\000a\000d\000aCREATE TABLE `vehiculo` (\000d\000a  `id_vehiculo` int[*](11) NOT NULL,\000d\000a  `tipo` enum('COCHE','MOTO','PATINETE') NOT NULL,\000d\000a  `marca` varchar(50) NOT NULL,\000d\000a  `modelo` varchar(50) NOT NULL,\000d\000a  `estado_vehiculo` enum('DISPONIBLE','EN_USO','MANTENIMIENTO','INACTIVO') NOT NULL,\000d\000a  `id_estacion` int(11) NOT NULL,\000d\000a  `nivel_bateria` double DEFAULT 100,\000d\000a  `kilometraje` double DEFAULT 0\000d\000a) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci"; se esperaba "ARRAY, INVISIBLE, VISIBLE, NOT NULL, DEFAULT, GENERATED, ON UPDATE, NOT NULL, DEFAULT ON NULL, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, CHECK, REFERENCES, ,, )"
+Syntax error in SQL statement "-- --------------------------------------------------------\000d\000a\000d\000a--\000d\000a-- Estructura de tabla para la tabla `vehiculo`\000d\000a--\000d\000a\000d\000aCREATE TABLE `vehiculo` (\000d\000a  `id_vehiculo` int[*](11) NOT NULL,\000d\000a  `tipo` enum('COCHE','MOTO','PATINETE') NOT NULL,\000d\000a  `marca` varchar(50) NOT NULL,\000d\000a  `modelo` varchar(50) NOT NULL,\000d\000a  `estado_vehiculo` enum('DISPONIBLE','EN_USO','MANTENIMIENTO','INACTIVO') NOT NULL,\000d\000a  `id_estacion` int(11) NOT NULL,\000d\000a  `nivel_bateria` double DEFAULT 100,\000d\000a  `kilometraje` double DEFAULT 0\000d\000a) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci"; expected "ARRAY, INVISIBLE, VISIBLE, NOT NULL, DEFAULT, GENERATED, ON UPDATE, NOT NULL, DEFAULT ON NULL, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, CHECK, REFERENCES, ,, )"; SQL statement:
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `vehiculo`
+--
+
+CREATE TABLE `vehiculo` (
+  `id_vehiculo` int(11) NOT NULL,
+  `tipo` enum('COCHE','MOTO','PATINETE') NOT NULL,
+  `marca` varchar(50) NOT NULL,
+  `modelo` varchar(50) NOT NULL,
+  `estado_vehiculo` enum('DISPONIBLE','EN_USO','MANTENIMIENTO','INACTIVO') NOT NULL,
+  `id_estacion` int(11) NOT NULL,
+  `nivel_bateria` double DEFAULT 100,
+  `kilometraje` double DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci [42001-224]
+2025-11-24 09:20:15.312083+01:00 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "VEHICULO" not found (this database is empty); SQL statement:
+--
+-- Volcado de datos para la tabla `vehiculo`
+--
+
+INSERT INTO `vehiculo` (`id_vehiculo`, `tipo`, `marca`, `modelo`, `estado_vehiculo`, `id_estacion`, `nivel_bateria`, `kilometraje`) VALUES
+(1, 'COCHE', 'Renault', 'Zoe', 'DISPONIBLE', 1, 87, 12000),
+(2, 'COCHE', 'Nissan', 'Leaf', 'EN_USO', 1, 45, 30000),
+(3, 'MOTO', 'Silence', 'S02', 'DISPONIBLE', 2, 95, 5000),
+(4, 'PATINETE', 'Xiaomi', 'Mi Pro 2', 'MANTENIMIENTO', 2, 10, 800),
+(5, 'COCHE', 'Tesla', 'Model 3', 'DISPONIBLE', 3, 98, 15000),
+(6, 'PATINETE', 'Segway', 'Ninebot', 'INACTIVO', 3, 0, 2000) [42104-224]
+2025-11-24 09:20:15.314099+01:00 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ESTACION" no encontrada
+Table "ESTACION" not found; SQL statement:
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices [42102-224]
+2025-11-24 09:20:15.316092+01:00 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "MANTENIMIENTO" no encontrada
+Table "MANTENIMIENTO" not found; SQL statement:
+--
+-- Indices de la tabla `mantenimiento`
+--
+ALTER TABLE `manten [42102-224]
+2025-11-24 09:20:15.318096+01:00 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "--\000d\000a-- Indices de la tabla `reserva`\000d\000a--\000d\000aALTER TABLE `reserva`\000d\000a  ADD PRIMARY KEY (`id_reserva`)[*],\000d\000a  ADD KEY `id_usuario` (`id_usuario`),\000d\000a  ADD KEY `id_vehiculo` (`id_vehiculo`)"
+Syntax error in SQL statement "--\000d\000a-- Indices de la tabla `reserva`\000d\000a--\000d\000aALTER TABLE `reserva`\000d\000a  ADD PRIMARY KEY (`id_reserva`)[*],\000d\000a  ADD KEY `id_usuario` (`id_usuario`),\000d\000a  ADD KEY `id_vehiculo` (`id_vehiculo`)"; SQL statement:
+--
+-- Indices de la tabla `reserva`
+--
+ALTER TABLE `reserva`
+  ADD PRIMARY KEY (`id_reserva`),
+  ADD KEY `id_usuario` (`id_usuario`),
+  ADD KEY `id_vehiculo` (`id_vehiculo`) [42000-224]
+2025-11-24 09:20:15.320100+01:00 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "--\000d\000a-- Indices de la tabla `tiene`\000d\000a--\000d\000aALTER TABLE `tiene`\000d\000a  ADD PRIMARY KEY (`id_vehiculo`,`id_mantenimiento`,`fecha_hora`)[*],\000d\000a  ADD KEY `id_mantenimiento` (`id_mantenimiento`)"
+Syntax error in SQL statement "--\000d\000a-- Indices de la tabla `tiene`\000d\000a--\000d\000aALTER TABLE `tiene`\000d\000a  ADD PRIMARY KEY (`id_vehiculo`,`id_mantenimiento`,`fecha_hora`)[*],\000d\000a  ADD KEY `id_mantenimiento` (`id_mantenimiento`)"; SQL statement:
+--
+-- Indices de la tabla `tiene`
+--
+ALTER TABLE `tiene`
+  ADD PRIMARY KEY (`id_vehiculo`,`id_mantenimiento`,`fecha_hora`),
+  ADD KEY `id_mantenimiento` (`id_mantenimiento`) [42000-224]
+2025-11-24 09:20:15.322097+01:00 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "--\000d\000a-- Indices de la tabla `usuario`\000d\000a--\000d\000aALTER TABLE `usuario`\000d\000a  ADD PRIMARY KEY (`id_usuario`)[*],\000d\000a  ADD UNIQUE KEY `email` (`email`)"
+Syntax error in SQL statement "--\000d\000a-- Indices de la tabla `usuario`\000d\000a--\000d\000aALTER TABLE `usuario`\000d\000a  ADD PRIMARY KEY (`id_usuario`)[*],\000d\000a  ADD UNIQUE KEY `email` (`email`)"; SQL statement:
+--
+-- Indices de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  ADD PRIMARY KEY (`id_usuario`),
+  ADD UNIQUE KEY `email` (`email`) [42000-224]
+2025-11-24 09:20:15.323095+01:00 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "--\000d\000a-- Indices de la tabla `vehiculo`\000d\000a--\000d\000aALTER TABLE `vehiculo`\000d\000a  ADD PRIMARY KEY (`id_vehiculo`)[*],\000d\000a  ADD KEY `id_estacion` (`id_estacion`)"
+Syntax error in SQL statement "--\000d\000a-- Indices de la tabla `vehiculo`\000d\000a--\000d\000aALTER TABLE `vehiculo`\000d\000a  ADD PRIMARY KEY (`id_vehiculo`)[*],\000d\000a  ADD KEY `id_estacion` (`id_estacion`)"; SQL statement:
+--
+-- Indices de la tabla `vehiculo`
+--
+ALTER TABLE `vehiculo`
+  ADD PRIMARY KEY (`id_vehiculo`),
+  ADD KEY `id_estacion` (`id_estacion`) [42000-224]
+2025-11-24 09:20:15.324104+01:00 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "--\000d\000a-- AUTO_INCREMENT de las tablas volcadas\000d\000a--\000d\000a\000d\000a--\000d\000a-- AUTO_INCREMENT de la tabla `estacion`\000d\000a--\000d\000aALTER TABLE `estacion`\000d\000a  [*]MODIFY `id_estacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4"; se esperaba "., ADD, SET, RENAME, DROP, ALTER"
+Syntax error in SQL statement "--\000d\000a-- AUTO_INCREMENT de las tablas volcadas\000d\000a--\000d\000a\000d\000a--\000d\000a-- AUTO_INCREMENT de la tabla `estacion`\000d\000a--\000d\000aALTER TABLE `estacion`\000d\000a  [*]MODIFY `id_estacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4"; expected "., ADD, SET, RENAME, DROP, ALTER"; SQL statement:
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `estacion`
+--
+ALTER TABLE `estacion`
+  MODIFY `id_estacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4 [42001-224]
+2025-11-24 09:20:15.327096+01:00 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "--\000d\000a-- AUTO_INCREMENT de la tabla `mantenimiento`\000d\000a--\000d\000aALTER TABLE `mantenimiento`\000d\000a  [*]MODIFY `id_mantenimiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6"; se esperaba "., ADD, SET, RENAME, DROP, ALTER"
+Syntax error in SQL statement "--\000d\000a-- AUTO_INCREMENT de la tabla `mantenimiento`\000d\000a--\000d\000aALTER TABLE `mantenimiento`\000d\000a  [*]MODIFY `id_mantenimiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6"; expected "., ADD, SET, RENAME, DROP, ALTER"; SQL statement:
+--
+-- AUTO_INCREMENT de la tabla `mantenimiento`
+--
+ALTER TABLE `mantenimiento`
+  MODIFY `id_mantenimiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6 [42001-224]
+2025-11-24 09:20:15.327096+01:00 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "--\000d\000a-- AUTO_INCREMENT de la tabla `reserva`\000d\000a--\000d\000aALTER TABLE `reserva`\000d\000a  [*]MODIFY `id_reserva` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4"; se esperaba "., ADD, SET, RENAME, DROP, ALTER"
+Syntax error in SQL statement "--\000d\000a-- AUTO_INCREMENT de la tabla `reserva`\000d\000a--\000d\000aALTER TABLE `reserva`\000d\000a  [*]MODIFY `id_reserva` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4"; expected "., ADD, SET, RENAME, DROP, ALTER"; SQL statement:
+--
+-- AUTO_INCREMENT de la tabla `reserva`
+--
+ALTER TABLE `reserva`
+  MODIFY `id_reserva` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4 [42001-224]
+2025-11-24 09:20:15.329094+01:00 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "--\000d\000a-- AUTO_INCREMENT de la tabla `usuario`\000d\000a--\000d\000aALTER TABLE `usuario`\000d\000a  [*]MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5"; se esperaba "., ADD, SET, RENAME, DROP, ALTER"
+Syntax error in SQL statement "--\000d\000a-- AUTO_INCREMENT de la tabla `usuario`\000d\000a--\000d\000aALTER TABLE `usuario`\000d\000a  [*]MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5"; expected "., ADD, SET, RENAME, DROP, ALTER"; SQL statement:
+--
+-- AUTO_INCREMENT de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5 [42001-224]
+2025-11-24 09:20:15.331098+01:00 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "--\000d\000a-- AUTO_INCREMENT de la tabla `vehiculo`\000d\000a--\000d\000aALTER TABLE `vehiculo`\000d\000a  [*]MODIFY `id_vehiculo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7"; se esperaba "., ADD, SET, RENAME, DROP, ALTER"
+Syntax error in SQL statement "--\000d\000a-- AUTO_INCREMENT de la tabla `vehiculo`\000d\000a--\000d\000aALTER TABLE `vehiculo`\000d\000a  [*]MODIFY `id_vehiculo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7"; expected "., ADD, SET, RENAME, DROP, ALTER"; SQL statement:
+--
+-- AUTO_INCREMENT de la tabla `vehiculo`
+--
+ALTER TABLE `vehiculo`
+  MODIFY `id_vehiculo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7 [42001-224]
+2025-11-24 09:20:15.336561+01:00 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "--\000d\000a-- Restricciones para tablas volcadas\000d\000a--\000d\000a\000d\000a--\000d\000a-- Filtros para la tabla `reserva`\000d\000a--\000d\000aALTER TABLE `reserva`\000d\000a  ADD CONSTRAINT `reserva_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`)[*],\000d\000a  ADD CONSTRAINT `reserva_ibfk_2` FOREIGN KEY (`id_vehiculo`) REFERENCES `vehiculo` (`id_vehiculo`)"
+Syntax error in SQL statement "--\000d\000a-- Restricciones para tablas volcadas\000d\000a--\000d\000a\000d\000a--\000d\000a-- Filtros para la tabla `reserva`\000d\000a--\000d\000aALTER TABLE `reserva`\000d\000a  ADD CONSTRAINT `reserva_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`)[*],\000d\000a  ADD CONSTRAINT `reserva_ibfk_2` FOREIGN KEY (`id_vehiculo`) REFERENCES `vehiculo` (`id_vehiculo`)"; SQL statement:
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `reserva`
+--
+ALTER TABLE `reserva`
+  ADD CONSTRAINT `reserva_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`),
+  ADD CONSTRAINT `reserva_ibfk_2` FOREIGN KEY (`id_vehiculo`) REFERENCES `vehiculo` (`id_vehiculo`) [42000-224]
+2025-11-24 09:20:15.338575+01:00 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "--\000d\000a-- Filtros para la tabla `tiene`\000d\000a--\000d\000aALTER TABLE `tiene`\000d\000a  ADD CONSTRAINT `tiene_ibfk_1` FOREIGN KEY (`id_vehiculo`) REFERENCES `vehiculo` (`id_vehiculo`)[*],\000d\000a  ADD CONSTRAINT `tiene_ibfk_2` FOREIGN KEY (`id_mantenimiento`) REFERENCES `mantenimiento` (`id_mantenimiento`)"
+Syntax error in SQL statement "--\000d\000a-- Filtros para la tabla `tiene`\000d\000a--\000d\000aALTER TABLE `tiene`\000d\000a  ADD CONSTRAINT `tiene_ibfk_1` FOREIGN KEY (`id_vehiculo`) REFERENCES `vehiculo` (`id_vehiculo`)[*],\000d\000a  ADD CONSTRAINT `tiene_ibfk_2` FOREIGN KEY (`id_mantenimiento`) REFERENCES `mantenimiento` (`id_mantenimiento`)"; SQL statement:
+--
+-- Filtros para la tabla `tiene`
+--
+ALTER TABLE `tiene`
+  ADD CONSTRAINT `tiene_ibfk_1` FOREIGN KEY (`id_vehiculo`) REFERENCES `vehiculo` (`id_vehiculo`),
+  ADD CONSTRAINT `tiene_ibfk_2` FOREIGN KEY (`id_mantenimiento`) REFERENCES `mantenimiento` (`id_mantenimiento`) [42000-224]
+2025-11-24 09:20:15.340934+01:00 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "VEHICULO" no encontrada
+Table "VEHICULO" not found; SQL statement:
+--
+-- Filtros para la tabla `vehiculo`
+--
+ALTER TABLE `vehiculo`
+  ADD CONSTRAINT `vehiculo_ibfk_1` FOREIGN KEY (`id_est [42102-224]
+2025-11-24 09:27:34.378128+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "--\000d\000a-- Indices de la tabla `reserva`\000d\000a--\000d\000aALTER TABLE `reserva`\000d\000a  ADD PRIMARY KEY (`id_reserva`)[*],\000d\000a  ADD KEY `id_usuario` (`id_usuario`),\000d\000a  ADD KEY `id_vehiculo` (`id_vehiculo`)"
+Syntax error in SQL statement "--\000d\000a-- Indices de la tabla `reserva`\000d\000a--\000d\000aALTER TABLE `reserva`\000d\000a  ADD PRIMARY KEY (`id_reserva`)[*],\000d\000a  ADD KEY `id_usuario` (`id_usuario`),\000d\000a  ADD KEY `id_vehiculo` (`id_vehiculo`)"; SQL statement:
+--
+-- Indices de la tabla `reserva`
+--
+ALTER TABLE `reserva`
+  ADD PRIMARY KEY (`id_reserva`),
+  ADD KEY `id_usuario` (`id_usuario`),
+  ADD KEY `id_vehiculo` (`id_vehiculo`) [42000-224]
+2025-11-24 09:27:34.385132+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "--\000d\000a-- Indices de la tabla `tiene`\000d\000a--\000d\000aALTER TABLE `tiene`\000d\000a  ADD PRIMARY KEY (`id_vehiculo`,`id_mantenimiento`,`fecha_hora`)[*],\000d\000a  ADD KEY `id_mantenimiento` (`id_mantenimiento`)"
+Syntax error in SQL statement "--\000d\000a-- Indices de la tabla `tiene`\000d\000a--\000d\000aALTER TABLE `tiene`\000d\000a  ADD PRIMARY KEY (`id_vehiculo`,`id_mantenimiento`,`fecha_hora`)[*],\000d\000a  ADD KEY `id_mantenimiento` (`id_mantenimiento`)"; SQL statement:
+--
+-- Indices de la tabla `tiene`
+--
+ALTER TABLE `tiene`
+  ADD PRIMARY KEY (`id_vehiculo`,`id_mantenimiento`,`fecha_hora`),
+  ADD KEY `id_mantenimiento` (`id_mantenimiento`) [42000-224]
+2025-11-24 09:27:34.388230+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "--\000d\000a-- Indices de la tabla `usuario`\000d\000a--\000d\000aALTER TABLE `usuario`\000d\000a  ADD PRIMARY KEY (`id_usuario`)[*],\000d\000a  ADD UNIQUE KEY `email` (`email`)"
+Syntax error in SQL statement "--\000d\000a-- Indices de la tabla `usuario`\000d\000a--\000d\000aALTER TABLE `usuario`\000d\000a  ADD PRIMARY KEY (`id_usuario`)[*],\000d\000a  ADD UNIQUE KEY `email` (`email`)"; SQL statement:
+--
+-- Indices de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  ADD PRIMARY KEY (`id_usuario`),
+  ADD UNIQUE KEY `email` (`email`) [42000-224]
+2025-11-24 09:27:34.391132+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "--\000d\000a-- Indices de la tabla `vehiculo`\000d\000a--\000d\000aALTER TABLE `vehiculo`\000d\000a  ADD PRIMARY KEY (`id_vehiculo`)[*],\000d\000a  ADD KEY `id_estacion` (`id_estacion`)"
+Syntax error in SQL statement "--\000d\000a-- Indices de la tabla `vehiculo`\000d\000a--\000d\000aALTER TABLE `vehiculo`\000d\000a  ADD PRIMARY KEY (`id_vehiculo`)[*],\000d\000a  ADD KEY `id_estacion` (`id_estacion`)"; SQL statement:
+--
+-- Indices de la tabla `vehiculo`
+--
+ALTER TABLE `vehiculo`
+  ADD PRIMARY KEY (`id_vehiculo`),
+  ADD KEY `id_estacion` (`id_estacion`) [42000-224]
+2025-11-24 09:27:34.396235+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "--\000d\000a-- AUTO_INCREMENT de las tablas volcadas\000d\000a--\000d\000a\000d\000a--\000d\000a-- AUTO_INCREMENT de la tabla `estacion`\000d\000a--\000d\000aALTER TABLE `estacion`\000d\000a  MODIFY `id_estacion` int(11) NOT NULL AUTO_INCREMENT[*], AUTO_INCREMENT=4"
+Syntax error in SQL statement "--\000d\000a-- AUTO_INCREMENT de las tablas volcadas\000d\000a--\000d\000a\000d\000a--\000d\000a-- AUTO_INCREMENT de la tabla `estacion`\000d\000a--\000d\000aALTER TABLE `estacion`\000d\000a  MODIFY `id_estacion` int(11) NOT NULL AUTO_INCREMENT[*], AUTO_INCREMENT=4"; SQL statement:
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `estacion`
+--
+ALTER TABLE `estacion`
+  MODIFY `id_estacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4 [42000-224]
+2025-11-24 09:27:34.397249+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "--\000d\000a-- AUTO_INCREMENT de la tabla `mantenimiento`\000d\000a--\000d\000aALTER TABLE `mantenimiento`\000d\000a  MODIFY `id_mantenimiento` int(11) NOT NULL AUTO_INCREMENT[*], AUTO_INCREMENT=6"
+Syntax error in SQL statement "--\000d\000a-- AUTO_INCREMENT de la tabla `mantenimiento`\000d\000a--\000d\000aALTER TABLE `mantenimiento`\000d\000a  MODIFY `id_mantenimiento` int(11) NOT NULL AUTO_INCREMENT[*], AUTO_INCREMENT=6"; SQL statement:
+--
+-- AUTO_INCREMENT de la tabla `mantenimiento`
+--
+ALTER TABLE `mantenimiento`
+  MODIFY `id_mantenimiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6 [42000-224]
+2025-11-24 09:27:34.399633+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "--\000d\000a-- AUTO_INCREMENT de la tabla `reserva`\000d\000a--\000d\000aALTER TABLE `reserva`\000d\000a  MODIFY `id_reserva` int(11) NOT NULL AUTO_INCREMENT[*], AUTO_INCREMENT=4"
+Syntax error in SQL statement "--\000d\000a-- AUTO_INCREMENT de la tabla `reserva`\000d\000a--\000d\000aALTER TABLE `reserva`\000d\000a  MODIFY `id_reserva` int(11) NOT NULL AUTO_INCREMENT[*], AUTO_INCREMENT=4"; SQL statement:
+--
+-- AUTO_INCREMENT de la tabla `reserva`
+--
+ALTER TABLE `reserva`
+  MODIFY `id_reserva` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4 [42000-224]
+2025-11-24 09:27:34.401632+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "--\000d\000a-- AUTO_INCREMENT de la tabla `usuario`\000d\000a--\000d\000aALTER TABLE `usuario`\000d\000a  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT[*], AUTO_INCREMENT=5"
+Syntax error in SQL statement "--\000d\000a-- AUTO_INCREMENT de la tabla `usuario`\000d\000a--\000d\000aALTER TABLE `usuario`\000d\000a  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT[*], AUTO_INCREMENT=5"; SQL statement:
+--
+-- AUTO_INCREMENT de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5 [42000-224]
+2025-11-24 09:27:34.403634+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "--\000d\000a-- AUTO_INCREMENT de la tabla `vehiculo`\000d\000a--\000d\000aALTER TABLE `vehiculo`\000d\000a  MODIFY `id_vehiculo` int(11) NOT NULL AUTO_INCREMENT[*], AUTO_INCREMENT=7"
+Syntax error in SQL statement "--\000d\000a-- AUTO_INCREMENT de la tabla `vehiculo`\000d\000a--\000d\000aALTER TABLE `vehiculo`\000d\000a  MODIFY `id_vehiculo` int(11) NOT NULL AUTO_INCREMENT[*], AUTO_INCREMENT=7"; SQL statement:
+--
+-- AUTO_INCREMENT de la tabla `vehiculo`
+--
+ALTER TABLE `vehiculo`
+  MODIFY `id_vehiculo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7 [42000-224]
+2025-11-24 09:27:34.405637+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "--\000d\000a-- Restricciones para tablas volcadas\000d\000a--\000d\000a\000d\000a--\000d\000a-- Filtros para la tabla `reserva`\000d\000a--\000d\000aALTER TABLE `reserva`\000d\000a  ADD CONSTRAINT `reserva_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`)[*],\000d\000a  ADD CONSTRAINT `reserva_ibfk_2` FOREIGN KEY (`id_vehiculo`) REFERENCES `vehiculo` (`id_vehiculo`)"
+Syntax error in SQL statement "--\000d\000a-- Restricciones para tablas volcadas\000d\000a--\000d\000a\000d\000a--\000d\000a-- Filtros para la tabla `reserva`\000d\000a--\000d\000aALTER TABLE `reserva`\000d\000a  ADD CONSTRAINT `reserva_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`)[*],\000d\000a  ADD CONSTRAINT `reserva_ibfk_2` FOREIGN KEY (`id_vehiculo`) REFERENCES `vehiculo` (`id_vehiculo`)"; SQL statement:
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `reserva`
+--
+ALTER TABLE `reserva`
+  ADD CONSTRAINT `reserva_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`),
+  ADD CONSTRAINT `reserva_ibfk_2` FOREIGN KEY (`id_vehiculo`) REFERENCES `vehiculo` (`id_vehiculo`) [42000-224]
+2025-11-24 09:27:34.408756+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "--\000d\000a-- Filtros para la tabla `tiene`\000d\000a--\000d\000aALTER TABLE `tiene`\000d\000a  ADD CONSTRAINT `tiene_ibfk_1` FOREIGN KEY (`id_vehiculo`) REFERENCES `vehiculo` (`id_vehiculo`)[*],\000d\000a  ADD CONSTRAINT `tiene_ibfk_2` FOREIGN KEY (`id_mantenimiento`) REFERENCES `mantenimiento` (`id_mantenimiento`)"
+Syntax error in SQL statement "--\000d\000a-- Filtros para la tabla `tiene`\000d\000a--\000d\000aALTER TABLE `tiene`\000d\000a  ADD CONSTRAINT `tiene_ibfk_1` FOREIGN KEY (`id_vehiculo`) REFERENCES `vehiculo` (`id_vehiculo`)[*],\000d\000a  ADD CONSTRAINT `tiene_ibfk_2` FOREIGN KEY (`id_mantenimiento`) REFERENCES `mantenimiento` (`id_mantenimiento`)"; SQL statement:
+--
+-- Filtros para la tabla `tiene`
+--
+ALTER TABLE `tiene`
+  ADD CONSTRAINT `tiene_ibfk_1` FOREIGN KEY (`id_vehiculo`) REFERENCES `vehiculo` (`id_vehiculo`),
+  ADD CONSTRAINT `tiene_ibfk_2` FOREIGN KEY (`id_mantenimiento`) REFERENCES `mantenimiento` (`id_mantenimiento`) [42000-224]
+2025-11-24 09:30:21.602384+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "ESTACION" ya existe
+Table "ESTACION" already exists; SQL statement:
+-- 1. Tabla ESTACION
+CREATE TABLE `estacion` (
+  `id_estacion` int(11) NOT NULL AUTO_INCREMENT,
+  `ciudad` varchar(50) NOT NULL,
+  `nombre_estacion` varchar(80) NOT NULL,
+  `direccion` varchar(120) NOT NULL,
+  `capacidad` int(11) NOT NULL,
+  PRIMARY KEY (`id_estacion`)
+) ENGINE=InnoDB D [42101-224]
+2025-11-24 09:30:21.607692+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "MANTENIMIENTO" ya existe
+Table "MANTENIMIENTO" already exists; SQL statement:
+-- 2. Tabla MANTENIMIENTO
+CREATE TABLE `mantenimiento` (
+  `id_mantenimiento` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre_mantenimiento` enum('CAMBIO_RUEDAS','REVISION_GENERAL','CAMBIO_BATERIA','FRENOS','DIAGNOSTICO') NOT NULL,
+  `descripcion` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`id_mantenimiento`)
+) ENGINE=Inn [42101-224]
+2025-11-24 09:30:21.613154+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "USUARIO" ya existe
+Table "USUARIO" already exists; SQL statement:
+-- 3. Tabla USUARIO
+CREATE TABLE `usuario` (
+  `id_usuario` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) NOT NULL,
+  `apellidos` varchar(80) NOT NULL,
+  `email` varchar(80) NOT NULL,
+  `contrasena` varchar(200) NOT NULL,
+  `telefono` varchar(20) DEFAULT NULL,
+  `metodo_pago` varchar(50) DEFAULT NULL,
+  `saldo` double DEFAULT 0,
+  `estado_cuenta` enum('ACTIVO','SUSPENDIDO','BLOQUEADO') NOT NULL,
+  PRIMARY KEY (`id_usuario`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB DE [42101-224]
+2025-11-24 09:30:21.617073+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "VEHICULO" ya existe
+Table "VEHICULO" already exists; SQL statement:
+-- 4. Tabla VEHICULO
+CREATE TABLE `vehiculo` (
+  `id_vehiculo` int(11) NOT NULL AUTO_INCREMENT,
+  `tipo` enum('COCHE','MOTO','PATINETE') NOT NULL,
+  `marca` varchar(50) NOT NULL,
+  `modelo` varchar(50) NOT NULL,
+  `estado_vehiculo` enum('DISPONIBLE','EN_USO','MANTENIMIENTO','INACTIVO') NOT NULL,
+  `id_estacion` int(11) NOT NULL,
+  `nivel_bateria` double DEFAULT 100,
+  `kilometraje` double DEFAULT 0,
+  PRIMARY KEY (`id_vehiculo`),
+  KEY `id_estacion` (`id_estacion`),
+  CONSTRAINT `vehiculo_ibfk_1` FOREIGN KEY (`id_estacion`) REFERENCES `estacion` (`id_estacion`)
+) ENGINE=InnoDB D [42101-224]
+2025-11-24 09:30:21.621637+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "RESERVA" ya existe
+Table "RESERVA" already exists; SQL statement:
+-- 5. Tabla RESERVA
+CREATE TABLE `reserva` (
+  `id_reserva` int(11) NOT NULL AUTO_INCREMENT,
+  `id_usuario` int(11) NOT NULL,
+  `id_vehiculo` int(11) NOT NULL,
+  `fecha_hora_inicio` datetime NOT NULL,
+  `fecha_hora_fin` datetime DEFAULT NULL,
+  `coste` double DEFAULT NULL,
+  `estado` enum('ACTIVA','FINALIZADA','CANCELADA') NOT NULL,
+  PRIMARY KEY (`id_reserva`),
+  KEY `id_usuario` (`id_usuario`),
+  KEY `id_vehiculo` (`id_vehiculo`),
+  CONSTRAINT `reserva_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`),
+  CONSTRAINT `reserva_ibfk_2` FOREIGN KEY (`id_vehiculo`) REFERENCES `vehiculo` (`id_vehiculo`)
+) ENGINE=InnoDB DE [42101-224]
+2025-11-24 09:30:21.625157+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "TIENE" ya existe
+Table "TIENE" already exists; SQL statement:
+-- 6. Tabla TIENE (Relación N:M)
+CREATE TABLE `tiene` (
+  `id_vehiculo` int(11) NOT NULL,
+  `id_mantenimiento` int(11) NOT NULL,
+  `fecha_hora` datetime NOT NULL,
+  `coste` double DEFAULT NULL,
+  `notas` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`id_vehiculo`,`id_mantenimiento`,`fecha_hora`),
+  KEY `id_mantenimiento` (`id_mantenimiento`),
+  CONSTRAINT `tiene_ibfk_1` FOREIGN KEY (`id_vehiculo`) REFERENCES `vehiculo` (`id_vehiculo`),
+  CONSTRAINT `tiene_ibfk_2` FOREIGN KEY (`id_mantenimiento`) REFERENCES `mantenimiento` (`id_mantenimiento`)
+) ENG [42101-224]
+2025-11-24 19:32:00.133040+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "[*]USUARIO"; se esperaba "UPDATE"
+Syntax error in SQL statement "[*]USUARIO"; expected "UPDATE"; SQL statement:
+USUARIO [42001-224]
+2025-11-24 19:47:04.805755+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valor no permitido para la columna "('ACTIVO', 'SUSPENDIDO', 'BLOQUEADO')": "ACTIVA"
+Value not permitted for column "('ACTIVO', 'SUSPENDIDO', 'BLOQUEADO')": "ACTIVA"; SQL statement:
+INSERT INTO Usuario(nombre, apellidos, email, contrasena, telefono, metodo_pago, saldo, estado_cuenta, rol)
+VALUES ('Admin', 'Master', 'admin@uber.com', '1234', '600000000', 'TARJETA', 0, 'ACTIVA', 'ADMIN') [22030-224]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:518)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.value.ExtTypeInfoEnum.getValue(ExtTypeInfoEnum.java:175)
+	at org.h2.value.Value.convertToEnum(Value.java:2315)
+	at org.h2.value.Value.convertTo(Value.java:1195)
+	at org.h2.value.Value.convertForAssignTo(Value.java:1113)
+	at org.h2.table.Column.validateConvertUpdateSequence(Column.java:369)
+	at org.h2.table.Table.convertInsertRow(Table.java:936)
+	at org.h2.command.dml.Insert.insertRows(Insert.java:167)
+	at org.h2.command.dml.Insert.update(Insert.java:135)
+	at org.h2.command.dml.DataChangeStatement.update(DataChangeStatement.java:74)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:169)
+	at org.h2.command.Command.executeUpdate(Command.java:256)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:262)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1345)
+	at org.h2.server.web.WebApp.query(WebApp.java:1143)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1109)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1096)
+	at org.h2.server.web.WebThread.process(WebThread.java:190)
+	at org.h2.server.web.WebThread.run(WebThread.java:103)
+	at java.base/java.lang.Thread.run(Thread.java:1575)
