@@ -1,14 +1,16 @@
-/* ✅ Fuente general */
+/* ================= GLOBAL ================= */
 .root {
-    -fx-font-family: "Segoe UI";
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-background-color: #F4F6F5;
 }
 
-/* ✅ Fondo degradado verde */
+/* ==================================================================
+   SECCIÓN 1: LOGIN Y REGISTRO (Recuperado)
+   ================================================================== */
 .fondo-login {
     -fx-background-color: linear-gradient(to bottom, #0E402D, #1E7A56);
 }
 
-/* ✅ Tarjeta blanca centrada */
 .login-card {
     -fx-background-color: white;
     -fx-background-radius: 18;
@@ -16,27 +18,39 @@
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 20, 0.2, 0, 4);
 }
 
-/* ✅ Título UberCar */
 .login-title {
     -fx-text-fill: #0E402D;
     -fx-font-size: 26px;
     -fx-font-weight: bold;
 }
 
-/* ✅ Campos de texto */
+.registro-title {
+    -fx-text-fill: white;
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+}
+
+.login-box {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-padding: 30;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 2);
+}
+
 .input-field {
     -fx-background-color: #F2F2F2;
     -fx-background-radius: 8;
     -fx-padding: 10;
     -fx-font-size: 14px;
+    -fx-text-fill: #333;
 }
 
-/* Hover en inputs */
-.input-field:hover {
-    -fx-background-color: #E8E8E8;
+.input-field:focused {
+    -fx-background-color: white;
+    -fx-border-color: #0E402D;
+    -fx-border-radius: 8;
 }
 
-/* ✅ Botón principal */
 .btn-login {
     -fx-background-color: #0E402D;
     -fx-text-fill: white;
@@ -44,76 +58,362 @@
     -fx-font-weight: bold;
     -fx-background-radius: 8;
     -fx-cursor: hand;
+    -fx-padding: 10 20;
 }
 
-/* Hover botón */
 .btn-login:hover {
     -fx-background-color: #14684A;
 }
 
-/* ✅ Texto del link */
 .link-registro {
     -fx-text-fill: #0E402D;
     -fx-font-size: 13px;
+    -fx-underline: false;
 }
-
-/* Hover link */
 .link-registro:hover {
-    -fx-text-fill: #14684A;
+    -fx-text-fill: #1E7A56;
     -fx-underline: true;
 }
 
-/* ✅ Mensaje de error */
 .lbl-error {
-    -fx-text-fill: red;
+    -fx-text-fill: #D32F2F; /* Rojo error */
     -fx-font-size: 12px;
     -fx-font-weight: bold;
 }
-.registro-background {
-    -fx-background-color: linear-gradient(to bottom, #0F402D, #0F5D47);
+
+/* En el registro, el link suele ser blanco si está sobre el fondo verde */
+.link-blanco {
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+}
+.link-blanco:hover {
+    -fx-text-fill: #A5D6A7;
+    -fx-underline: true;
 }
 
-.registro-box {
-    -fx-background-color: white;
-    -fx-background-radius: 12;
-    -fx-padding: 30;
+/* ==================================================================
+   SECCIÓN 2: VISTA CLIENTE (Diseño Tarjetas)
+   ================================================================== */
+
+/* HEADER VERDE */
+.header-background {
+    -fx-background-color: #0E402D;
+    -fx-padding: 20 40;
 }
 
-.registro-title {
-    -fx-text-fill: #0F402D;
+.header-title {
+    -fx-text-fill: white;
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+}
+
+.header-subtitle {
+    -fx-text-fill: #A5D6A7;
+    -fx-font-size: 14px;
+}
+
+.saldo-label {
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-alignment: CENTER_RIGHT;
+}
+
+.saldo-amount {
+    -fx-text-fill: #00E676; /* Verde neón para dinero */
     -fx-font-size: 24px;
     -fx-font-weight: bold;
 }
 
-.input-field {
-    -fx-background-color: #F5F5F5;
-    -fx-background-radius: 6;
-    -fx-padding: 8;
+/* BARRA DE NAVEGACIÓN (TABS) */
+.nav-bar {
+    -fx-background-color: #0E402D;
+    -fx-padding: 0 40;
 }
 
-.btn-registro {
-    -fx-background-color: #0F5D47;
-    -fx-text-fill: white;
+.nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #A5D6A7;
     -fx-font-size: 14px;
+    -fx-padding: 15 20;
+    -fx-border-color: transparent transparent transparent transparent;
+    -fx-border-width: 0 0 3 0;
+    -fx-cursor: hand;
+}
+
+.nav-button:hover {
+    -fx-text-fill: white;
+    -fx-background-color: rgba(255,255,255,0.05);
+}
+
+.nav-button-selected {
+    -fx-text-fill: white;
+    -fx-border-color: transparent transparent #00E676 transparent;
+    -fx-font-weight: bold;
+}
+
+/* FILTROS (BOTONES REDONDOS) */
+.filter-bar {
+    -fx-padding: 20 40;
+    -fx-background-color: white;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0, 0, 2);
+}
+
+.filter-button {
+    -fx-background-color: #F5F5F5;
+    -fx-text-fill: #555;
+    -fx-background-radius: 20;
+    -fx-padding: 8 20;
+    -fx-cursor: hand;
+}
+
+.filter-button:hover {
+    -fx-background-color: #E0E0E0;
+}
+
+.filter-button-selected {
+    -fx-background-color: #0E402D;
+    -fx-text-fill: white;
+}
+
+/* TARJETAS DE VEHÍCULOS */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-padding: 20 40;
+}
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.vehicle-card {
+    -fx-background-color: white;
+    -fx-background-radius: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 4);
+    -fx-padding: 20;
+    -fx-min-width: 300;
+    -fx-max-width: 300;
+}
+
+.badge-disponible {
+    -fx-background-color: #00C853;
+    -fx-text-fill: white;
+    -fx-background-radius: 12;
+    -fx-padding: 4 12;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+.card-title {
+    -fx-text-fill: #333;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.card-subtitle {
+    -fx-text-fill: #777;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.card-location {
+    -fx-text-fill: #666;
+    -fx-font-size: 13px;
+    -fx-graphic-text-gap: 8;
+}
+
+/* Barra de batería */
+.progress-bar .track {
+    -fx-background-color: #E0E0E0;
+    -fx-background-radius: 5;
+}
+.progress-bar .bar {
+    -fx-background-color: #00C853;
+    -fx-background-radius: 5;
+    -fx-padding: 4px;
+}
+
+/* Botón Reservar */
+.btn-reservar {
+    -fx-background-color: #0E402D;
+    -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-background-radius: 8;
+    -fx-padding: 12 0;
+    -fx-cursor: hand;
+}
+.btn-reservar:hover {
+    -fx-background-color: #145A32;
 }
 
-.btn-registro:hover {
-    -fx-background-color: #147A5F;
+/* Estilo específico para botón deshabilitado */
+.btn-reservar:disabled {
+    -fx-background-color: #BDBDBD;
+    -fx-text-fill: #757575;
 }
-.input-error {
-    -fx-border-color: #ff3b3b;
-    -fx-border-width: 1.8;
-    -fx-background-color: #ffecec;
+/* ================= SECCIÓN RESERVAS ================= */
+
+/* Contenedor vertical de reservas */
+.reservas-container {
+    -fx-padding: 20 60; /* Márgenes laterales más amplios */
+    -fx-background-color: transparent;
 }
 
-.input-ok {
-    -fx-border-color: #1FA37A;
-    -fx-border-width: 1.8;
+/* La tarjeta en sí */
+.reserva-card {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 2);
+    -fx-padding: 20;
+    -fx-min-width: 600; /* Para que sean anchas */
 }
-.registro-title {
-    -fx-text-fill: #FFFF;
-    -fx-font-size: 26px;
+
+/* Badges de estado */
+.badge-activa {
+    -fx-background-color: #00C853; /* Verde Uber */
+    -fx-text-fill: white;
+    -fx-background-radius: 20;
+    -fx-padding: 5 15;
     -fx-font-weight: bold;
+    -fx-font-size: 11px;
+}
+
+.badge-finalizada {
+    -fx-background-color: #CFD8DC; /* Gris azulado */
+    -fx-text-fill: #455A64;
+    -fx-background-radius: 20;
+    -fx-padding: 5 15;
+    -fx-font-weight: bold;
+    -fx-font-size: 11px;
+}
+
+/* Datos de fecha y hora */
+.reserva-info-text {
+    -fx-text-fill: #546E7A;
+    -fx-font-size: 13px;
+}
+
+/* Botón ROJO de finalizar */
+.btn-finalizar {
+    -fx-background-color: #FF3B30; /* Rojo intenso */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-background-radius: 6;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+}
+.btn-finalizar:hover {
+    -fx-background-color: #D32F2F;
+}
+
+/* Sección de coste */
+.coste-label {
+    -fx-text-fill: #78909C;
+    -fx-font-size: 14px;
+}
+
+.coste-valor {
+    -fx-text-fill: #00C853;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+/* ================= SECCIÓN PERFIL ================= */
+
+/* Contenedor principal centrado */
+.profile-container {
+    -fx-padding: 40;
+    -fx-alignment: TOP_CENTER;
+}
+
+/* La tarjeta blanca del centro */
+.profile-card {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 2);
+    -fx-padding: 40;
+    -fx-max-width: 600;
+    -fx-min-width: 500;
+}
+
+/* El círculo del Avatar */
+.avatar-circle {
+    -fx-background-color: #0E402D;
+    -fx-background-radius: 50%; /* Círculo perfecto */
+    -fx-min-width: 80;
+    -fx-min-height: 80;
+    -fx-alignment: CENTER;
+}
+
+.avatar-text {
+    -fx-text-fill: white;
+    -fx-font-size: 28px;
+    -fx-font-weight: normal; /* Fino como en la foto */
+}
+
+/* Textos de Nombre y Rol */
+.profile-name {
+    -fx-text-fill: #0E402D;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+}
+
+.profile-role {
+    -fx-text-fill: #757575;
+    -fx-font-size: 14px;
+}
+
+/* Cajas de información (Email, Tlf, etc) */
+.info-box {
+    -fx-background-color: #FAFAFA; /* Gris muy clarito */
+    -fx-background-radius: 8;
+    -fx-padding: 15;
+    -fx-border-color: #EEEEEE;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+}
+
+.info-label {
+    -fx-text-fill: #757575;
+    -fx-font-size: 12px;
+}
+
+.info-value {
+    -fx-text-fill: #333;
+    -fx-font-size: 16px;
+}
+
+/* Enlace "Cambiar" o botones pequeños */
+.link-action {
+    -fx-text-fill: #00BFA5; /* Verde azulado de la foto */
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+    -fx-underline: false;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+.link-action:hover {
+    -fx-underline: true;
+}
+
+/* Botón Añadir Saldo (Oscuro pequeño) */
+.btn-small-dark {
+    -fx-background-color: #0E402D;
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-background-radius: 6;
+    -fx-padding: 5 15;
+    -fx-cursor: hand;
+}
+
+/* Botón Grande "Editar Perfil" */
+.btn-wide-action {
+    -fx-background-color: #0E402D;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 12 0;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+}
+.btn-wide-action:hover {
+    -fx-background-color: #145A32;
 }

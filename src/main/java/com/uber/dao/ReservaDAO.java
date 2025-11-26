@@ -31,6 +31,13 @@ public class ReservaDAO {
             "JOIN Vehiculo v ON r.id_vehiculo = v.id_vehiculo " +
             "WHERE r.id_reserva = ?";
 
+    // Consulta para obtener reservas de un usuario específico
+    private static final String SELECT_BY_USUARIO =
+            "SELECT r.*, v.marca, v.modelo, v.tipo " +
+                    "FROM Reserva r " +
+                    "JOIN Vehiculo v ON r.id_vehiculo = v.id_vehiculo " +
+                    "WHERE r.id_usuario = ? " +
+                    "ORDER BY r.fecha_hora_inicio DESC";
     // ================================================================
     private final Connection conn;
 
@@ -219,5 +226,38 @@ public class ReservaDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    public List<Reserva> getReservasPorUsuario(int idUsuario) {
+        List<Reserva> lista = new ArrayList<>();
+        try (PreparedStatement ps = conn.prepareStatement(SELECT_BY_USUARIO)) {
+            ps.setInt(1, idUsuario);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Reserva r = new Reserva();
+                r.setIdReserva(rs.getInt("id_reserva"));
+                r.setFechaHoraInicio(rs.getTimestamp("fecha_hora_inicio").toLocalDateTime());
+
+                Timestamp fin = rs.getTimestamp("fecha_hora_fin");
+                if (fin != null) r.setFechaHoraFin(fin.toLocalDateTime());
+
+                r.setCoste(rs.getDouble("coste"));
+                r.setEstado(EstadoReserva.valueOf(rs.getString("estado")));
+
+                // Mapeamos el vehículo básico para mostrar marca/modelo en la tarjeta
+                Vehiculo v = new Vehiculo();
+                v.setIdVehiculo(rs.getInt("id_vehiculo"));
+                v.setMarca(rs.getString("marca"));
+                v.setModelo(rs.getString("modelo"));
+                // Importante: Asignar tipo para saber si poner icono de moto o coche
+                v.setTipo(com.uber.enums.TipoVehiculo.valueOf(rs.getString("tipo")));
+                r.setVehiculo(v);
+
+                lista.add(r);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
     }
 }

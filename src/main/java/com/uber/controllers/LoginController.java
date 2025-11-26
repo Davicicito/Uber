@@ -3,6 +3,7 @@ package com.uber.controllers;
 import com.uber.dao.UsuarioDAO;
 import com.uber.model.Usuario;
 import com.uber.enums.Rol;
+import com.uber.utils.Sesion;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -41,6 +42,10 @@ public class LoginController {
             return;
         }
 
+        // ✅ GUARDAR SESIÓN
+        Sesion.getInstancia().logIn(u);
+
+        // Redirigir según rol
         switch (u.getRol()) {
             case ADMIN -> abrirVista("/com/uber/fxml/AdminView.fxml");
             case CLIENTE -> abrirVista("/com/uber/fxml/ClienteView.fxml");

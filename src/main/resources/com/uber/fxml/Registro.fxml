@@ -36,8 +36,9 @@
 
         <!-- BOTÓN Y ENLACE -->
         <VBox spacing="10" alignment="CENTER">
-            <Button fx:id="btnRegistrar" text="Registrarse" prefWidth="200" styleClass="btn-login"/>
-            <Hyperlink fx:id="linkVolver" text="¿Ya tienes cuenta? Inicia sesión" onAction="#onVolver"/>
+            <Button fx:id="btnRegistrar" text="Registrarse" prefWidth="200" styleClass="btn-login" onAction="#onRegistrar"/>
+            <Hyperlink fx:id="linkVolver" text="¿Ya tienes cuenta? Inicia sesión"
+                       onAction="#onVolver" styleClass="link-blanco"/>
         </VBox>
 
     </VBox>

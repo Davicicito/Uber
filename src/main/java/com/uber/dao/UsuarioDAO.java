@@ -37,6 +37,7 @@ public class UsuarioDAO {
     private static final String LOGIN =
             "SELECT * FROM Usuario WHERE email = ? AND contrasena = ?";
 
+    private static final String CHECK_EMAIL = "SELECT COUNT(*) FROM Usuario WHERE email = ?";
     // ================================================================
     private Connection conn;
 
@@ -211,5 +212,18 @@ public class UsuarioDAO {
         }
 
         return null;
+    }
+    public boolean emailExiste(String email) {
+        try (PreparedStatement ps = conn.prepareStatement(CHECK_EMAIL)) {
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                // Si el conteo es mayor que 0, significa que existe
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }
