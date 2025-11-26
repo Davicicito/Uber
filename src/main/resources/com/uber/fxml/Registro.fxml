@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="root" prefWidth="500" prefHeight="600"
+            xmlns:fx="http://javafx.com/fxml"
+            styleClass="fondo-login"
+            stylesheets="@../css/style.css"
+            fx:controller="com.uber.controllers.RegistroController">
+
+    <VBox alignment="CENTER" spacing="25"
+          AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
+          AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+
+        <!-- LOGO -->
+        <ImageView fx:id="imgLogo" fitHeight="100" fitWidth="100"/>
+
+        <!-- TÍTULO -->
+        <Label text="Registro" styleClass="registro-title"/>
+
+        <!-- CAJA -->
+        <VBox alignment="CENTER" spacing="12" styleClass="login-box">
+
+            <TextField fx:id="txtNombre" promptText="Nombre" prefWidth="260" styleClass="input-field"/>
+            <TextField fx:id="txtApellidos" promptText="Apellidos" prefWidth="260" styleClass="input-field"/>
+            <TextField fx:id="txtEmail" promptText="Email" prefWidth="260" styleClass="input-field"/>
+            <PasswordField fx:id="txtPassword" promptText="Contraseña" prefWidth="260" styleClass="input-field"/>
+
+            <Label fx:id="lblError" textFill="red"/>
+
+        </VBox>
+
+        <!-- BOTÓN Y ENLACE -->
+        <VBox spacing="10" alignment="CENTER">
+            <Button fx:id="btnRegistrar" text="Registrarse" prefWidth="200" styleClass="btn-login"/>
+            <Hyperlink fx:id="linkVolver" text="¿Ya tienes cuenta? Inicia sesión" onAction="#onVolver"/>
+        </VBox>
+
+    </VBox>
+
+</AnchorPane>
+

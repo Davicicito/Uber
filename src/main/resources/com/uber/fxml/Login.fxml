@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.uber.controllers.LoginController"
+            prefWidth="500" prefHeight="600"
+            styleClass="fondo-login"
+            stylesheets="@../css/style.css">
+
+    <VBox alignment="CENTER" spacing="30"
+          AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
+          AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+
+        <!-- TARJETA BLANCA -->
+        <VBox alignment="CENTER" spacing="20" prefWidth="380"
+              styleClass="login-card">
+
+            <!-- LOGO -->
+            <ImageView fx:id="imgLogo" fitHeight="110" fitWidth="110"/>
+
+            <!-- TÍTULO -->
+            <Label text="UberCar" styleClass="login-title"/>
+
+            <!-- CAMPOS -->
+            <VBox alignment="CENTER" spacing="12">
+                <TextField fx:id="txtEmail" promptText="Email"
+                           prefWidth="280" styleClass="input-field"/>
+
+                <PasswordField fx:id="txtPassword" promptText="Contraseña"
+                               prefWidth="280" styleClass="input-field"/>
+
+                <Label fx:id="lblError" styleClass="lbl-error"/>
+            </VBox>
+
+            <!-- BOTÓN -->
+            <Button fx:id="btnLogin" text="Iniciar Sesión"
+                    prefWidth="200" styleClass="btn-login"
+                    onAction="#onLogin"/>
+
+            <!-- LINK REGISTRO -->
+            <Hyperlink fx:id="linkRegistro"
+                       text="¿No tienes cuenta? Regístrate"
+                       styleClass="link-registro"
+                       onAction="#onRegistro"/>
+
+        </VBox>
+
+    </VBox>
+
+</AnchorPane>
+

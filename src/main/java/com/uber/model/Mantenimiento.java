@@ -30,8 +30,12 @@ public class Mantenimiento {
     public String getDescripcion() { return descripcion; }
     public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
 
-    @Override
     public String toString() {
-        return tipo.toString();
+        return "Mantenimiento{" +
+                "id=" + idMantenimiento +
+                // AQUI ESTA EL CAMBIO: añadimos un chequeo de nulidad
+                ", tipo=" + (tipo != null ? tipo : "DESCONOCIDO") +
+                ", descripcion='" + descripcion + '\'' +
+                '}';
     }
 }

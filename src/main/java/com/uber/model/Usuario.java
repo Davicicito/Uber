@@ -1,6 +1,7 @@
 package com.uber.model;
 
 import com.uber.enums.EstadoCuenta;
+import com.uber.enums.Rol;
 
 public class Usuario {
 
@@ -12,12 +13,13 @@ public class Usuario {
     private String telefono;
     private String metodoPago;
     private double saldo;
+    private Rol rol;
     private EstadoCuenta estadoCuenta;
 
     public Usuario() {}
 
     public Usuario(int idUsuario, String nombre, String apellidos, String email, String contrasena,
-                   String telefono, String metodoPago, double saldo, EstadoCuenta estadoCuenta) {
+                   String telefono, String metodoPago, double saldo, EstadoCuenta estadoCuenta, Rol rol) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -26,6 +28,7 @@ public class Usuario {
         this.telefono = telefono;
         this.metodoPago = metodoPago;
         this.saldo = saldo;
+        this.rol = rol;
         this.estadoCuenta = estadoCuenta;
     }
 
@@ -54,6 +57,9 @@ public class Usuario {
 
     public double getSaldo() { return saldo; }
     public void setSaldo(double saldo) { this.saldo = saldo; }
+
+    public Rol getRol() { return rol; }
+    public void setRol(Rol rol) { this.rol = rol; }
 
     public EstadoCuenta getEstadoCuenta() { return estadoCuenta; }
     public void setEstadoCuenta(EstadoCuenta estadoCuenta) { this.estadoCuenta = estadoCuenta; }

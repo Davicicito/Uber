@@ -1,0 +1,119 @@
+/* ✅ Fuente general */
+.root {
+    -fx-font-family: "Segoe UI";
+}
+
+/* ✅ Fondo degradado verde */
+.fondo-login {
+    -fx-background-color: linear-gradient(to bottom, #0E402D, #1E7A56);
+}
+
+/* ✅ Tarjeta blanca centrada */
+.login-card {
+    -fx-background-color: white;
+    -fx-background-radius: 18;
+    -fx-padding: 40 35;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 20, 0.2, 0, 4);
+}
+
+/* ✅ Título UberCar */
+.login-title {
+    -fx-text-fill: #0E402D;
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+}
+
+/* ✅ Campos de texto */
+.input-field {
+    -fx-background-color: #F2F2F2;
+    -fx-background-radius: 8;
+    -fx-padding: 10;
+    -fx-font-size: 14px;
+}
+
+/* Hover en inputs */
+.input-field:hover {
+    -fx-background-color: #E8E8E8;
+}
+
+/* ✅ Botón principal */
+.btn-login {
+    -fx-background-color: #0E402D;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+}
+
+/* Hover botón */
+.btn-login:hover {
+    -fx-background-color: #14684A;
+}
+
+/* ✅ Texto del link */
+.link-registro {
+    -fx-text-fill: #0E402D;
+    -fx-font-size: 13px;
+}
+
+/* Hover link */
+.link-registro:hover {
+    -fx-text-fill: #14684A;
+    -fx-underline: true;
+}
+
+/* ✅ Mensaje de error */
+.lbl-error {
+    -fx-text-fill: red;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+.registro-background {
+    -fx-background-color: linear-gradient(to bottom, #0F402D, #0F5D47);
+}
+
+.registro-box {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-padding: 30;
+}
+
+.registro-title {
+    -fx-text-fill: #0F402D;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+.input-field {
+    -fx-background-color: #F5F5F5;
+    -fx-background-radius: 6;
+    -fx-padding: 8;
+}
+
+.btn-registro {
+    -fx-background-color: #0F5D47;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+}
+
+.btn-registro:hover {
+    -fx-background-color: #147A5F;
+}
+.input-error {
+    -fx-border-color: #ff3b3b;
+    -fx-border-width: 1.8;
+    -fx-background-color: #ffecec;
+}
+
+.input-ok {
+    -fx-border-color: #1FA37A;
+    -fx-border-width: 1.8;
+}
+.registro-title {
+    -fx-text-fill: #FFFF;
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+}

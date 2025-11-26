@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionBDH2 {
-    private static final String URL = "jdbc:h2:./bd/uber"; // archivo local
+    private static final String URL = "jdbc:h2:./bd/uber;AUTO_SERVER=TRUE;MODE=MySQL";// archivo local
     private static final String USER = "sa";
     private static final String PASSWORD = "";
 

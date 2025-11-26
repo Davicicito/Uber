@@ -9,17 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MantenimientoDAO {
+
+    // IMPORTANTE: Usamos nombre_mantenimiento (tu tabla H2)
     private static final String SELECT_ALL = "SELECT * FROM Mantenimiento";
-
     private static final String SELECT_BY_ID = "SELECT * FROM Mantenimiento WHERE id_mantenimiento = ?";
-
-    private static final String INSERT = "INSERT INTO Mantenimiento (tipo_mantenimiento, descripcion) VALUES (?, ?)";
-
-    private static final String UPDATE = "UPDATE Mantenimiento SET tipo_mantenimiento = ?, descripcion = ? WHERE id_mantenimiento = ?";
-
+    private static final String INSERT = "INSERT INTO Mantenimiento (nombre_mantenimiento, descripcion) VALUES (?, ?)";
+    private static final String UPDATE = "UPDATE Mantenimiento SET nombre_mantenimiento = ?, descripcion = ? WHERE id_mantenimiento = ?";
     private static final String DELETE = "DELETE FROM Mantenimiento WHERE id_mantenimiento = ?";
 
-    // ================================================================
     private final Connection conn;
 
     public MantenimientoDAO() {
@@ -27,17 +24,23 @@ public class MantenimientoDAO {
     }
 
     // ================================================================
-    //   Mapear Mantenimiento
+    //   Mapear Mantenimiento (conversión desde BD a objeto Java)
     // ================================================================
     private Mantenimiento mapMantenimiento(ResultSet rs) throws SQLException {
         Mantenimiento m = new Mantenimiento();
 
         m.setIdMantenimiento(rs.getInt("id_mantenimiento"));
-        m.setTipo(TipoMantenimiento.valueOf(rs.getString("tipo_mantenimiento")));
+
+        // ESTA ES LA ÚNICA FORMA CORRECTA
+        String tipoStr = rs.getString("nombre_mantenimiento");
+        m.setTipo(TipoMantenimiento.valueOf(tipoStr));
+
         m.setDescripcion(rs.getString("descripcion"));
 
         return m;
     }
+
+
 
     // ================================================================
     //   SELECT ALL
@@ -84,7 +87,7 @@ public class MantenimientoDAO {
     public boolean insert(Mantenimiento m) {
         try (PreparedStatement ps = conn.prepareStatement(INSERT)) {
 
-            ps.setString(1, m.getTipo().name());
+            ps.setString(1, m.getTipo().name());  // Guardamos el enum como texto
             ps.setString(2, m.getDescripcion());
 
             return ps.executeUpdate() > 0;

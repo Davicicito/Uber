@@ -1,6 +1,7 @@
 package com.uber.dao;
 
 import com.uber.database.ConnectionBD;
+import com.uber.enums.Rol;
 import com.uber.model.Usuario;
 import com.uber.enums.EstadoCuenta;
 
@@ -18,11 +19,14 @@ public class UsuarioDAO {
 
     private static final String SELECT_BY_ID = "SELECT * FROM Usuario WHERE id_usuario = ?";
 
-    private static final String INSERT = "INSERT INTO Usuario (nombre, apellidos, email, contrasena, telefono, metodo_pago, saldo, estado_cuenta) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String INSERT =
+            "INSERT INTO Usuario (nombre, apellidos, email, contrasena, telefono, metodo_pago, saldo, estado_cuenta, rol) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-    private static final String UPDATE = "UPDATE Usuario SET nombre = ?, apellidos = ?, email = ?, contrasena = ?, telefono = ?, " +
-                    "metodo_pago = ?, saldo = ?, estado_cuenta = ? WHERE id_usuario = ?";
+
+    private static final String UPDATE =
+            "UPDATE Usuario SET nombre = ?, apellidos = ?, email = ?, contrasena = ?, telefono = ?, " +
+                    "metodo_pago = ?, saldo = ?, estado_cuenta = ?, rol = ? WHERE id_usuario = ?";
 
     private static final String DELETE = "DELETE FROM Usuario WHERE id_usuario = ?";
 
@@ -30,6 +34,8 @@ public class UsuarioDAO {
     private static final String SELECT_USUARIO_RESERVAS = "SELECT u.*, r.id_reserva, r.fecha_hora_inicio, r.estado " +
                     "FROM Usuario u LEFT JOIN Reserva r ON u.id_usuario = r.id_usuario " +
                     "WHERE u.id_usuario = ?";
+    private static final String LOGIN =
+            "SELECT * FROM Usuario WHERE email = ? AND contrasena = ?";
 
     // ================================================================
     private Connection conn;
@@ -53,6 +59,8 @@ public class UsuarioDAO {
         u.setMetodoPago(rs.getString("metodo_pago"));
         u.setSaldo(rs.getDouble("saldo"));
         u.setEstadoCuenta(EstadoCuenta.valueOf(rs.getString("estado_cuenta")));
+        u.setRol(Rol.valueOf(rs.getString("rol")));
+
 
         return u;
     }
@@ -108,6 +116,7 @@ public class UsuarioDAO {
             ps.setString(6, u.getMetodoPago());
             ps.setDouble(7, u.getSaldo());
             ps.setString(8, u.getEstadoCuenta().name());
+            ps.setString(9, u.getRol().name());
 
             return ps.executeUpdate() > 0;
 
@@ -131,7 +140,9 @@ public class UsuarioDAO {
             ps.setString(6, u.getMetodoPago());
             ps.setDouble(7, u.getSaldo());
             ps.setString(8, u.getEstadoCuenta().name());
-            ps.setInt(9, u.getIdUsuario());
+            ps.setString(9, u.getRol().name());
+            ps.setInt(10, u.getIdUsuario());
+
 
             return ps.executeUpdate() > 0;
 
@@ -183,4 +194,22 @@ public class UsuarioDAO {
         }
     }
 
+    public Usuario login(String email, String pass) {
+        try (PreparedStatement ps = conn.prepareStatement(LOGIN)) {
+
+            ps.setString(1, email);
+            ps.setString(2, pass);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return mapUsuario(rs);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 }

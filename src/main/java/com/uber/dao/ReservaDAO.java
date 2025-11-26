@@ -7,7 +7,6 @@ import com.uber.model.Usuario;
 import com.uber.model.Vehiculo;
 
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,22 +17,19 @@ public class ReservaDAO {
     private static final String SELECT_BY_ID = "SELECT * FROM Reserva WHERE id_reserva = ?";
 
     private static final String INSERT = "INSERT INTO Reserva (id_usuario, id_vehiculo, fecha_hora_inicio, fecha_hora_fin, coste, estado) " +
-                    "VALUES (?, ?, ?, ?, ?, ?)";
+            "VALUES (?, ?, ?, ?, ?, ?)";
 
     private static final String UPDATE = "UPDATE Reserva SET id_usuario = ?, id_vehiculo = ?, fecha_hora_inicio = ?, fecha_hora_fin = ?, coste = ?, estado = ? " +
-                    "WHERE id_reserva = ?";
+            "WHERE id_reserva = ?";
 
     private static final String DELETE = "DELETE FROM Reserva WHERE id_reserva = ?";
 
     // JOIN con Usuario y Vehiculo
     private static final String SELECT_RESERVA_COMPLETA = "SELECT r.*, u.nombre AS usuarioNombre, v.marca AS vehiculoMarca " +
-                    "FROM Reserva r " +
-                    "JOIN Usuario u ON r.id_usuario = u.id_usuario " +
-                    "JOIN Vehiculo v ON r.id_vehiculo = v.id_vehiculo " +
-                    "WHERE r.id_reserva = ?";
-
-    // Consulta avanzada: reservas activas por usuario
-    private static final String SELECT_RESERVAS_POR_USUARIO = "SELECT * FROM Reserva WHERE id_usuario = ? AND estado = 'ACTIVA'";
+            "FROM Reserva r " +
+            "JOIN Usuario u ON r.id_usuario = u.id_usuario " +
+            "JOIN Vehiculo v ON r.id_vehiculo = v.id_vehiculo " +
+            "WHERE r.id_reserva = ?";
 
     // ================================================================
     private final Connection conn;
@@ -66,7 +62,12 @@ public class ReservaDAO {
         r.setFechaHoraFin(fin != null ? fin.toLocalDateTime() : null);
 
         r.setCoste(rs.getDouble("coste"));
-        r.setEstado(EstadoReserva.valueOf(rs.getString("estado")));
+
+        // Convertir String a Enum de forma segura
+        String estadoStr = rs.getString("estado");
+        if (estadoStr != null) {
+            r.setEstado(EstadoReserva.valueOf(estadoStr));
+        }
 
         return r;
     }
@@ -108,40 +109,52 @@ public class ReservaDAO {
     }
 
     // ================================================================
-    // INSERT (CON TRANSACCIÓN)
+    // INSERT (CON TRANSACCIÓN) -> AQUI ESTABA EL ERROR
     // ================================================================
     public boolean crearReserva(Reserva r) {
 
         try {
             conn.setAutoCommit(false); // INICIO TRANSACCIÓN
 
-            // INSERT reserva
+            // 1. INSERT reserva
             PreparedStatement ps = conn.prepareStatement(INSERT);
 
             ps.setInt(1, r.getUsuario().getIdUsuario());
             ps.setInt(2, r.getVehiculo().getIdVehiculo());
-            ps.setTimestamp(3, Timestamp.valueOf(r.getFechaHoraInicio()));
-            ps.setTimestamp(4, Timestamp.valueOf(r.getFechaHoraFin()));
+
+            // Control de nulos para fechas
+            if (r.getFechaHoraInicio() != null)
+                ps.setTimestamp(3, Timestamp.valueOf(r.getFechaHoraInicio()));
+            else
+                ps.setNull(3, Types.TIMESTAMP);
+
+            if (r.getFechaHoraFin() != null)
+                ps.setTimestamp(4, Timestamp.valueOf(r.getFechaHoraFin()));
+            else
+                ps.setNull(4, Types.TIMESTAMP);
+
             ps.setDouble(5, r.getCoste());
             ps.setString(6, r.getEstado().name());
 
             ps.executeUpdate();
 
-            // Marcar vehículo como "OCUPADO"
-            PreparedStatement psVehiculo =
-                    conn.prepareStatement("UPDATE Vehiculo SET estado_vehiculo = 'OCUPADO' WHERE id_vehiculo = ?");
+            // 2. ACTUALIZAR ESTADO VEHICULO
+            // CORREGIDO: Cambiado 'OCUPADO' por 'EN_USO' que es el valor correcto en la BD
+            String sqlUpdateVehiculo = "UPDATE Vehiculo SET estado_vehiculo = 'EN_USO' WHERE id_vehiculo = ?";
+
+            PreparedStatement psVehiculo = conn.prepareStatement(sqlUpdateVehiculo);
             psVehiculo.setInt(1, r.getVehiculo().getIdVehiculo());
             psVehiculo.executeUpdate();
 
             conn.commit(); // FIN TRANSACCIÓN ÉXITO
-            conn.setAutoCommit(true);
-
             return true;
 
         } catch (Exception e) {
             try { conn.rollback(); } catch (SQLException ignored) {}
             e.printStackTrace();
             return false;
+        } finally {
+            try { conn.setAutoCommit(true); } catch (SQLException ignored) {}
         }
     }
 
@@ -153,8 +166,13 @@ public class ReservaDAO {
 
             ps.setInt(1, r.getUsuario().getIdUsuario());
             ps.setInt(2, r.getVehiculo().getIdVehiculo());
-            ps.setTimestamp(3, Timestamp.valueOf(r.getFechaHoraInicio()));
-            ps.setTimestamp(4, Timestamp.valueOf(r.getFechaHoraFin()));
+
+            if (r.getFechaHoraInicio() != null) ps.setTimestamp(3, Timestamp.valueOf(r.getFechaHoraInicio()));
+            else ps.setNull(3, Types.TIMESTAMP);
+
+            if (r.getFechaHoraFin() != null) ps.setTimestamp(4, Timestamp.valueOf(r.getFechaHoraFin()));
+            else ps.setNull(4, Types.TIMESTAMP);
+
             ps.setDouble(5, r.getCoste());
             ps.setString(6, r.getEstado().name());
             ps.setInt(7, r.getIdReserva());
