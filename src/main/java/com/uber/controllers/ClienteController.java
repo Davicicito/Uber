@@ -28,14 +28,15 @@ public class ClienteController {
     // --- ELEMENTOS FXML ---
     @FXML private Label lblSaludo;
     @FXML private Label lblSaldo;
-    @FXML private ScrollPane vistaPerfil;
-    @FXML private Label lblIniciales, lblNombrePerfil, lblEmailPerfil, lblTelefonoPerfil, lblMetodoPago, lblSaldoPerfil;
 
-    // Contenedores principales
+    // Contenedores principales (Vistas)
     @FXML private ScrollPane vistaVehiculos;
     @FXML private ScrollPane vistaReservas;
-    @FXML private FlowPane contenedorVehiculos; // Para las tarjetas de coches
-    @FXML private VBox contenedorReservas;      // Para las tarjetas de reservas
+    @FXML private ScrollPane vistaPerfil;
+
+    // Contenido dinámico
+    @FXML private FlowPane contenedorVehiculos;
+    @FXML private VBox contenedorReservas;
 
     // Barra de navegación y filtros
     @FXML private HBox panelFiltros;
@@ -43,10 +44,12 @@ public class ClienteController {
     @FXML private Button btnNavReservas;
     @FXML private Button btnNavPerfil;
 
+    // Elementos del Perfil
+    @FXML private Label lblIniciales, lblNombrePerfil, lblEmailPerfil, lblTelefonoPerfil, lblMetodoPago, lblSaldoPerfil;
+
     // --- DAOS Y DATOS ---
     private final VehiculoDAO vehiculoDAO = new VehiculoDAO();
     private final ReservaDAO reservaDAO = new ReservaDAO();
-
     private List<Vehiculo> listaVehiculosCompleta; // Para filtrar sin recargar BD
 
     // ================================================================
@@ -76,30 +79,45 @@ public class ClienteController {
     void mostrarVistaVehiculos() {
         vistaVehiculos.setVisible(true);
         vistaReservas.setVisible(false);
-        panelFiltros.setVisible(true); // Mostrar filtros solo en vehículos
+        vistaPerfil.setVisible(false); // Ocultar perfil
 
+        panelFiltros.setVisible(true); // Mostrar filtros
         actualizarEstiloBotones(btnNavVehiculos);
+
+        // Refrescamos la lista por si se ha liberado algún coche
+        listaVehiculosCompleta = vehiculoDAO.getAll();
+        filtrarTodos();
     }
 
     @FXML
     void mostrarVistaReservas() {
         vistaVehiculos.setVisible(false);
         vistaReservas.setVisible(true);
-        panelFiltros.setVisible(false); // Ocultar filtros
+        vistaPerfil.setVisible(false); // Ocultar perfil
 
+        panelFiltros.setVisible(false); // Ocultar filtros
         actualizarEstiloBotones(btnNavReservas);
 
-        // Recargar reservas cada vez que entramos aquí para ver cambios
-        cargarReservas();
+        cargarReservas(); // Cargar datos frescos
+    }
+
+    @FXML
+    void mostrarVistaPerfil() {
+        vistaVehiculos.setVisible(false);
+        vistaReservas.setVisible(false);
+        vistaPerfil.setVisible(true);
+
+        panelFiltros.setVisible(false); // Ocultar filtros
+        actualizarEstiloBotones(btnNavPerfil);
+
+        cargarDatosPerfil();
     }
 
     private void actualizarEstiloBotones(Button botonActivo) {
-        // Quitamos la clase de "seleccionado" a todos
         btnNavVehiculos.getStyleClass().remove("nav-button-selected");
         btnNavReservas.getStyleClass().remove("nav-button-selected");
         btnNavPerfil.getStyleClass().remove("nav-button-selected");
 
-        // Se la ponemos solo al que hemos pulsado
         botonActivo.getStyleClass().add("nav-button-selected");
     }
 
@@ -115,9 +133,7 @@ public class ClienteController {
     }
 
     // --- Filtros ---
-    @FXML void filtrarTodos() {
-        cargarVehiculos(listaVehiculosCompleta);
-    }
+    @FXML void filtrarTodos() { cargarVehiculos(listaVehiculosCompleta); }
 
     @FXML void filtrarCoches() {
         cargarVehiculos(listaVehiculosCompleta.stream()
@@ -149,7 +165,6 @@ public class ClienteController {
         Label badge = new Label(v.getEstadoVehiculo().name());
         badge.getStyleClass().add("badge-disponible");
 
-        // Si no está disponible, cambiamos el color del badge visualmente
         if (v.getEstadoVehiculo() != EstadoVehiculo.DISPONIBLE) {
             badge.setStyle("-fx-background-color: #BDBDBD; -fx-text-fill: #555;");
         }
@@ -179,11 +194,8 @@ public class ClienteController {
         btnReservar.setMaxWidth(Double.MAX_VALUE);
         btnReservar.getStyleClass().add("btn-reservar");
 
-        // Acción: Reservar (FASE SIGUIENTE)
-        btnReservar.setOnAction(e -> {
-            System.out.println("Reservando: " + v.getMarca());
-            // Aquí abriremos el diálogo de reserva
-        });
+        // Acción: Abrir diálogo de reserva (CORREGIDO: Solo una asignación)
+        btnReservar.setOnAction(e -> mostrarDialogoReserva(v));
 
         // Deshabilitar si no está disponible
         if (v.getEstadoVehiculo() != EstadoVehiculo.DISPONIBLE) {
@@ -196,14 +208,118 @@ public class ClienteController {
     }
 
     // ================================================================
-    // 4. LÓGICA DE RESERVAS (Listado y Acciones)
+    // 4. LÓGICA DE CREAR RESERVA (Diálogo Personalizado)
+    // ================================================================
+
+    private void mostrarDialogoReserva(Vehiculo v) {
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setTitle("Confirmar Reserva");
+        dialog.setHeaderText(null);
+
+        dialog.getDialogPane().getStylesheets().add(getClass().getResource("/com/uber/css/style.css").toExternalForm());
+        dialog.getDialogPane().getStyleClass().add("dialog-pane");
+
+        // A) Cabecera Verde
+        VBox header = new VBox(5);
+        header.getStyleClass().add("custom-dialog-header");
+        Label lblTitle = new Label("Reservar " + v.getMarca() + " " + v.getModelo());
+        lblTitle.getStyleClass().add("dialog-title-text");
+        Label lblSub = new Label("📍 " + v.getEstacion().getNombreEstacion() + " (" + v.getEstacion().getCiudad() + ")");
+        lblSub.getStyleClass().add("dialog-subtitle-text");
+        header.getChildren().addAll(lblTitle, lblSub);
+
+        // B) Formulario
+        VBox content = new VBox(15);
+        content.getStyleClass().add("dialog-content-box");
+
+        VBox boxFecha = new VBox(5);
+        Label lblFecha = new Label("Fecha de inicio");
+        lblFecha.getStyleClass().add("input-label");
+        DatePicker dateInicio = new DatePicker(java.time.LocalDate.now());
+        dateInicio.setMaxWidth(Double.MAX_VALUE);
+        boxFecha.getChildren().addAll(lblFecha, dateInicio);
+
+        VBox boxHoras = new VBox(5);
+        Label lblHoras = new Label("¿Cuántas horas lo necesitas?");
+        lblHoras.getStyleClass().add("input-label");
+        Spinner<Integer> spinnerHoras = new Spinner<>(1, 24, 1);
+        spinnerHoras.setMaxWidth(Double.MAX_VALUE);
+        spinnerHoras.setEditable(true);
+        boxHoras.getChildren().addAll(lblHoras, spinnerHoras);
+
+        // C) Caja de Precio
+        VBox boxPrecio = new VBox(2);
+        boxPrecio.getStyleClass().add("price-container");
+        Label lblEstimado = new Label("Total Estimado");
+        lblEstimado.getStyleClass().add("price-label-small");
+        Label lblPrecioFinal = new Label("5.00€");
+        lblPrecioFinal.getStyleClass().add("price-value-big");
+        boxPrecio.getChildren().addAll(lblEstimado, lblPrecioFinal);
+
+        double precioPorHora = 5.0;
+        spinnerHoras.valueProperty().addListener((obs, oldVal, newVal) -> {
+            double total = newVal * precioPorHora;
+            lblPrecioFinal.setText(String.format("%.2f€", total));
+        });
+
+        VBox mainLayout = new VBox();
+        mainLayout.getChildren().addAll(header, content);
+        content.getChildren().addAll(boxFecha, boxHoras, new Separator(), boxPrecio);
+        dialog.getDialogPane().setContent(mainLayout);
+
+        // Botones
+        ButtonType btnConfirmar = new ButtonType("Confirmar y Pagar", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL, btnConfirmar);
+
+        Button btnOk = (Button) dialog.getDialogPane().lookupButton(btnConfirmar);
+        btnOk.getStyleClass().add("btn-reservar");
+
+        dialog.showAndWait().ifPresent(response -> {
+            if (response == btnConfirmar) {
+                realizarReserva(v, dateInicio.getValue(), spinnerHoras.getValue());
+            }
+        });
+    }
+
+    private void realizarReserva(Vehiculo v, java.time.LocalDate fecha, int horas) {
+        if (fecha == null || fecha.isBefore(java.time.LocalDate.now())) {
+            mostrarAlerta(Alert.AlertType.ERROR, "Fecha inválida", "La fecha no puede ser anterior a hoy.");
+            return;
+        }
+
+        Usuario usuario = Sesion.getInstancia().getUsuarioLogueado();
+        Reserva r = new Reserva();
+        r.setUsuario(usuario);
+        r.setVehiculo(v);
+
+        LocalDateTime inicio = fecha.atTime(LocalDateTime.now().getHour(), LocalDateTime.now().getMinute());
+        if (fecha.isAfter(java.time.LocalDate.now())) {
+            inicio = fecha.atTime(9, 0);
+        }
+        r.setFechaHoraInicio(inicio);
+        r.setFechaHoraFin(inicio.plusHours(horas));
+
+        double precioPorHora = 5.0;
+        r.setCoste(horas * precioPorHora);
+        r.setEstado(EstadoReserva.ACTIVA);
+
+        if (reservaDAO.crearReserva(r)) {
+            mostrarAlerta(Alert.AlertType.INFORMATION, "¡Reserva Exitosa!",
+                    "Has reservado el vehículo por " + r.getCoste() + "€");
+            listaVehiculosCompleta = vehiculoDAO.getAll();
+            filtrarTodos();
+        } else {
+            mostrarAlerta(Alert.AlertType.ERROR, "Error", "No se pudo realizar la reserva.");
+        }
+    }
+
+    // ================================================================
+    // 5. LÓGICA DE "MIS RESERVAS"
     // ================================================================
 
     private void cargarReservas() {
         contenedorReservas.getChildren().clear();
         Usuario u = Sesion.getInstancia().getUsuarioLogueado();
-
-        // Obtenemos las reservas DEL USUARIO (usando el método nuevo del DAO)
         List<Reserva> reservas = reservaDAO.getReservasPorUsuario(u.getIdUsuario());
 
         if (reservas == null || reservas.isEmpty()) {
@@ -222,12 +338,10 @@ public class ClienteController {
         card.getStyleClass().add("reserva-card");
         card.setSpacing(15);
 
-        // --- FILA 1: Cabecera (Icono, Nombre, ID, Estado) ---
-        HBox header = new HBox();
+        // Cabecera
+        HBox header = new HBox(15);
         header.setAlignment(Pos.CENTER_LEFT);
-        header.setSpacing(15);
 
-        // Icono según tipo (Emoji simple por ahora)
         String emoji = "🚗";
         if (r.getVehiculo().getTipo() == TipoVehiculo.MOTO) emoji = "🛵";
         if (r.getVehiculo().getTipo() == TipoVehiculo.PATINETE) emoji = "⚡";
@@ -235,74 +349,64 @@ public class ClienteController {
         Label icon = new Label(emoji);
         icon.setStyle("-fx-font-size: 24px; -fx-padding: 5; -fx-background-color: #F5F5F5; -fx-background-radius: 8;");
 
-        // Datos del vehículo y ID Reserva
         VBox infoBox = new VBox();
         Label lblModelo = new Label(r.getVehiculo().getMarca() + " " + r.getVehiculo().getModelo());
         lblModelo.setStyle("-fx-font-weight: bold; -fx-font-size: 16px; -fx-text-fill: #333;");
-
         Label lblId = new Label("ID: #" + r.getIdReserva());
         lblId.setStyle("-fx-text-fill: #999; -fx-font-size: 12px;");
-
         infoBox.getChildren().addAll(lblModelo, lblId);
 
-        // Espaciador para empujar el estado a la derecha
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
 
-        // Badge de Estado (Activa / Finalizada)
         Label badge = new Label(r.getEstado().name());
         if (r.getEstado() == EstadoReserva.ACTIVA) {
             badge.getStyleClass().add("badge-activa");
         } else {
             badge.getStyleClass().add("badge-finalizada");
         }
-
         header.getChildren().addAll(icon, infoBox, spacer, badge);
 
-        // --- FILA 2: Fechas ---
-        HBox datesBox = new HBox();
-        datesBox.setSpacing(30);
-
+        // Fechas
+        HBox datesBox = new HBox(30);
         DateTimeFormatter fmtFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         DateTimeFormatter fmtHora = DateTimeFormatter.ofPattern("HH:mm");
 
-        // Fecha Inicio
         Label lblFecha = new Label("📅 " + r.getFechaHoraInicio().format(fmtFecha));
         lblFecha.getStyleClass().add("reserva-info-text");
         Label lblHora = new Label("🕒 " + r.getFechaHoraInicio().format(fmtHora));
         lblHora.getStyleClass().add("reserva-info-text");
-
         datesBox.getChildren().addAll(lblFecha, lblHora);
 
-        // --- FILA 3: Acción (Finalizar) o Coste (Si ya acabó) ---
-        VBox bottomBox = new VBox();
+        // Acciones
+        VBox bottomBox = new VBox(10);
 
         if (r.getEstado() == EstadoReserva.ACTIVA) {
-            // Si está ACTIVA -> Botón Rojo gigante para finalizar
-            Button btnFinalizar = new Button("Finalizar Reserva");
+            // Botones: Finalizar y Cancelar
+            Button btnFinalizar = new Button("Finalizar y Pagar");
             btnFinalizar.setMaxWidth(Double.MAX_VALUE);
             btnFinalizar.getStyleClass().add("btn-finalizar");
-
             btnFinalizar.setOnAction(e -> finalizarReserva(r));
 
-            bottomBox.getChildren().add(btnFinalizar); // Solo botón
+            Button btnCancelar = new Button("Cancelar Reserva");
+            btnCancelar.setMaxWidth(Double.MAX_VALUE);
+            btnCancelar.getStyleClass().add("btn-secondary-action");
+            btnCancelar.setOnAction(e -> accionCancelar(r));
 
+            bottomBox.getChildren().addAll(btnFinalizar, btnCancelar);
         } else {
-            // Si está FINALIZADA -> Mostrar Coste
+            // Coste total
             Separator sep = new Separator();
             sep.setPadding(new javafx.geometry.Insets(10, 0, 10, 0));
-
             HBox costeBox = new HBox();
-            Label lblTextoCoste = new Label("Coste total");
-            lblTextoCoste.getStyleClass().add("coste-label");
+            Label lblTexto = new Label("Coste total");
+            lblTexto.getStyleClass().add("coste-label");
+            Region sp = new Region();
+            HBox.setHgrow(sp, Priority.ALWAYS);
+            Label lblValor = new Label(String.format("%.2f€", r.getCoste()));
+            lblValor.getStyleClass().add("coste-valor");
 
-            Region spCoste = new Region();
-            HBox.setHgrow(spCoste, Priority.ALWAYS);
-
-            Label lblValorCoste = new Label(String.format("%.2f€", r.getCoste()));
-            lblValorCoste.getStyleClass().add("coste-valor");
-
-            costeBox.getChildren().addAll(lblTextoCoste, spCoste, lblValorCoste);
+            costeBox.getChildren().addAll(lblTexto, sp, lblValor);
             bottomBox.getChildren().addAll(sep, costeBox);
         }
 
@@ -311,73 +415,67 @@ public class ClienteController {
     }
 
     private void finalizarReserva(Reserva r) {
-        // Lógica simple para cambiar estado (Fase 3 completa)
-        System.out.println("Finalizando reserva #" + r.getIdReserva());
+        // 1. Calcular el coste final
+        // (Aquí podrías calcularlo real: FechaFin - FechaInicio * PrecioHora)
+        // Por ahora simulamos un precio fijo o el que tenía estimado
+        double costeFinal = r.getCoste();
 
-        // 1. Calcular coste (Ejemplo: 0.15€ por minuto)
-        // En un caso real usaríamos Duration.between(inicio, ahora)
-        r.setEstado(EstadoReserva.FINALIZADA);
-        r.setFechaHoraFin(LocalDateTime.now());
-        r.setCoste(12.50); // Valor de ejemplo, luego lo calcularemos real
+        // 2. Llamar al DAO (Transacción profesional)
+        if (reservaDAO.finalizarReserva(r.getIdReserva(), r.getVehiculo().getIdVehiculo(), costeFinal)) {
 
-        // 2. Actualizar en BD
-        boolean ok = reservaDAO.update(r);
-
-        if (ok) {
-            // 3. También liberar el vehículo (Ponerlo DISPONIBLE)
-            // Necesitarías un método en VehiculoDAO para setEstado(id, DISPONIBLE)
-            // o hacerlo manualmente aquí si tienes acceso.
-
-            // 4. Recargar la lista para que se vea el cambio
+            // 3. Actualizar la interfaz
             cargarReservas();
 
+            // 4. Feedback al usuario
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Reserva Finalizada");
+            alert.setTitle("Viaje Finalizado");
             alert.setHeaderText(null);
-            alert.setContentText("El viaje ha finalizado. Coste: " + r.getCoste() + "€");
+            alert.setContentText("¡Gracias por viajar con nosotros!\n\nSe ha realizado el cobro de: "
+                    + String.format("%.2f€", costeFinal));
             alert.showAndWait();
+
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setContentText("No se pudo finalizar la reserva.");
-            alert.show();
+            mostrarAlerta(Alert.AlertType.ERROR, "Error", "No se pudo finalizar la reserva. Inténtalo de nuevo.");
         }
     }
-    @FXML
-    void mostrarVistaPerfil() {
-        vistaVehiculos.setVisible(false);
-        vistaReservas.setVisible(false);
-        vistaPerfil.setVisible(true);
-        panelFiltros.setVisible(false); // Ocultar filtros
 
-        actualizarEstiloBotones(btnNavPerfil);
+    private void accionCancelar(Reserva r) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Cancelar Reserva");
+        alert.setHeaderText("¿Estás seguro?");
+        alert.setContentText("El vehículo quedará libre inmediatamente.");
 
-        cargarDatosPerfil();
+        if (alert.showAndWait().get() == ButtonType.OK) {
+            if (reservaDAO.cancelarReserva(r.getIdReserva(), r.getVehiculo().getIdVehiculo())) {
+                cargarReservas();
+                mostrarAlerta(Alert.AlertType.INFORMATION, "Cancelada", "Reserva cancelada correctamente.");
+            } else {
+                mostrarAlerta(Alert.AlertType.ERROR, "Error", "No se pudo cancelar.");
+            }
+        }
     }
+
+    // ================================================================
+    // 6. PERFIL
+    // ================================================================
     private void cargarDatosPerfil() {
         Usuario u = Sesion.getInstancia().getUsuarioLogueado();
         if (u != null) {
-            // Textos básicos
             lblNombrePerfil.setText(u.getNombre() + " " + u.getApellidos());
             lblEmailPerfil.setText(u.getEmail());
-            // Si el teléfono es null, ponemos vacío
             lblTelefonoPerfil.setText(u.getTelefono() != null ? u.getTelefono() : "---");
             lblMetodoPago.setText(u.getMetodoPago() != null ? u.getMetodoPago() : "SIN DEFINIR");
             lblSaldoPerfil.setText(String.format("%.2f€", u.getSaldo()));
 
-            // Iniciales (Primera letra nombre + Primera letra apellido)
             String iniciales = "";
-            if (u.getNombre() != null && !u.getNombre().isEmpty())
-                iniciales += u.getNombre().charAt(0);
-            if (u.getApellidos() != null && !u.getApellidos().isEmpty())
-                iniciales += u.getApellidos().charAt(0);
-
+            if (u.getNombre() != null && !u.getNombre().isEmpty()) iniciales += u.getNombre().charAt(0);
+            if (u.getApellidos() != null && !u.getApellidos().isEmpty()) iniciales += u.getApellidos().charAt(0);
             lblIniciales.setText(iniciales.toUpperCase());
         }
     }
 
     // ================================================================
-    // 5. CERRAR SESIÓN
+    // 7. UTILIDADES
     // ================================================================
     @FXML
     private void onCerrarSesion() {
@@ -387,8 +485,14 @@ public class ClienteController {
             Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/com/uber/fxml/Login.fxml")));
             stage.setScene(scene);
             stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        } catch (IOException e) { e.printStackTrace(); }
+    }
+
+    private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensaje) {
+        Alert alert = new Alert(tipo);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
     }
 }

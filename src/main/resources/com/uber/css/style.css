@@ -417,3 +417,91 @@
 .btn-wide-action:hover {
     -fx-background-color: #145A32;
 }
+/* ================= DIÁLOGO DE RESERVA ================= */
+
+/* El cuerpo de la ventana */
+.dialog-pane {
+    -fx-background-color: white;
+    -fx-font-family: "Segoe UI";
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 4);
+}
+
+/* Ocultar la cabecera fea por defecto de JavaFX */
+.dialog-pane > .header-panel {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+/* Nuestra cabecera personalizada */
+.custom-dialog-header {
+    -fx-background-color: #0E402D;
+    -fx-padding: 20;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.dialog-title-text {
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.dialog-subtitle-text {
+    -fx-text-fill: #A5D6A7;
+    -fx-font-size: 12px;
+}
+
+/* Cuerpo del formulario */
+.dialog-content-box {
+    -fx-padding: 25;
+    -fx-background-color: white;
+    -fx-spacing: 15;
+}
+
+.input-label {
+    -fx-text-fill: #555;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+/* Selector de Fecha y Spinner */
+.date-picker, .spinner {
+    -fx-font-size: 14px;
+    -fx-background-color: #F5F5F5;
+    -fx-border-color: transparent;
+}
+
+/* Precio Grande */
+.price-container {
+    -fx-background-color: #F1F8E9; /* Verde muy clarito */
+    -fx-background-radius: 8;
+    -fx-padding: 15;
+    -fx-alignment: CENTER;
+    -fx-border-color: #C8E6C9;
+    -fx-border-radius: 8;
+}
+
+.price-label-small {
+    -fx-text-fill: #558B2F;
+    -fx-font-size: 12px;
+}
+
+.price-value-big {
+    -fx-text-fill: #2E7D32;
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+}
+/* Botón secundario para Cancelar */
+.btn-secondary-action {
+    -fx-background-color: transparent;
+    -fx-border-color: #9E9E9E;
+    -fx-border-radius: 6;
+    -fx-text-fill: #757575;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+    -fx-padding: 8 15;
+}
+
+.btn-secondary-action:hover {
+    -fx-background-color: #EEEEEE;
+    -fx-text-fill: #424242;
+}
