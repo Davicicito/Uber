@@ -5,12 +5,20 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionBDH2 {
-    private static final String URL = "jdbc:h2:./bd/uber;AUTO_SERVER=TRUE;MODE=MySQL";// archivo local
+
+    // Datos de conexión a la BD H2 en modo archivo local
+    private static final String URL = "jdbc:h2:./bd/uber;AUTO_SERVER=TRUE;MODE=MySQL";
     private static final String USER = "sa";
     private static final String PASSWORD = "";
 
     private static Connection conn;
 
+    /**
+     * Devuelve la conexión a la base de datos H2.
+     * Si no existe, se crea una nueva conexión.
+     *
+     * @return conexión activa a la BD H2
+     */
     public static Connection getConnection() {
         if (conn == null) {
             try {

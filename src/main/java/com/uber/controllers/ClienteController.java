@@ -24,6 +24,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Controlador principal para la vista del Cliente.
+ * Gestiona la reserva de vehículos, visualización de historial y perfil.
+ */
 public class ClienteController {
 
     // --- ELEMENTOS FXML ---
@@ -55,9 +59,9 @@ public class ClienteController {
 
     private List<Vehiculo> listaVehiculosCompleta; // Para filtrar sin recargar BD
 
-    // ================================================================
-    // 1. INICIALIZACIÓN
-    // ================================================================
+    /**
+     * Método de inicialización. Carga los datos del usuario y la lista de vehículos.
+     */
     @FXML
     public void initialize() {
         Usuario usuario = Sesion.getInstancia().getUsuarioLogueado();
@@ -73,6 +77,10 @@ public class ClienteController {
         cargarVehiculos(listaVehiculosCompleta);
     }
 
+    /**
+     * Actualiza el saludo y el saldo en la barra superior.
+     * @param u El usuario logueado.
+     */
     private void actualizarHeader(Usuario u) {
         lblSaludo.setText("Hola, " + u.getNombre());
         lblSaldo.setText(String.format("%.2f€", u.getSaldo()));
@@ -81,6 +89,10 @@ public class ClienteController {
     // ================================================================
     // 2. NAVEGACIÓN ENTRE PESTAÑAS
     // ================================================================
+
+    /**
+     * Muestra la vista de vehículos y oculta las demás.
+     */
     @FXML
     void mostrarVistaVehiculos() {
         vistaVehiculos.setVisible(true);
@@ -95,6 +107,9 @@ public class ClienteController {
         filtrarTodos();
     }
 
+    /**
+     * Muestra la vista de reservas y oculta las demás.
+     */
     @FXML
     void mostrarVistaReservas() {
         vistaVehiculos.setVisible(false);
@@ -107,6 +122,9 @@ public class ClienteController {
         cargarReservas();
     }
 
+    /**
+     * Muestra la vista de perfil y oculta las demás.
+     */
     @FXML
     void mostrarVistaPerfil() {
         vistaVehiculos.setVisible(false);
@@ -119,6 +137,10 @@ public class ClienteController {
         cargarDatosPerfil();
     }
 
+    /**
+     * Gestiona el estilo visual de los botones del menú.
+     * @param botonActivo El botón que se acaba de pulsar.
+     */
     private void actualizarEstiloBotones(Button botonActivo) {
         btnNavVehiculos.getStyleClass().remove("nav-button-selected");
         btnNavReservas.getStyleClass().remove("nav-button-selected");
@@ -131,6 +153,10 @@ public class ClienteController {
     // 3. LÓGICA DE VEHÍCULOS (Tarjetas y Filtros)
     // ================================================================
 
+    /**
+     * Carga las tarjetas de vehículos en el contenedor.
+     * @param lista La lista de vehículos a mostrar.
+     */
     private void cargarVehiculos(List<Vehiculo> lista) {
         contenedorVehiculos.getChildren().clear();
         for (Vehiculo v : lista) {
@@ -138,11 +164,31 @@ public class ClienteController {
         }
     }
 
+    /**
+     * Filtra y muestra todos los vehículos.
+     */
     @FXML void filtrarTodos() { cargarVehiculos(listaVehiculosCompleta); }
+
+    /**
+     * Filtra y muestra solo los coches.
+     */
     @FXML void filtrarCoches() { cargarVehiculos(listaVehiculosCompleta.stream().filter(v -> v.getTipo() == TipoVehiculo.COCHE).collect(Collectors.toList())); }
+
+    /**
+     * Filtra y muestra solo las motos.
+     */
     @FXML void filtrarMotos() { cargarVehiculos(listaVehiculosCompleta.stream().filter(v -> v.getTipo() == TipoVehiculo.MOTO).collect(Collectors.toList())); }
+
+    /**
+     * Filtra y muestra solo los patinetes.
+     */
     @FXML void filtrarPatinetes() { cargarVehiculos(listaVehiculosCompleta.stream().filter(v -> v.getTipo() == TipoVehiculo.PATINETE).collect(Collectors.toList())); }
 
+    /**
+     * Crea una tarjeta visual para un vehículo.
+     * @param v El vehículo a mostrar.
+     * @return Un VBox con la tarjeta del vehículo.
+     */
     private VBox crearTarjetaVehiculo(Vehiculo v) {
         VBox card = new VBox();
         card.getStyleClass().add("vehicle-card");
@@ -195,6 +241,10 @@ public class ClienteController {
     // 4. LÓGICA DE CREAR RESERVA
     // ================================================================
 
+    /**
+     * Muestra el diálogo para confirmar una reserva.
+     * @param v El vehículo que se quiere reservar.
+     */
     private void mostrarDialogoReserva(Vehiculo v) {
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setTitle("Confirmar Reserva");
@@ -261,6 +311,12 @@ public class ClienteController {
         });
     }
 
+    /**
+     * Realiza la reserva de un vehículo.
+     * @param v El vehículo a reservar.
+     * @param fecha La fecha de inicio.
+     * @param horas La duración en horas.
+     */
     private void realizarReserva(Vehiculo v, java.time.LocalDate fecha, int horas) {
         if (fecha == null || fecha.isBefore(java.time.LocalDate.now())) {
             mostrarAlerta(Alert.AlertType.ERROR, "Fecha inválida", "La fecha no puede ser anterior a hoy.");
@@ -296,6 +352,9 @@ public class ClienteController {
     // 5. LÓGICA DE "MIS RESERVAS"
     // ================================================================
 
+    /**
+     * Carga las reservas del usuario en la vista.
+     */
     private void cargarReservas() {
         contenedorReservas.getChildren().clear();
         Usuario u = Sesion.getInstancia().getUsuarioLogueado();
@@ -312,6 +371,11 @@ public class ClienteController {
         }
     }
 
+    /**
+     * Crea una tarjeta visual para una reserva.
+     * @param r La reserva a mostrar.
+     * @return Un VBox con la tarjeta de la reserva.
+     */
     private VBox crearTarjetaReserva(Reserva r) {
         VBox card = new VBox();
         card.getStyleClass().add("reserva-card");
@@ -381,6 +445,10 @@ public class ClienteController {
         return card;
     }
 
+    /**
+     * Finaliza una reserva activa.
+     * @param r La reserva a finalizar.
+     */
     private void finalizarReserva(Reserva r) {
         double costeFinal = r.getCoste();
         if (reservaDAO.finalizarReserva(r.getIdReserva(), r.getVehiculo().getIdVehiculo(), costeFinal)) {
@@ -391,6 +459,10 @@ public class ClienteController {
         }
     }
 
+    /**
+     * Cancela una reserva activa.
+     * @param r La reserva a cancelar.
+     */
     private void accionCancelar(Reserva r) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Cancelar Reserva");
@@ -411,6 +483,9 @@ public class ClienteController {
     // 6. PERFIL (LOGICA Y VALIDACIONES)
     // ================================================================
 
+    /**
+     * Carga y muestra los datos del perfil del usuario.
+     */
     private void cargarDatosPerfil() {
         Usuario u = Sesion.getInstancia().getUsuarioLogueado();
         if (u != null) {
@@ -427,6 +502,9 @@ public class ClienteController {
         }
     }
 
+    /**
+     * Abre el diálogo para editar los datos del perfil.
+     */
     @FXML
     private void onEditarPerfil() {
         Usuario u = Sesion.getInstancia().getUsuarioLogueado();
@@ -489,6 +567,12 @@ public class ClienteController {
         });
     }
 
+    /**
+     * Crea un campo de edición para el formulario.
+     * @param label Etiqueta del campo.
+     * @param field Campo de texto.
+     * @return Un VBox con la etiqueta y el campo.
+     */
     private VBox crearCampoEdicion(String label, TextField field) {
         VBox box = new VBox(5);
         Label lbl = new Label(label);
@@ -497,11 +581,14 @@ public class ClienteController {
         return box;
     }
 
+    /**
+     * Abre el diálogo para añadir saldo a la cuenta.
+     */
     @FXML
     private void onAnadirSaldo() {
         Usuario u = Sesion.getInstancia().getUsuarioLogueado();
 
-        // ✅ VALIDACIÓN: NO DEJAR AÑADIR SALDO SIN MÉTODO DE PAGO
+        // NO DEJAR AÑADIR SALDO SIN MÉTODO DE PAGO
         if (u.getMetodoPago() == null || "SIN DEFINIR".equals(u.getMetodoPago()) || u.getMetodoPago().isBlank()) {
             mostrarAlerta(Alert.AlertType.WARNING, "Método de Pago Requerido",
                     "Debes establecer un método de pago antes de añadir saldo.");
@@ -537,6 +624,9 @@ public class ClienteController {
         });
     }
 
+    /**
+     * Abre el diálogo para cambiar el método de pago.
+     */
     @FXML
     private void onCambiarMetodoPago() {
         List<String> metodos = List.of("TARJETA", "PAYPAL", "BIZUM", "EFECTIVO");
@@ -562,6 +652,10 @@ public class ClienteController {
     // ================================================================
     // 8. UTILIDADES
     // ================================================================
+
+    /**
+     * Cierra la sesión actual y vuelve a la pantalla de inicio de sesión.
+     */
     @FXML
     private void onCerrarSesion() {
         Sesion.getInstancia().logOut();
@@ -570,9 +664,17 @@ public class ClienteController {
             Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/com/uber/fxml/Login.fxml")));
             stage.setScene(scene);
             stage.show();
-        } catch (IOException e) { e.printStackTrace(); }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
+    /**
+     * Muestra una ventana emergente de alerta.
+     * @param tipo Tipo de alerta (INFORMACIÓN, ERROR, etc.).
+     * @param titulo Título de la ventana.
+     * @param mensaje Contenido del mensaje.
+     */
     private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensaje) {
         Alert alert = new Alert(tipo);
         alert.setTitle(titulo);

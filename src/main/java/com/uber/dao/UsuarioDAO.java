@@ -11,18 +11,13 @@ import java.util.List;
 
 public class UsuarioDAO {
 
-    // ================================================================
-    //  CONSULTAS SQL (arriba del todo, como pide tu profesora)
-    // ================================================================
-
+    // Consultas SQL
     private static final String SELECT_ALL = "SELECT * FROM Usuario";
-
     private static final String SELECT_BY_ID = "SELECT * FROM Usuario WHERE id_usuario = ?";
 
     private static final String INSERT =
             "INSERT INTO Usuario (nombre, apellidos, email, contrasena, telefono, metodo_pago, saldo, estado_cuenta, rol) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
 
     private static final String UPDATE =
             "UPDATE Usuario SET nombre = ?, apellidos = ?, email = ?, contrasena = ?, telefono = ?, " +
@@ -30,26 +25,31 @@ public class UsuarioDAO {
 
     private static final String DELETE = "DELETE FROM Usuario WHERE id_usuario = ?";
 
-    // Consulta adicional para la rúbrica (JOIN)
-    private static final String SELECT_USUARIO_RESERVAS = "SELECT u.*, r.id_reserva, r.fecha_hora_inicio, r.estado " +
-                    "FROM Usuario u LEFT JOIN Reserva r ON u.id_usuario = r.id_usuario " +
-                    "WHERE u.id_usuario = ?";
+    private static final String SELECT_USUARIO_RESERVAS =
+            "SELECT u.*, r.id_reserva, r.fecha_hora_inicio, r.estado " +
+                    "FROM Usuario u LEFT JOIN Reserva r ON u.id_usuario = r.id_usuario WHERE u.id_usuario = ?";
+
     private static final String LOGIN =
             "SELECT * FROM Usuario WHERE email = ? AND contrasena = ?";
 
-    private static final String CHECK_EMAIL = "SELECT COUNT(*) FROM Usuario WHERE email = ?";
+    private static final String CHECK_EMAIL =
+            "SELECT COUNT(*) FROM Usuario WHERE email = ?";
 
-    private static final String UPDATE_SALDO = "UPDATE Usuario SET saldo = ? WHERE id_usuario = ?";
-    // ================================================================
+    private static final String UPDATE_SALDO =
+            "UPDATE Usuario SET saldo = ? WHERE id_usuario = ?";
+
     private Connection conn;
 
     public UsuarioDAO() {
         conn = ConnectionBD.getConnection();
     }
 
-    // ================================================================
-    //  Método auxiliar: convertir ResultSet → Usuario
-    // ================================================================
+    /**
+     * Convierte una fila del ResultSet en un objeto Usuario.
+     * @param rs fila obtenida de la consulta SQL
+     * @return usuario con los datos cargados
+     * @throws SQLException si ocurre un error leyendo los datos
+     */
     private Usuario mapUsuario(ResultSet rs) throws SQLException {
         Usuario u = new Usuario();
 
@@ -64,22 +64,20 @@ public class UsuarioDAO {
         u.setEstadoCuenta(EstadoCuenta.valueOf(rs.getString("estado_cuenta")));
         u.setRol(Rol.valueOf(rs.getString("rol")));
 
-
         return u;
     }
 
-    // ================================================================
-    //  SELECT * FROM Usuario
-    // ================================================================
+    /**
+     * Devuelve todos los usuarios registrados.
+     * @return lista completa de usuarios
+     */
     public List<Usuario> getAll() {
         List<Usuario> lista = new ArrayList<>();
 
         try (Statement st = conn.createStatement();
              ResultSet rs = st.executeQuery(SELECT_ALL)) {
 
-            while (rs.next()) {
-                lista.add(mapUsuario(rs));
-            }
+            while (rs.next()) lista.add(mapUsuario(rs));
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -88,9 +86,11 @@ public class UsuarioDAO {
         return lista;
     }
 
-    // ================================================================
-    //  SELECT usuario por ID
-    // ================================================================
+    /**
+     * Busca un usuario por su ID.
+     * @param id id del usuario
+     * @return usuario encontrado o null si no existe
+     */
     public Usuario getById(int id) {
         try (PreparedStatement ps = conn.prepareStatement(SELECT_BY_ID)) {
 
@@ -105,9 +105,11 @@ public class UsuarioDAO {
         return null;
     }
 
-    // ================================================================
-    //  INSERT
-    // ================================================================
+    /**
+     * Inserta un nuevo usuario en la base de datos.
+     * @param u usuario a registrar
+     * @return true si se insertó correctamente
+     */
     public boolean insert(Usuario u) {
         try (PreparedStatement ps = conn.prepareStatement(INSERT)) {
 
@@ -129,9 +131,11 @@ public class UsuarioDAO {
         }
     }
 
-    // ================================================================
-    //  UPDATE
-    // ================================================================
+    /**
+     * Actualiza los datos de un usuario existente.
+     * @param u objeto usuario con la información editada
+     * @return true si se actualizó correctamente
+     */
     public boolean update(Usuario u) {
         try (PreparedStatement ps = conn.prepareStatement(UPDATE)) {
 
@@ -146,7 +150,6 @@ public class UsuarioDAO {
             ps.setString(9, u.getRol().name());
             ps.setInt(10, u.getIdUsuario());
 
-
             return ps.executeUpdate() > 0;
 
         } catch (SQLException e) {
@@ -155,14 +158,15 @@ public class UsuarioDAO {
         }
     }
 
-    // ================================================================
-    //  DELETE
-    // ================================================================
+    /**
+     * Elimina un usuario por su ID.
+     * @param id usuario a borrar
+     * @return true si se borró con éxito
+     */
     public boolean delete(int id) {
         try (PreparedStatement ps = conn.prepareStatement(DELETE)) {
 
             ps.setInt(1, id);
-
             return ps.executeUpdate() > 0;
 
         } catch (SQLException e) {
@@ -171,15 +175,15 @@ public class UsuarioDAO {
         }
     }
 
-
-    // ================================================================
-    //  CONSULTA AVANZADA CON JOIN  (para la rúbrica en consultas semicomplejas)
-    // ================================================================
+    /**
+     * Muestra por consola un usuario junto con sus reservas.
+     * Se usa para la parte de consultas avanzadas de la rúbrica.
+     * @param idUsuario id del usuario
+     */
     public void mostrarUsuarioConReservas(int idUsuario) {
         try (PreparedStatement ps = conn.prepareStatement(SELECT_USUARIO_RESERVAS)) {
 
             ps.setInt(1, idUsuario);
-
             ResultSet rs = ps.executeQuery();
 
             System.out.println("\n--- Usuario y sus reservas ---");
@@ -197,6 +201,12 @@ public class UsuarioDAO {
         }
     }
 
+    /**
+     * Comprueba si existe un usuario con ese email y contraseña.
+     * @param email correo introducido
+     * @param pass contraseña escrita
+     * @return usuario si es correcto, null si falla el login
+     */
     public Usuario login(String email, String pass) {
         try (PreparedStatement ps = conn.prepareStatement(LOGIN)) {
 
@@ -205,35 +215,47 @@ public class UsuarioDAO {
 
             ResultSet rs = ps.executeQuery();
 
-            if (rs.next()) {
-                return mapUsuario(rs);
-            }
+            if (rs.next()) return mapUsuario(rs);
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return null;
     }
+
+    /**
+     * Comprueba si un email ya está registrado.
+     * @param email correo a comprobar
+     * @return true si ya existe en la base de datos
+     */
     public boolean emailExiste(String email) {
         try (PreparedStatement ps = conn.prepareStatement(CHECK_EMAIL)) {
+
             ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                // Si el conteo es mayor que 0, significa que existe
-                return rs.getInt(1) > 0;
-            }
+
+            if (rs.next()) return rs.getInt(1) > 0;
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
     }
 
+    /**
+     * Actualiza el saldo de un usuario.
+     * @param idUsuario id del usuario
+     * @param nuevoSaldo saldo final calculado
+     * @return true si se guardó correctamente
+     */
     public boolean actualizarSaldo(int idUsuario, double nuevoSaldo) {
         try (PreparedStatement ps = conn.prepareStatement(UPDATE_SALDO)) {
+
             ps.setDouble(1, nuevoSaldo);
             ps.setInt(2, idUsuario);
+
             return ps.executeUpdate() > 0;
+
         } catch (SQLException e) {
             e.printStackTrace();
             return false;

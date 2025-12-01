@@ -7,34 +7,52 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Clase de Acceso a Datos (DAO) para la entidad Estacion.
+ * Se encarga de realizar las operaciones CRUD (Crear, Leer, Actualizar, Borrar)
+ * sobre la tabla 'Estacion' en la base de datos.
+ */
 public class EstacionDAO {
+
+    // Consultas SQL predefinidas
     private static final String SELECT_ALL = "SELECT * FROM Estacion";
 
     private static final String SELECT_BY_ID = "SELECT * FROM Estacion WHERE id_estacion = ?";
 
     private static final String INSERT = "INSERT INTO Estacion (nombre_estacion, direccion, capacidad, ciudad) " +
-                    "VALUES (?, ?, ?, ?)";
+            "VALUES (?, ?, ?, ?)";
 
     private static final String UPDATE = "UPDATE Estacion SET nombre_estacion = ?, direccion = ?, capacidad = ?, ciudad = ? " +
-                    "WHERE id_estacion = ?";
+            "WHERE id_estacion = ?";
 
     private static final String DELETE = "DELETE FROM Estacion WHERE id_estacion = ?";
 
-    // JOIN: Mostrar cantidad de vehículos por estación
+    // Consulta avanzada con JOIN y agrupación
     private static final String SELECT_ESTACION_CON_VEHICULOS = "SELECT e.id_estacion, e.nombre_estacion, COUNT(v.id_vehiculo) AS totalVehiculos " +
-                    "FROM Estacion e LEFT JOIN Vehiculo v ON e.id_estacion = v.id_estacion " +
-                    "WHERE e.id_estacion = ? GROUP BY e.id_estacion";
+            "FROM Estacion e LEFT JOIN Vehiculo v ON e.id_estacion = v.id_estacion " +
+            "WHERE e.id_estacion = ? GROUP BY e.id_estacion";
 
-    // ================================================================
+    // Objeto de conexión a la base de datos
     private final Connection conn;
 
+    /**
+     * Constructor de la clase.
+     * Obtiene la instancia de conexión a la base de datos.
+     */
     public EstacionDAO() {
         this.conn = ConnectionBD.getConnection();
     }
 
     // ================================================================
-    //   Método auxiliar: convertir ResultSet → Estacion
+    //   MÉTODOS PRIVADOS (AUXILIARES)
     // ================================================================
+
+    /**
+     * Convierte una fila de un ResultSet en un objeto Estacion.
+     * @param rs El ResultSet con los datos de la consulta.
+     * @return Un objeto Estacion con los datos de la fila actual.
+     * @throws SQLException Si hay un error al acceder a los datos.
+     */
     private Estacion mapEstacion(ResultSet rs) throws SQLException {
         Estacion e = new Estacion();
 
@@ -48,8 +66,13 @@ public class EstacionDAO {
     }
 
     // ================================================================
-    //   SELECT ALL
+    //   MÉTODOS PÚBLICOS (CRUD)
     // ================================================================
+
+    /**
+     * Obtiene todas las estaciones registradas en la base de datos.
+     * @return Una lista de objetos Estacion.
+     */
     public List<Estacion> getAll() {
         List<Estacion> lista = new ArrayList<>();
 
@@ -67,9 +90,11 @@ public class EstacionDAO {
         return lista;
     }
 
-    // ================================================================
-    //   SELECT BY ID
-    // ================================================================
+    /**
+     * Busca una estación por su identificador único.
+     * @param id El ID de la estación a buscar.
+     * @return El objeto Estacion si se encuentra, o null si no existe.
+     */
     public Estacion getById(int id) {
         try (PreparedStatement ps = conn.prepareStatement(SELECT_BY_ID)) {
 
@@ -85,9 +110,11 @@ public class EstacionDAO {
         return null;
     }
 
-    // ================================================================
-    //   INSERT
-    // ================================================================
+    /**
+     * Inserta una nueva estación en la base de datos.
+     * @param e El objeto Estacion con los datos a guardar.
+     * @return true si la inserción fue exitosa, false en caso contrario.
+     */
     public boolean insert(Estacion e) {
         try (PreparedStatement ps = conn.prepareStatement(INSERT)) {
 
@@ -104,9 +131,11 @@ public class EstacionDAO {
         }
     }
 
-    // ================================================================
-    //   UPDATE
-    // ================================================================
+    /**
+     * Actualiza los datos de una estación existente.
+     * @param e El objeto Estacion con los datos modificados.
+     * @return true si la actualización fue exitosa, false en caso contrario.
+     */
     public boolean update(Estacion e) {
         try (PreparedStatement ps = conn.prepareStatement(UPDATE)) {
 
@@ -124,9 +153,11 @@ public class EstacionDAO {
         }
     }
 
-    // ================================================================
-    //   DELETE
-    // ================================================================
+    /**
+     * Elimina una estación de la base de datos por su ID.
+     * @param id El ID de la estación a borrar.
+     * @return true si la eliminación fue exitosa, false en caso contrario.
+     */
     public boolean delete(int id) {
         try (PreparedStatement ps = conn.prepareStatement(DELETE)) {
 
@@ -141,8 +172,14 @@ public class EstacionDAO {
     }
 
     // ================================================================
-    //   CONSULTA AVANZADA (JOIN)
+    //   CONSULTAS AVANZADAS
     // ================================================================
+
+    /**
+     * Muestra por consola el nombre de la estación y la cantidad de vehículos
+     * que tiene asignados actualmente.
+     * @param idEstacion El ID de la estación a consultar.
+     */
     public void mostrarEstacionConCantidadVehiculos(int idEstacion) {
         try (PreparedStatement ps = conn.prepareStatement(SELECT_ESTACION_CON_VEHICULOS)) {
 

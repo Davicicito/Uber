@@ -230,3 +230,160 @@
 .btn-cancel-solid:hover {
     -fx-background-color: #D1D5DB;
 }
+/* ================= GESTIÓN DE ESTACIONES ================= */
+
+/* Contenedor de las tarjetas */
+.estaciones-grid {
+    -fx-padding: 20;
+    -fx-hgap: 20;
+    -fx-vgap: 20;
+    -fx-alignment: TOP_LEFT;
+}
+
+/* Tarjeta individual */
+.station-card {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 2);
+    -fx-padding: 25;
+    -fx-min-width: 320;
+    -fx-max-width: 320;
+}
+
+/* Círculo del icono de ubicación */
+.station-icon-box {
+    -fx-background-color: #ECFDF5; /* Verde muy pálido */
+    -fx-background-radius: 50%;
+    -fx-min-width: 45;
+    -fx-min-height: 45;
+    -fx-alignment: CENTER;
+    -fx-border-color: #D1FAE5;
+    -fx-border-radius: 50%;
+}
+
+/* Textos de la tarjeta */
+.station-name {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #064E3B; /* Verde oscuro */
+}
+
+.station-city {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #6B7280; /* Gris */
+}
+
+.station-address {
+    -fx-font-size: 13px;
+    -fx-text-fill: #9CA3AF; /* Gris claro */
+}
+
+/* Badge oscuro inferior (Contador de vehículos) */
+.badge-dark {
+    -fx-background-color: #064E3B; /* Verde muy oscuro */
+    -fx-text-fill: white;
+    -fx-background-radius: 15;
+    -fx-padding: 5 12;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.capacity-label {
+    -fx-text-fill: #6B7280;
+    -fx-font-size: 12px;
+}
+/* ================= GESTIÓN DE MANTENIMIENTO ================= */
+
+/* Contenedor principal de la lista */
+.maintenance-list {
+    -fx-padding: 20;
+    -fx-spacing: 15; /* Espacio entre tarjetas */
+    -fx-background-color: transparent;
+}
+
+/* Tarjeta de Mantenimiento (Ancha) */
+.maintenance-card {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 2);
+    -fx-padding: 25;
+    -fx-min-width: 800; /* Para que ocupe ancho */
+}
+
+/* Título del coche (Ej: Nissan Leaf) */
+.maint-car-name {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #37474F;
+}
+
+/* ID del vehículo pequeño */
+.maint-car-id {
+    -fx-font-size: 12px;
+    -fx-text-fill: #90A4AE;
+}
+
+/* Etiquetas pequeñas (Fecha, Coste, Notas) */
+.maint-label-small {
+    -fx-font-size: 11px;
+    -fx-text-fill: #78909C;
+    -fx-font-weight: bold;
+}
+
+/* Valores (Fechas) */
+.maint-value-text {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333;
+}
+
+/* Coste en Verde (Ej: 40€) */
+.maint-cost-text {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #00BFA5; /* Verde azulado tipo Uber */
+}
+
+/* Caja de Notas (Fondo gris) */
+.maint-notes-box {
+    -fx-background-color: #FAFAFA;
+    -fx-background-radius: 6;
+    -fx-padding: 10;
+    -fx-border-color: #EEEEEE;
+    -fx-border-radius: 6;
+}
+
+.maint-notes-text {
+    -fx-text-fill: #546E7A;
+    -fx-font-size: 13px;
+}
+
+/* Badge Tipo Mantenimiento (Amarillo/Naranja) */
+.badge-maintenance {
+    -fx-background-color: #FFC107; /* Amarillo anaranjado */
+    -fx-text-fill: white;
+    -fx-background-radius: 20;
+    -fx-padding: 5 15;
+    -fx-font-weight: bold;
+    -fx-font-size: 11px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 2, 0, 0, 1);
+}
+
+/* ================= GESTIÓN DE USUARIOS ================= */
+
+/* Badges de Estado de Usuario */
+.user-status-activo {
+    -fx-background-color: #10B981; /* Verde esmeralda */
+}
+.user-status-suspendido {
+    -fx-background-color: #F97316; /* Naranja fuerte */
+}
+.user-status-bloqueado {
+    -fx-background-color: #EF4444; /* Rojo */
+}
+
+/* Texto de Saldo en la tabla */
+.table-balance-text {
+    -fx-text-fill: #00BFA5; /* Verde azulado */
+    -fx-font-weight: bold;
+}

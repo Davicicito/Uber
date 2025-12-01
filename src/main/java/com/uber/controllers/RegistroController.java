@@ -13,8 +13,13 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import java.io.IOException;
 
+/**
+ * Controlador para la pantalla de registro de nuevos usuarios.
+ * Gestiona la recogida de datos del formulario, validaciones y la inserción en la base de datos.
+ */
 public class RegistroController {
 
+    // --- Elementos de la interfaz ---
     @FXML private TextField txtNombre;
     @FXML private TextField txtApellidos;
     @FXML private TextField txtEmail;
@@ -23,8 +28,13 @@ public class RegistroController {
     @FXML private ImageView imgLogo;
     @FXML private Button btnRegistrar;
 
+    // --- Objeto de acceso a datos ---
     private final UsuarioDAO usuarioDAO = new UsuarioDAO();
 
+    /**
+     * Método que se ejecuta al cargar la ventana.
+     * Inicializa la imagen del logotipo.
+     */
     @FXML
     public void initialize() {
         try {
@@ -34,9 +44,13 @@ public class RegistroController {
         }
     }
 
+    /**
+     * Gestiona el evento del botón "Registrarse".
+     * Valida los datos introducidos y crea un nuevo usuario en el sistema.
+     */
     @FXML
     private void onRegistrar() {
-        // 1. Limpiar errores previos
+        // 1. Limpiar mensajes de error previos
         lblError.setText("");
 
         String nombre = txtNombre.getText();
@@ -44,46 +58,52 @@ public class RegistroController {
         String email = txtEmail.getText();
         String password = txtPassword.getText();
 
-        // 2. Validar campos vacíos
+        // 2. Validar que no haya campos vacíos
         if (nombre.isBlank() || apellidos.isBlank() || email.isBlank() || password.isBlank()) {
             lblError.setText("⚠️ Rellena todos los campos");
             lblError.setStyle("-fx-text-fill: red;");
             return;
         }
 
-        // 3. Comprobar si el email ya existe
+        // 3. Comprobar si el email ya existe en la base de datos
         if (usuarioDAO.emailExiste(email)) {
             lblError.setText("❌ El email ya está registrado");
             lblError.setStyle("-fx-text-fill: red;");
             return;
         }
 
-        // 4. Crear objeto Usuario
-        Usuario u = new Usuario();
-        u.setNombre(nombre);
-        u.setApellidos(apellidos);
-        u.setEmail(email);
-        u.setContrasena(password);
-        u.setMetodoPago("SIN DEFINIR"); // Valor por defecto
-        u.setSaldo(0.0);
-        u.setRol(Rol.CLIENTE);          // Rol por defecto
-        u.setEstadoCuenta(EstadoCuenta.ACTIVO);
+        // 4. Crear objeto Usuario con los datos del formulario
+        Usuario nuevoUsuario = new Usuario();
+        nuevoUsuario.setNombre(nombre);
+        nuevoUsuario.setApellidos(apellidos);
+        nuevoUsuario.setEmail(email);
+        nuevoUsuario.setContrasena(password);
+        nuevoUsuario.setMetodoPago("SIN DEFINIR"); // Valor por defecto
+        nuevoUsuario.setSaldo(0.0);
+        nuevoUsuario.setRol(Rol.CLIENTE);          // Rol por defecto para nuevos registros
+        nuevoUsuario.setEstadoCuenta(EstadoCuenta.ACTIVO);
 
-        // 5. Guardar en Base de Datos
-        if (usuarioDAO.insert(u)) {
+        // 5. Insertar en la Base de Datos
+        if (usuarioDAO.insert(nuevoUsuario)) {
             mostrarAlertaExito();
-            irALogin();
+            volverAlLogin();
         } else {
             lblError.setText("❌ Error de conexión al guardar");
         }
     }
 
+    /**
+     * Gestiona el evento del enlace para volver al login.
+     */
     @FXML
     private void onVolver() {
-        irALogin();
+        volverAlLogin();
     }
 
-    private void irALogin() {
+    /**
+     * Método auxiliar para cargar la vista de inicio de sesión.
+     */
+    private void volverAlLogin() {
         try {
             Stage stage = (Stage) txtNombre.getScene().getWindow();
             Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/com/uber/fxml/Login.fxml")));
@@ -94,6 +114,9 @@ public class RegistroController {
         }
     }
 
+    /**
+     * Muestra una ventana emergente informativa indicando que el registro fue exitoso.
+     */
     private void mostrarAlertaExito() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Registro Completado");
@@ -102,4 +125,3 @@ public class RegistroController {
         alert.showAndWait();
     }
 }
-

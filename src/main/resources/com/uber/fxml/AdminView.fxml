@@ -35,9 +35,9 @@
                     <HBox styleClass="admin-nav-bar" spacing="5">
                         <Button fx:id="btnNavResumen" text="📊 Resumen" styleClass="admin-nav-button, admin-nav-selected" onAction="#mostrarResumen"/>
                         <Button fx:id="btnNavVehiculos" text="🚗 Vehículos" styleClass="admin-nav-button" onAction="#mostrarVehiculos"/>
-                        <Button fx:id="btnNavEstaciones" text="📍 Estaciones" styleClass="admin-nav-button" />
+                        <Button fx:id="btnNavEstaciones" text="📍 Estaciones" styleClass="admin-nav-button" onAction="#mostrarEstaciones"/>
                         <Button fx:id="btnNavMantenimiento" text="⚙ Mantenimiento" styleClass="admin-nav-button" onAction="#mostrarMantenimiento"/>
-                        <Button fx:id="btnNavUsuarios" text="👥 Usuarios" styleClass="admin-nav-button" />
+                        <Button fx:id="btnNavUsuarios" text="👥 Usuarios" styleClass="admin-nav-button" onAction="#mostrarUsuarios"/>
                     </HBox>
 
                     <!-- CONTENEDOR DE VISTAS (FONDO BLANCO) -->
@@ -122,10 +122,61 @@
                                 </TableView>
                             </VBox>
 
-                            <!-- VISTA 3: MANTENIMIENTO (Placeholder) -->
+                            <!-- VISTA 3: ESTACIONES (TARJETAS) -->
+                            <VBox fx:id="vistaEstaciones" spacing="20" visible="false">
+                                <HBox alignment="CENTER_LEFT">
+                                    <Label text="Gestión de Estaciones" styleClass="panel-header" style="-fx-font-size: 20px;"/>
+                                    <Region HBox.hgrow="ALWAYS"/>
+                                    <Button text="+ Añadir Estación" styleClass="btn-add" onAction="#onAddEstacion"/>
+                                </HBox>
+
+                                <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;">
+                                    <FlowPane fx:id="contenedorEstaciones" styleClass="estaciones-grid" />
+                                </ScrollPane>
+                            </VBox>
+
+                            <!-- VISTA 4: MANTENIMIENTO -->
                             <VBox fx:id="vistaMantenimiento" spacing="20" visible="false">
-                                <Label text="Gestión de Mantenimiento" styleClass="panel-header" style="-fx-font-size: 20px;"/>
-                                <Label text="Aquí irá la tabla de mantenimientos..." />
+                                <!-- Cabecera Sección -->
+                                <HBox alignment="CENTER_LEFT">
+                                    <Label text="Historial de Mantenimiento" styleClass="panel-header" style="-fx-font-size: 20px;"/>
+                                    <Region HBox.hgrow="ALWAYS"/>
+                                    <Button text="+ Registrar Mantenimiento" styleClass="btn-add" onAction="#onAddMantenimiento"/>
+                                </HBox>
+
+                                <!-- Lista de Tarjetas (Scrollable) -->
+                                <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;">
+                                    <VBox fx:id="contenedorMantenimiento" styleClass="maintenance-list">
+                                        <!-- Aquí se cargarán las tarjetas desde el Controller -->
+                                        <Label text="Cargando historial..." style="-fx-text-fill: #999;"/>
+                                    </VBox>
+                                </ScrollPane>
+                            </VBox>
+
+                            <!-- VISTA 5: USUARIOS -->
+                            <VBox fx:id="vistaUsuarios" spacing="20" visible="false">
+                                <!-- Cabecera Sección -->
+                                <HBox alignment="CENTER_LEFT">
+                                    <Label text="Gestión de Usuarios" styleClass="panel-header" style="-fx-font-size: 20px;"/>
+                                    <!-- Aquí podrías poner un botón de "Añadir Usuario" si quisieras, aunque no suele ser común en Admin -->
+                                </HBox>
+
+                                <!-- Tabla de Usuarios -->
+                                <TableView fx:id="tablaUsuarios" styleClass="admin-table" VBox.vgrow="ALWAYS">
+                                    <columns>
+                                        <TableColumn fx:id="colUserId" text="ID" prefWidth="50"/>
+                                        <TableColumn fx:id="colUserNombre" text="Nombre Completo" prefWidth="200"/>
+                                        <TableColumn fx:id="colUserEmail" text="Email" prefWidth="200"/>
+                                        <TableColumn fx:id="colUserTelefono" text="Teléfono" prefWidth="120"/>
+                                        <TableColumn fx:id="colUserSaldo" text="Saldo" prefWidth="100"/>
+                                        <TableColumn fx:id="colUserEstado" text="Estado" prefWidth="120"/>
+                                        <TableColumn fx:id="colUserRol" text="Rol" prefWidth="100"/>
+                                        <TableColumn fx:id="colUserAcciones" text="Acciones" prefWidth="100"/>
+                                    </columns>
+                                    <columnResizePolicy>
+                                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                                    </columnResizePolicy>
+                                </TableView>
                             </VBox>
 
                         </StackPane>
