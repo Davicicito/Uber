@@ -38,6 +38,8 @@ public class UsuarioDAO {
             "SELECT * FROM Usuario WHERE email = ? AND contrasena = ?";
 
     private static final String CHECK_EMAIL = "SELECT COUNT(*) FROM Usuario WHERE email = ?";
+
+    private static final String UPDATE_SALDO = "UPDATE Usuario SET saldo = ? WHERE id_usuario = ?";
     // ================================================================
     private Connection conn;
 
@@ -225,5 +227,16 @@ public class UsuarioDAO {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public boolean actualizarSaldo(int idUsuario, double nuevoSaldo) {
+        try (PreparedStatement ps = conn.prepareStatement(UPDATE_SALDO)) {
+            ps.setDouble(1, nuevoSaldo);
+            ps.setInt(2, idUsuario);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

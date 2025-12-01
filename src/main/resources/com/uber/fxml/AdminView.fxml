@@ -1,12 +1,140 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml" prefWidth="600" prefHeight="400">
-    <Label text="Panel de Administración" layoutX="200" layoutY="50" style="-fx-font-size: 24px;" />
-</AnchorPane>
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.uber.controllers.AdminController"
+            prefWidth="1100" prefHeight="750"
+            stylesheets="@../css/style.css">
 
+    <!-- 1. HEADER -->
+    <top>
+        <HBox styleClass="header-background" alignment="CENTER_LEFT" spacing="20">
+            <Label text="Panel de Administración" styleClass="header-title"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="Cerrar Sesión" onAction="#onCerrarSesion"
+                    style="-fx-background-color: rgba(255,255,255,0.2); -fx-text-fill: white; -fx-cursor: hand;"/>
+        </HBox>
+    </top>
+
+    <!-- 2. CONTENIDO PRINCIPAL -->
+    <center>
+        <ScrollPane fitToWidth="true" styleClass="scroll-pane">
+            <VBox spacing="20" style="-fx-padding: 30;">
+
+                <!-- TARJETA TÍTULO -->
+                <VBox styleClass="admin-title-card">
+                    <Label text="Panel de Administración" styleClass="admin-page-title"/>
+                    <Label text="Gestiona vehículos, estaciones y usuarios" styleClass="admin-page-subtitle"/>
+                </VBox>
+
+                <!-- BARRA DE NAVEGACIÓN -->
+                <VBox>
+                    <HBox styleClass="admin-nav-bar" spacing="5">
+                        <Button fx:id="btnNavResumen" text="📊 Resumen" styleClass="admin-nav-button, admin-nav-selected" onAction="#mostrarResumen"/>
+                        <Button fx:id="btnNavVehiculos" text="🚗 Vehículos" styleClass="admin-nav-button" onAction="#mostrarVehiculos"/>
+                        <Button fx:id="btnNavEstaciones" text="📍 Estaciones" styleClass="admin-nav-button" />
+                        <Button fx:id="btnNavMantenimiento" text="⚙ Mantenimiento" styleClass="admin-nav-button" onAction="#mostrarMantenimiento"/>
+                        <Button fx:id="btnNavUsuarios" text="👥 Usuarios" styleClass="admin-nav-button" />
+                    </HBox>
+
+                    <!-- CONTENEDOR DE VISTAS (FONDO BLANCO) -->
+                    <VBox style="-fx-background-color: white; -fx-padding: 30; -fx-background-radius: 0 0 10 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0, 0, 1);">
+
+                        <StackPane>
+
+                            <!-- VISTA 1: RESUMEN (DASHBOARD) -->
+                            <VBox fx:id="vistaResumen" spacing="30">
+                                <!-- KPIs -->
+                                <HBox spacing="20" alignment="CENTER_LEFT">
+                                    <VBox styleClass="kpi-card, kpi-dark" HBox.hgrow="ALWAYS">
+                                        <Label text="🚗" style="-fx-font-size: 24px; -fx-text-fill: rgba(255,255,255,0.7);"/>
+                                        <Label text="Total Vehículos" styleClass="kpi-label"/>
+                                        <Label fx:id="lblTotalVehiculos" text="0" styleClass="kpi-value"/>
+                                    </VBox>
+                                    <VBox styleClass="kpi-card, kpi-teal" HBox.hgrow="ALWAYS">
+                                        <Label text="✅" style="-fx-font-size: 24px; -fx-text-fill: rgba(255,255,255,0.7);"/>
+                                        <Label text="Disponibles" styleClass="kpi-label"/>
+                                        <Label fx:id="lblVehiculosDisponibles" text="0" styleClass="kpi-value"/>
+                                    </VBox>
+                                    <VBox styleClass="kpi-card, kpi-blue" HBox.hgrow="ALWAYS">
+                                        <Label text="👥" style="-fx-font-size: 24px; -fx-text-fill: rgba(255,255,255,0.7);"/>
+                                        <Label text="Usuarios Totales" styleClass="kpi-label"/>
+                                        <Label fx:id="lblTotalUsuarios" text="0" styleClass="kpi-value"/>
+                                    </VBox>
+                                    <VBox styleClass="kpi-card, kpi-purple" HBox.hgrow="ALWAYS">
+                                        <Label text="📍" style="-fx-font-size: 24px; -fx-text-fill: rgba(255,255,255,0.7);"/>
+                                        <Label text="Estaciones" styleClass="kpi-label"/>
+                                        <Label fx:id="lblTotalEstaciones" text="0" styleClass="kpi-value"/>
+                                    </VBox>
+                                </HBox>
+
+                                <!-- Alertas y Estado -->
+                                <HBox spacing="20">
+                                    <VBox styleClass="admin-panel-white" HBox.hgrow="ALWAYS">
+                                        <Label text="Estado de Vehículos" styleClass="panel-header"/>
+                                        <HBox styleClass="status-row">
+                                            <Label text="Disponibles" style="-fx-text-fill: #555;" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+                                            <Label fx:id="badgeDisponibles" text="0" styleClass="badge-circle, bg-success"/>
+                                        </HBox>
+                                        <HBox styleClass="status-row">
+                                            <Label text="En Uso" style="-fx-text-fill: #555;" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+                                            <Label fx:id="badgeEnUso" text="0" styleClass="badge-circle, bg-info"/>
+                                        </HBox>
+                                        <HBox styleClass="status-row">
+                                            <Label text="En Mantenimiento" style="-fx-text-fill: #555;" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+                                            <Label fx:id="badgeMantenimiento" text="0" styleClass="badge-circle, bg-warning"/>
+                                        </HBox>
+                                    </VBox>
+
+                                    <VBox styleClass="admin-panel-white" HBox.hgrow="ALWAYS" spacing="10">
+                                        <Label text="Alertas Recientes" styleClass="panel-header"/>
+                                        <VBox fx:id="contenedorAlertas" spacing="10">
+                                            <Label text="Cargando alertas..." style="-fx-text-fill: #999;"/>
+                                        </VBox>
+                                    </VBox>
+                                </HBox>
+                            </VBox>
+
+                            <!-- VISTA 2: VEHÍCULOS (TABLA) -->
+                            <VBox fx:id="vistaVehiculos" spacing="20" visible="false">
+                                <HBox alignment="CENTER_LEFT">
+                                    <Label text="Gestión de Vehículos" styleClass="panel-header" style="-fx-font-size: 20px;"/>
+                                    <Region HBox.hgrow="ALWAYS"/>
+                                    <Button text="+ Añadir Vehículo" styleClass="btn-add" onAction="#onAddVehiculo"/>
+                                </HBox>
+                                <TableView fx:id="tablaVehiculos" styleClass="admin-table" VBox.vgrow="ALWAYS">
+                                    <columns>
+                                        <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
+                                        <TableColumn fx:id="colTipo" text="Tipo" prefWidth="100"/>
+                                        <TableColumn fx:id="colMarcaModelo" text="Marca/Modelo" prefWidth="200"/>
+                                        <TableColumn fx:id="colEstado" text="Estado" prefWidth="120"/>
+                                        <TableColumn fx:id="colBateria" text="Batería" prefWidth="150"/>
+                                        <TableColumn fx:id="colKm" text="Kilometraje" prefWidth="100"/>
+                                        <TableColumn fx:id="colEstacion" text="Estación" prefWidth="200"/>
+                                        <TableColumn fx:id="colAcciones" text="Acciones" prefWidth="100"/>
+                                    </columns>
+                                    <columnResizePolicy>
+                                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                                    </columnResizePolicy>
+                                </TableView>
+                            </VBox>
+
+                            <!-- VISTA 3: MANTENIMIENTO (Placeholder) -->
+                            <VBox fx:id="vistaMantenimiento" spacing="20" visible="false">
+                                <Label text="Gestión de Mantenimiento" styleClass="panel-header" style="-fx-font-size: 20px;"/>
+                                <Label text="Aquí irá la tabla de mantenimientos..." />
+                            </VBox>
+
+                        </StackPane>
+
+                    </VBox>
+                </VBox>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+
+</BorderPane>

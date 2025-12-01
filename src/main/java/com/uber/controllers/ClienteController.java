@@ -1,6 +1,7 @@
 package com.uber.controllers;
 
 import com.uber.dao.ReservaDAO;
+import com.uber.dao.UsuarioDAO;
 import com.uber.dao.VehiculoDAO;
 import com.uber.enums.EstadoReserva;
 import com.uber.enums.EstadoVehiculo;
@@ -50,6 +51,8 @@ public class ClienteController {
     // --- DAOS Y DATOS ---
     private final VehiculoDAO vehiculoDAO = new VehiculoDAO();
     private final ReservaDAO reservaDAO = new ReservaDAO();
+    private final UsuarioDAO usuarioDAO = new UsuarioDAO(); // Necesario para editar perfil
+
     private List<Vehiculo> listaVehiculosCompleta; // Para filtrar sin recargar BD
 
     // ================================================================
@@ -57,19 +60,22 @@ public class ClienteController {
     // ================================================================
     @FXML
     public void initialize() {
-        // Cargar datos del usuario en el header
         Usuario usuario = Sesion.getInstancia().getUsuarioLogueado();
         if (usuario != null) {
-            lblSaludo.setText("Hola, " + usuario.getNombre());
-            lblSaldo.setText(String.format("%.2f€", usuario.getSaldo()));
+            actualizarHeader(usuario);
         }
 
-        // Cargar vehículos de la BD
+        // Cargar vehículos iniciales
         listaVehiculosCompleta = vehiculoDAO.getAll();
 
-        // Mostrar la vista de vehículos por defecto
+        // Mostrar vista inicial
         mostrarVistaVehiculos();
         cargarVehiculos(listaVehiculosCompleta);
+    }
+
+    private void actualizarHeader(Usuario u) {
+        lblSaludo.setText("Hola, " + u.getNombre());
+        lblSaldo.setText(String.format("%.2f€", u.getSaldo()));
     }
 
     // ================================================================
@@ -79,12 +85,12 @@ public class ClienteController {
     void mostrarVistaVehiculos() {
         vistaVehiculos.setVisible(true);
         vistaReservas.setVisible(false);
-        vistaPerfil.setVisible(false); // Ocultar perfil
+        vistaPerfil.setVisible(false);
 
-        panelFiltros.setVisible(true); // Mostrar filtros
+        panelFiltros.setVisible(true);
         actualizarEstiloBotones(btnNavVehiculos);
 
-        // Refrescamos la lista por si se ha liberado algún coche
+        // Refrescar lista por si un coche se ha liberado
         listaVehiculosCompleta = vehiculoDAO.getAll();
         filtrarTodos();
     }
@@ -93,12 +99,12 @@ public class ClienteController {
     void mostrarVistaReservas() {
         vistaVehiculos.setVisible(false);
         vistaReservas.setVisible(true);
-        vistaPerfil.setVisible(false); // Ocultar perfil
+        vistaPerfil.setVisible(false);
 
-        panelFiltros.setVisible(false); // Ocultar filtros
+        panelFiltros.setVisible(false);
         actualizarEstiloBotones(btnNavReservas);
 
-        cargarReservas(); // Cargar datos frescos
+        cargarReservas();
     }
 
     @FXML
@@ -107,7 +113,7 @@ public class ClienteController {
         vistaReservas.setVisible(false);
         vistaPerfil.setVisible(true);
 
-        panelFiltros.setVisible(false); // Ocultar filtros
+        panelFiltros.setVisible(false);
         actualizarEstiloBotones(btnNavPerfil);
 
         cargarDatosPerfil();
@@ -132,34 +138,17 @@ public class ClienteController {
         }
     }
 
-    // --- Filtros ---
     @FXML void filtrarTodos() { cargarVehiculos(listaVehiculosCompleta); }
+    @FXML void filtrarCoches() { cargarVehiculos(listaVehiculosCompleta.stream().filter(v -> v.getTipo() == TipoVehiculo.COCHE).collect(Collectors.toList())); }
+    @FXML void filtrarMotos() { cargarVehiculos(listaVehiculosCompleta.stream().filter(v -> v.getTipo() == TipoVehiculo.MOTO).collect(Collectors.toList())); }
+    @FXML void filtrarPatinetes() { cargarVehiculos(listaVehiculosCompleta.stream().filter(v -> v.getTipo() == TipoVehiculo.PATINETE).collect(Collectors.toList())); }
 
-    @FXML void filtrarCoches() {
-        cargarVehiculos(listaVehiculosCompleta.stream()
-                .filter(v -> v.getTipo() == TipoVehiculo.COCHE)
-                .collect(Collectors.toList()));
-    }
-
-    @FXML void filtrarMotos() {
-        cargarVehiculos(listaVehiculosCompleta.stream()
-                .filter(v -> v.getTipo() == TipoVehiculo.MOTO)
-                .collect(Collectors.toList()));
-    }
-
-    @FXML void filtrarPatinetes() {
-        cargarVehiculos(listaVehiculosCompleta.stream()
-                .filter(v -> v.getTipo() == TipoVehiculo.PATINETE)
-                .collect(Collectors.toList()));
-    }
-
-    // --- Creador de Tarjeta de Vehículo ---
     private VBox crearTarjetaVehiculo(Vehiculo v) {
         VBox card = new VBox();
         card.getStyleClass().add("vehicle-card");
         card.setSpacing(10);
 
-        // Cabecera: Icono y Estado
+        // Cabecera
         HBox header = new HBox();
         header.setAlignment(Pos.CENTER_RIGHT);
         Label badge = new Label(v.getEstadoVehiculo().name());
@@ -170,13 +159,11 @@ public class ClienteController {
         }
         header.getChildren().add(badge);
 
-        // Info Vehículo
+        // Info
         Label lblMarca = new Label(v.getMarca() + " " + v.getModelo());
         lblMarca.getStyleClass().add("card-title");
-
         Label lblTipo = new Label(v.getTipo().toString());
         lblTipo.getStyleClass().add("card-subtitle");
-
         Label lblUbi = new Label("📍 " + v.getEstacion().getNombreEstacion() + ", " + v.getEstacion().getCiudad());
         lblUbi.getStyleClass().add("card-location");
 
@@ -189,15 +176,12 @@ public class ClienteController {
         Label lblPorc = new Label((int)v.getNivelBateria() + "%");
         batteryBox.getChildren().addAll(lblBat, pb, lblPorc);
 
-        // Botón Reservar
+        // Botón
         Button btnReservar = new Button("Reservar Ahora");
         btnReservar.setMaxWidth(Double.MAX_VALUE);
         btnReservar.getStyleClass().add("btn-reservar");
-
-        // Acción: Abrir diálogo de reserva (CORREGIDO: Solo una asignación)
         btnReservar.setOnAction(e -> mostrarDialogoReserva(v));
 
-        // Deshabilitar si no está disponible
         if (v.getEstadoVehiculo() != EstadoVehiculo.DISPONIBLE) {
             btnReservar.setDisable(true);
             btnReservar.setText("No disponible");
@@ -208,18 +192,17 @@ public class ClienteController {
     }
 
     // ================================================================
-    // 4. LÓGICA DE CREAR RESERVA (Diálogo Personalizado)
+    // 4. LÓGICA DE CREAR RESERVA
     // ================================================================
 
     private void mostrarDialogoReserva(Vehiculo v) {
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setTitle("Confirmar Reserva");
         dialog.setHeaderText(null);
-
         dialog.getDialogPane().getStylesheets().add(getClass().getResource("/com/uber/css/style.css").toExternalForm());
         dialog.getDialogPane().getStyleClass().add("dialog-pane");
 
-        // A) Cabecera Verde
+        // Header Verde
         VBox header = new VBox(5);
         header.getStyleClass().add("custom-dialog-header");
         Label lblTitle = new Label("Reservar " + v.getMarca() + " " + v.getModelo());
@@ -228,7 +211,7 @@ public class ClienteController {
         lblSub.getStyleClass().add("dialog-subtitle-text");
         header.getChildren().addAll(lblTitle, lblSub);
 
-        // B) Formulario
+        // Contenido
         VBox content = new VBox(15);
         content.getStyleClass().add("dialog-content-box");
 
@@ -247,7 +230,6 @@ public class ClienteController {
         spinnerHoras.setEditable(true);
         boxHoras.getChildren().addAll(lblHoras, spinnerHoras);
 
-        // C) Caja de Precio
         VBox boxPrecio = new VBox(2);
         boxPrecio.getStyleClass().add("price-container");
         Label lblEstimado = new Label("Total Estimado");
@@ -267,10 +249,8 @@ public class ClienteController {
         content.getChildren().addAll(boxFecha, boxHoras, new Separator(), boxPrecio);
         dialog.getDialogPane().setContent(mainLayout);
 
-        // Botones
         ButtonType btnConfirmar = new ButtonType("Confirmar y Pagar", ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL, btnConfirmar);
-
         Button btnOk = (Button) dialog.getDialogPane().lookupButton(btnConfirmar);
         btnOk.getStyleClass().add("btn-reservar");
 
@@ -304,8 +284,7 @@ public class ClienteController {
         r.setEstado(EstadoReserva.ACTIVA);
 
         if (reservaDAO.crearReserva(r)) {
-            mostrarAlerta(Alert.AlertType.INFORMATION, "¡Reserva Exitosa!",
-                    "Has reservado el vehículo por " + r.getCoste() + "€");
+            mostrarAlerta(Alert.AlertType.INFORMATION, "¡Reserva Exitosa!", "Has reservado el vehículo por " + r.getCoste() + "€");
             listaVehiculosCompleta = vehiculoDAO.getAll();
             filtrarTodos();
         } else {
@@ -338,14 +317,9 @@ public class ClienteController {
         card.getStyleClass().add("reserva-card");
         card.setSpacing(15);
 
-        // Cabecera
         HBox header = new HBox(15);
         header.setAlignment(Pos.CENTER_LEFT);
-
-        String emoji = "🚗";
-        if (r.getVehiculo().getTipo() == TipoVehiculo.MOTO) emoji = "🛵";
-        if (r.getVehiculo().getTipo() == TipoVehiculo.PATINETE) emoji = "⚡";
-
+        String emoji = (r.getVehiculo().getTipo() == TipoVehiculo.COCHE) ? "🚗" : (r.getVehiculo().getTipo() == TipoVehiculo.MOTO ? "🛵" : "⚡");
         Label icon = new Label(emoji);
         icon.setStyle("-fx-font-size: 24px; -fx-padding: 5; -fx-background-color: #F5F5F5; -fx-background-radius: 8;");
 
@@ -367,22 +341,17 @@ public class ClienteController {
         }
         header.getChildren().addAll(icon, infoBox, spacer, badge);
 
-        // Fechas
         HBox datesBox = new HBox(30);
         DateTimeFormatter fmtFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         DateTimeFormatter fmtHora = DateTimeFormatter.ofPattern("HH:mm");
-
         Label lblFecha = new Label("📅 " + r.getFechaHoraInicio().format(fmtFecha));
         lblFecha.getStyleClass().add("reserva-info-text");
         Label lblHora = new Label("🕒 " + r.getFechaHoraInicio().format(fmtHora));
         lblHora.getStyleClass().add("reserva-info-text");
         datesBox.getChildren().addAll(lblFecha, lblHora);
 
-        // Acciones
         VBox bottomBox = new VBox(10);
-
         if (r.getEstado() == EstadoReserva.ACTIVA) {
-            // Botones: Finalizar y Cancelar
             Button btnFinalizar = new Button("Finalizar y Pagar");
             btnFinalizar.setMaxWidth(Double.MAX_VALUE);
             btnFinalizar.getStyleClass().add("btn-finalizar");
@@ -395,7 +364,6 @@ public class ClienteController {
 
             bottomBox.getChildren().addAll(btnFinalizar, btnCancelar);
         } else {
-            // Coste total
             Separator sep = new Separator();
             sep.setPadding(new javafx.geometry.Insets(10, 0, 10, 0));
             HBox costeBox = new HBox();
@@ -405,7 +373,6 @@ public class ClienteController {
             HBox.setHgrow(sp, Priority.ALWAYS);
             Label lblValor = new Label(String.format("%.2f€", r.getCoste()));
             lblValor.getStyleClass().add("coste-valor");
-
             costeBox.getChildren().addAll(lblTexto, sp, lblValor);
             bottomBox.getChildren().addAll(sep, costeBox);
         }
@@ -415,27 +382,12 @@ public class ClienteController {
     }
 
     private void finalizarReserva(Reserva r) {
-        // 1. Calcular el coste final
-        // (Aquí podrías calcularlo real: FechaFin - FechaInicio * PrecioHora)
-        // Por ahora simulamos un precio fijo o el que tenía estimado
         double costeFinal = r.getCoste();
-
-        // 2. Llamar al DAO (Transacción profesional)
         if (reservaDAO.finalizarReserva(r.getIdReserva(), r.getVehiculo().getIdVehiculo(), costeFinal)) {
-
-            // 3. Actualizar la interfaz
             cargarReservas();
-
-            // 4. Feedback al usuario
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Viaje Finalizado");
-            alert.setHeaderText(null);
-            alert.setContentText("¡Gracias por viajar con nosotros!\n\nSe ha realizado el cobro de: "
-                    + String.format("%.2f€", costeFinal));
-            alert.showAndWait();
-
+            mostrarAlerta(Alert.AlertType.INFORMATION, "Viaje Finalizado", "Gracias por viajar con nosotros.\nSe ha realizado el cobro de: " + String.format("%.2f€", costeFinal));
         } else {
-            mostrarAlerta(Alert.AlertType.ERROR, "Error", "No se pudo finalizar la reserva. Inténtalo de nuevo.");
+            mostrarAlerta(Alert.AlertType.ERROR, "Error", "No se pudo finalizar la reserva.");
         }
     }
 
@@ -456,8 +408,9 @@ public class ClienteController {
     }
 
     // ================================================================
-    // 6. PERFIL
+    // 6. PERFIL (LOGICA Y VALIDACIONES)
     // ================================================================
+
     private void cargarDatosPerfil() {
         Usuario u = Sesion.getInstancia().getUsuarioLogueado();
         if (u != null) {
@@ -474,8 +427,140 @@ public class ClienteController {
         }
     }
 
+    @FXML
+    private void onEditarPerfil() {
+        Usuario u = Sesion.getInstancia().getUsuarioLogueado();
+
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setTitle("Editar Perfil");
+        dialog.setHeaderText(null);
+        dialog.getDialogPane().getStylesheets().add(getClass().getResource("/com/uber/css/style.css").toExternalForm());
+        dialog.getDialogPane().getStyleClass().add("dialog-pane");
+
+        VBox content = new VBox(15);
+        content.getStyleClass().add("dialog-content-box");
+
+        TextField txtNombre = new TextField(u.getNombre());
+        TextField txtApellidos = new TextField(u.getApellidos());
+        TextField txtTelefono = new TextField(u.getTelefono());
+        TextField txtEmail = new TextField(u.getEmail());
+
+        // Estilos
+        txtNombre.getStyleClass().add("dialog-textfield");
+        txtApellidos.getStyleClass().add("dialog-textfield");
+        txtTelefono.getStyleClass().add("dialog-textfield");
+        txtEmail.getStyleClass().add("dialog-textfield");
+
+        content.getChildren().addAll(
+                crearCampoEdicion("Nombre", txtNombre),
+                crearCampoEdicion("Apellidos", txtApellidos),
+                crearCampoEdicion("Teléfono", txtTelefono),
+                crearCampoEdicion("Email", txtEmail)
+        );
+
+        dialog.getDialogPane().setContent(content);
+
+        ButtonType btnGuardar = new ButtonType("Guardar Cambios", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL, btnGuardar);
+        Button btnOk = (Button) dialog.getDialogPane().lookupButton(btnGuardar);
+        btnOk.getStyleClass().add("btn-reservar");
+
+        dialog.showAndWait().ifPresent(response -> {
+            if (response == btnGuardar) {
+                // ✅ VALIDACIÓN: TELÉFONO 9 DÍGITOS
+                if (!txtTelefono.getText().matches("^\\d{9}$")) {
+                    mostrarAlerta(Alert.AlertType.ERROR, "Formato Incorrecto", "El teléfono debe tener 9 dígitos numéricos.");
+                    return;
+                }
+
+                u.setNombre(txtNombre.getText());
+                u.setApellidos(txtApellidos.getText());
+                u.setTelefono(txtTelefono.getText());
+                u.setEmail(txtEmail.getText());
+
+                if (usuarioDAO.update(u)) {
+                    mostrarAlerta(Alert.AlertType.INFORMATION, "Perfil Actualizado", "Datos guardados correctamente.");
+                    cargarDatosPerfil();
+                    actualizarHeader(u);
+                } else {
+                    mostrarAlerta(Alert.AlertType.ERROR, "Error", "No se guardaron los cambios.");
+                }
+            }
+        });
+    }
+
+    private VBox crearCampoEdicion(String label, TextField field) {
+        VBox box = new VBox(5);
+        Label lbl = new Label(label);
+        lbl.getStyleClass().add("input-label");
+        box.getChildren().addAll(lbl, field);
+        return box;
+    }
+
+    @FXML
+    private void onAnadirSaldo() {
+        Usuario u = Sesion.getInstancia().getUsuarioLogueado();
+
+        // ✅ VALIDACIÓN: NO DEJAR AÑADIR SALDO SIN MÉTODO DE PAGO
+        if (u.getMetodoPago() == null || "SIN DEFINIR".equals(u.getMetodoPago()) || u.getMetodoPago().isBlank()) {
+            mostrarAlerta(Alert.AlertType.WARNING, "Método de Pago Requerido",
+                    "Debes establecer un método de pago antes de añadir saldo.");
+            return;
+        }
+
+        TextInputDialog dialog = new TextInputDialog("10");
+        dialog.setTitle("Añadir Saldo");
+        dialog.setHeaderText("Recargar Monedero");
+        dialog.setContentText("Cantidad a añadir (€):");
+        dialog.getDialogPane().getStylesheets().add(getClass().getResource("/com/uber/css/style.css").toExternalForm());
+
+        dialog.showAndWait().ifPresent(cantidad -> {
+            try {
+                double monto = Double.parseDouble(cantidad);
+                if (monto > 0) {
+                    double nuevoSaldo = u.getSaldo() + monto;
+
+                    if (usuarioDAO.actualizarSaldo(u.getIdUsuario(), nuevoSaldo)) {
+                        u.setSaldo(nuevoSaldo);
+                        mostrarAlerta(Alert.AlertType.INFORMATION, "Recarga Exitosa", "Se han añadido " + monto + "€ a tu cuenta.");
+                        cargarDatosPerfil();
+                        actualizarHeader(u);
+                    } else {
+                        mostrarAlerta(Alert.AlertType.ERROR, "Error", "Fallo al actualizar saldo en BD.");
+                    }
+                } else {
+                    mostrarAlerta(Alert.AlertType.WARNING, "Inválido", "Introduce una cantidad positiva.");
+                }
+            } catch (NumberFormatException e) {
+                mostrarAlerta(Alert.AlertType.ERROR, "Error", "Por favor, introduce un número válido.");
+            }
+        });
+    }
+
+    @FXML
+    private void onCambiarMetodoPago() {
+        List<String> metodos = List.of("TARJETA", "PAYPAL", "BIZUM", "EFECTIVO");
+
+        ChoiceDialog<String> dialog = new ChoiceDialog<>("TARJETA", metodos);
+        dialog.setTitle("Método de Pago");
+        dialog.setHeaderText("Selecciona tu método de pago");
+        dialog.setContentText("Método:");
+        dialog.getDialogPane().getStylesheets().add(getClass().getResource("/com/uber/css/style.css").toExternalForm());
+
+        dialog.showAndWait().ifPresent(seleccion -> {
+            Usuario u = Sesion.getInstancia().getUsuarioLogueado();
+            u.setMetodoPago(seleccion);
+
+            if (usuarioDAO.update(u)) {
+                cargarDatosPerfil();
+            } else {
+                mostrarAlerta(Alert.AlertType.ERROR, "Error", "No se pudo cambiar el método de pago.");
+            }
+        });
+    }
+
     // ================================================================
-    // 7. UTILIDADES
+    // 8. UTILIDADES
     // ================================================================
     @FXML
     private void onCerrarSesion() {

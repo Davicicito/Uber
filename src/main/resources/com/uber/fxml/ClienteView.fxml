@@ -88,7 +88,7 @@
                                     <Label fx:id="lblMetodoPago" text="PAYPAL" styleClass="info-value"/>
                                 </HBox>
                             </VBox>
-                            <Button text="Cambiar" styleClass="link-action"/>
+                            <Button text="Cambiar" styleClass="link-action" onAction="#onCambiarMetodoPago"/>
                         </HBox>
 
                         <HBox styleClass="info-box" alignment="CENTER_LEFT" spacing="10">
@@ -96,10 +96,10 @@
                                 <Label text="Saldo" styleClass="info-label"/>
                                 <Label fx:id="lblSaldoPerfil" text="20.00€" styleClass="saldo-amount"/>
                             </VBox>
-                            <Button text="Añadir Saldo" styleClass="btn-small-dark"/>
+                            <Button text="Añadir Saldo" styleClass="btn-small-dark" onAction="#onAnadirSaldo"/>
                         </HBox>
 
-                        <Button text="Editar Perfil" maxWidth="Infinity" styleClass="btn-wide-action"/>
+                        <Button text="Editar Perfil" maxWidth="Infinity" styleClass="btn-wide-action" onAction="#onEditarPerfil"/>
 
                     </VBox>
                 </VBox>
