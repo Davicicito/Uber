@@ -9,16 +9,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Clase DAO para gestionar las operaciones CRUD de la tabla 'Mantenimiento'.
- * Permite crear, leer, actualizar y borrar tipos de mantenimiento.
+ * DAO encargado de gestionar los registros de la tabla Mantenimiento.
+ * Permite realizar operaciones CRUD sobre los tipos de mantenimiento.
  */
 public class MantenimientoDAO {
 
-    // Consultas SQL
+    // Consultas SQL actualizadas
     private static final String SELECT_ALL = "SELECT * FROM Mantenimiento";
     private static final String SELECT_BY_ID = "SELECT * FROM Mantenimiento WHERE id_mantenimiento = ?";
-    private static final String INSERT = "INSERT INTO Mantenimiento (nombre_mantenimiento, descripcion) VALUES (?, ?)";
-    private static final String UPDATE = "UPDATE Mantenimiento SET nombre_mantenimiento = ?, descripcion = ? WHERE id_mantenimiento = ?";
+    private static final String INSERT = "INSERT INTO Mantenimiento (tipo, descripcion) VALUES (?, ?)";
+    private static final String UPDATE = "UPDATE Mantenimiento SET tipo = ?, descripcion = ? WHERE id_mantenimiento = ?";
     private static final String DELETE = "DELETE FROM Mantenimiento WHERE id_mantenimiento = ?";
 
     private final Connection conn;
@@ -35,23 +35,24 @@ public class MantenimientoDAO {
     // ================================================================
 
     /**
-     * Convierte un resultado de la base de datos en un objeto Mantenimiento.
-     * @param rs ResultSet con los datos.
-     * @return Objeto Mantenimiento relleno.
-     * @throws SQLException Si ocurre un error al leer los datos.
+     * Convierte un registro del ResultSet en un objeto Mantenimiento.
+     *
+     * @param rs ResultSet con los datos obtenidos de la BD.
+     * @return Un objeto Mantenimiento con los datos del registro.
+     * @throws SQLException Si ocurre un problema al leer las columnas.
      */
     private Mantenimiento mapMantenimiento(ResultSet rs) throws SQLException {
         Mantenimiento m = new Mantenimiento();
 
         m.setIdMantenimiento(rs.getInt("id_mantenimiento"));
 
-        // Convertimos el string de la BD al Enum correspondiente
-        String tipoStr = rs.getString("nombre_mantenimiento");
+        // Convertimos el valor String de la BD al Enum correspondiente
+        String tipoStr = rs.getString("tipo");
         try {
             m.setTipo(TipoMantenimiento.valueOf(tipoStr));
         } catch (IllegalArgumentException e) {
-            // Si el tipo no existe en el Enum, lo dejamos null o manejamos el error
-            System.out.println("Tipo de mantenimiento desconocido: " + tipoStr);
+            System.out.println("⚠ Tipo de mantenimiento desconocido: " + tipoStr);
+            m.setTipo(null);
         }
 
         m.setDescripcion(rs.getString("descripcion"));
@@ -64,8 +65,9 @@ public class MantenimientoDAO {
     // ================================================================
 
     /**
-     * Obtiene todos los tipos de mantenimiento registrados.
-     * @return Lista de mantenimientos.
+     * Obtiene todos los tipos de mantenimiento almacenados en la BD.
+     *
+     * @return Lista de objetos Mantenimiento.
      */
     public List<Mantenimiento> getAll() {
         List<Mantenimiento> lista = new ArrayList<>();
@@ -78,16 +80,17 @@ public class MantenimientoDAO {
             }
 
         } catch (SQLException e) {
-            System.out.println("Error al listar mantenimientos: " + e.getMessage());
+            System.out.println("Error al obtener mantenimientos: " + e.getMessage());
         }
 
         return lista;
     }
 
     /**
-     * Busca un mantenimiento por su ID.
-     * @param id Identificador del mantenimiento.
-     * @return El objeto Mantenimiento o null si no existe.
+     * Busca un registro de mantenimiento por su ID.
+     *
+     * @param id Identificador único del mantenimiento.
+     * @return El objeto Mantenimiento correspondiente, o null si no existe.
      */
     public Mantenimiento getById(int id) {
         try (PreparedStatement ps = conn.prepareStatement(SELECT_BY_ID)) {
@@ -107,9 +110,10 @@ public class MantenimientoDAO {
     }
 
     /**
-     * Guarda un nuevo tipo de mantenimiento en la base de datos.
-     * @param m El objeto mantenimiento a guardar.
-     * @return true si se guardó correctamente, false si falló.
+     * Inserta un nuevo mantenimiento en la BD.
+     *
+     * @param m Objeto Mantenimiento con los datos a insertar.
+     * @return true si se insertó correctamente, false en caso contrario.
      */
     public boolean insert(Mantenimiento m) {
         try (PreparedStatement ps = conn.prepareStatement(INSERT)) {
@@ -127,8 +131,9 @@ public class MantenimientoDAO {
 
     /**
      * Actualiza los datos de un mantenimiento existente.
-     * @param m El objeto mantenimiento con los nuevos datos.
-     * @return true si se actualizó correctamente.
+     *
+     * @param m Objeto Mantenimiento con la información actualizada.
+     * @return true si se actualizó correctamente, false si hubo error.
      */
     public boolean update(Mantenimiento m) {
         try (PreparedStatement ps = conn.prepareStatement(UPDATE)) {
@@ -146,9 +151,10 @@ public class MantenimientoDAO {
     }
 
     /**
-     * Elimina un mantenimiento de la base de datos.
-     * @param id El ID del mantenimiento a borrar.
-     * @return true si se eliminó correctamente.
+     * Elimina un registro de mantenimiento según su ID.
+     *
+     * @param id ID del mantenimiento a eliminar.
+     * @return true si se eliminó correctamente, false si falló.
      */
     public boolean delete(int id) {
         try (PreparedStatement ps = conn.prepareStatement(DELETE)) {
@@ -157,7 +163,7 @@ public class MantenimientoDAO {
             return ps.executeUpdate() > 0;
 
         } catch (SQLException e) {
-            System.out.println("Error al borrar mantenimiento: " + e.getMessage());
+            System.out.println("Error al eliminar mantenimiento: " + e.getMessage());
             return false;
         }
     }

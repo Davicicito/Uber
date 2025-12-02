@@ -23,7 +23,7 @@ public class ConnectionBDH2 {
         if (conn == null) {
             try {
                 conn = DriverManager.getConnection(URL, USER, PASSWORD);
-                System.out.println("Conectado a H2 (embebido)");
+                System.out.println("Conectado a H2 (embebida)");
             } catch (SQLException e) {
                 e.printStackTrace();
             }

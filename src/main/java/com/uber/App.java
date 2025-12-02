@@ -25,9 +25,10 @@ public class App extends Application {
             Scene scene = new Scene(root);
 
             // Configurar y mostrar la ventana
-            stage.setTitle("UberCar - Iniciar Sesión");
+            stage.setTitle("UberCar - Gestión de Flota");
             stage.setScene(scene);
-            stage.setResizable(false);
+            stage.setMaximized(true);
+
             stage.show();
 
         } catch (Exception e) {

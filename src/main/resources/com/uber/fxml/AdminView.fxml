@@ -158,7 +158,6 @@
                                 <!-- Cabecera Sección -->
                                 <HBox alignment="CENTER_LEFT">
                                     <Label text="Gestión de Usuarios" styleClass="panel-header" style="-fx-font-size: 20px;"/>
-                                    <!-- Aquí podrías poner un botón de "Añadir Usuario" si quisieras, aunque no suele ser común en Admin -->
                                 </HBox>
 
                                 <!-- Tabla de Usuarios -->
