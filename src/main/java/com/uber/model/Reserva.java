@@ -4,8 +4,13 @@ import com.uber.enums.EstadoReserva;
 
 import java.time.LocalDateTime;
 
+/**
+ * Representa una reserva realizada por un usuario sobre un vehículo.
+ * Incluye información de fechas, coste y estado de la reserva.
+ */
 public class Reserva {
 
+    /*** Atributos de la reserva. */
     private int idReserva;
     private Usuario usuario;
     private Vehiculo vehiculo;
@@ -14,9 +19,20 @@ public class Reserva {
     private double coste;
     private EstadoReserva estado;
 
+    /** Constructor vacío */
     public Reserva() {
     }
 
+    /**
+     * Constructor completo.
+     * @param idReserva id de la reserva
+     * @param usuario usuario asociado
+     * @param vehiculo vehículo reservado
+     * @param fechaHoraInicio inicio de la reserva
+     * @param fechaHoraFin fin de la reserva
+     * @param coste coste total
+     * @param estado estado de la reserva
+     */
     public Reserva(int idReserva, Usuario usuario, Vehiculo vehiculo, LocalDateTime fechaHoraInicio, LocalDateTime fechaHoraFin, double coste, EstadoReserva estado) {
         this.idReserva = idReserva;
         this.usuario = usuario;
@@ -28,8 +44,7 @@ public class Reserva {
     }
 
 
-// getters y setters
-
+    /** Getters y Setters */
     public int getIdReserva() {
         return idReserva;
     }

@@ -3,8 +3,15 @@ package com.uber.model;
 import com.uber.enums.EstadoCuenta;
 import com.uber.enums.Rol;
 
+/**
+ * Clase que representa a un usuario del sistema.
+ * Almacena la información personal, credenciales de acceso y estado de la cuenta.
+ */
 public class Usuario {
 
+    /**
+     *  Atributos del usuario
+     */
     private int idUsuario;
     private String nombre;
     private String apellidos;
@@ -16,8 +23,24 @@ public class Usuario {
     private Rol rol;
     private EstadoCuenta estadoCuenta;
 
+    /**
+     * Constructor vacío
+     */
     public Usuario() {}
 
+    /**
+     * Constructor completo para inicializar todos los atributos.
+     * @param idUsuario Identificador único del usuario
+     * @param nombre Nombre de pila
+     * @param apellidos Apellidos del usuario
+     * @param email Correo electrónico (usado para el login)
+     * @param contrasena Contraseña de acceso
+     * @param telefono Número de teléfono de contacto
+     * @param metodoPago Forma de pago preferida (Tarjeta, PayPal, etc.)
+     * @param saldo Dinero disponible en la cuenta
+     * @param estadoCuenta Estado actual (ACTIVO, BLOQUEADO...)
+     * @param rol Rol del usuario en la aplicación
+     */
     public Usuario(int idUsuario, String nombre, String apellidos, String email, String contrasena,
                    String telefono, String metodoPago, double saldo, EstadoCuenta estadoCuenta, Rol rol) {
         this.idUsuario = idUsuario;
@@ -32,8 +55,9 @@ public class Usuario {
         this.estadoCuenta = estadoCuenta;
     }
 
-    // Getters y setters
-
+    /**
+     * Getters y Setters
+     */
     public int getIdUsuario() { return idUsuario; }
     public void setIdUsuario(int idUsuario) { this.idUsuario = idUsuario; }
 

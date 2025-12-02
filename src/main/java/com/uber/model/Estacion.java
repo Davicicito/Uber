@@ -1,15 +1,30 @@
 package com.uber.model;
 
+/**
+ * Representa una estación donde se encuentran los vehículos.
+ * Incluye información básica como la ciudad, nombre, dirección y capacidad.
+ */
 public class Estacion {
 
+    /*** Atributos de la estación. */
     private int idEstacion;
     private String ciudad;
     private String nombreEstacion;
     private String direccion;
     private int capacidad;
 
+    /** Constructor vacío */
     public Estacion() {}
 
+
+    /**
+     * Constructor completo.
+     * @param idEstacion id de la estación
+     * @param ciudad ciudad donde está ubicada
+     * @param nombreEstacion nombre de la estación
+     * @param direccion dirección física
+     * @param capacidad número máximo de vehículos
+     */
     public Estacion(int idEstacion, String ciudad, String nombreEstacion,
                     String direccion, int capacidad) {
         this.idEstacion = idEstacion;
@@ -19,6 +34,7 @@ public class Estacion {
         this.capacidad = capacidad;
     }
 
+    /** Getters y Setters */
     public int getIdEstacion() { return idEstacion; }
     public void setIdEstacion(int idEstacion) { this.idEstacion = idEstacion; }
 

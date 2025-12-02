@@ -3,6 +3,10 @@ package com.uber.model;
 import com.uber.enums.EstadoVehiculo;
 import com.uber.enums.TipoVehiculo;
 
+/**
+ * Clase que representa un vehículo de la flota.
+ * Contiene información sobre su tipo, marca, modelo, estado, ubicación y métricas de uso.
+ */
 public class Vehiculo {
 
     private int idVehiculo;
@@ -14,8 +18,22 @@ public class Vehiculo {
     private double nivelBateria;
     private double kilometraje;
 
+    /**
+     * Constructor vacío por defecto.
+     */
     public Vehiculo() {}
 
+    /**
+     * Constructor completo para inicializar un vehículo con todos sus datos.
+     * @param idVehiculo Identificador único.
+     * @param tipo Tipo de vehículo (Coche, Moto, Patinete).
+     * @param marca Marca del fabricante.
+     * @param modelo Modelo del vehículo.
+     * @param estadoVehiculo Estado actual (Disponible, En Uso, Mantenimiento, Inactivo).
+     * @param estacion Estación donde se encuentra o a la que pertenece.
+     * @param nivelBateria Nivel de carga de la batería (0-100).
+     * @param kilometraje Distancia total recorrida.
+     */
     public Vehiculo(int idVehiculo, TipoVehiculo tipo, String marca, String modelo, EstadoVehiculo estadoVehiculo, Estacion estacion, double nivelBateria, double kilometraje) {
         this.idVehiculo = idVehiculo;
         this.tipo = tipo;
@@ -27,8 +45,9 @@ public class Vehiculo {
         this.kilometraje = kilometraje;
     }
 
-    // getters y setters
-
+    /**
+     * Getters y Setters
+     */
     public int getIdVehiculo() { return idVehiculo; }
     public void setIdVehiculo(int idVehiculo) { this.idVehiculo = idVehiculo; }
 

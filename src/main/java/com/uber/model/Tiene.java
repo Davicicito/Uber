@@ -2,16 +2,30 @@ package com.uber.model;
 
 import java.time.LocalDateTime;
 
+/**
+ * Relación entre un vehículo y un mantenimiento realizado.
+ * Guarda información del tipo de mantenimiento, fecha, coste y notas adicionales.
+ */
 public class Tiene {
 
+    /*** Atributos de la relación. */
     private Vehiculo vehiculo;
     private Mantenimiento mantenimiento;
     private LocalDateTime fechaHora;
     private double coste;
     private String notas;
 
+    /** Constructor vacío */
     public Tiene() {}
 
+    /**
+     * Constructor completo.
+     * @param vehiculo vehículo al que se le aplica el mantenimiento
+     * @param mantenimiento mantenimiento realizado
+     * @param fechaHora fecha y hora del mantenimiento
+     * @param coste coste total del mantenimiento
+     * @param notas notas adicionales
+     */
     public Tiene(Vehiculo vehiculo, Mantenimiento mantenimiento, LocalDateTime fechaHora, double coste, String notas) {
         this.vehiculo = vehiculo;
         this.mantenimiento = mantenimiento;
@@ -20,9 +34,9 @@ public class Tiene {
         this.notas = notas;
     }
 
-    // Getters y setters
 
 
+    /** Getters y Setters */
     public Vehiculo getVehiculo() {
         return vehiculo;
     }
