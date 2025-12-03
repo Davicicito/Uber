@@ -411,9 +411,12 @@
 
 /* Links de acciones */
 .link-action {
+    -fx-background-color: transparent; /* <--- ESTO ES LO QUE FALTA */
+    -fx-background-insets: 0;
     -fx-text-fill: #00BFA5;
     -fx-font-size: 13px;
     -fx-cursor: hand;
+    -fx-padding: 4 8; /* Un poquito de ajuste para que no ocupe tanto */
 }
 
 .link-action:hover {

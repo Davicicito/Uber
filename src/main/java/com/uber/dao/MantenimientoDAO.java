@@ -14,7 +14,6 @@ import java.util.List;
  */
 public class MantenimientoDAO {
 
-    // Consultas SQL actualizadas
     private static final String SELECT_ALL = "SELECT * FROM Mantenimiento";
     private static final String SELECT_BY_ID = "SELECT * FROM Mantenimiento WHERE id_mantenimiento = ?";
     private static final String INSERT = "INSERT INTO Mantenimiento (tipo, descripcion) VALUES (?, ?)";
@@ -43,10 +42,7 @@ public class MantenimientoDAO {
      */
     private Mantenimiento mapMantenimiento(ResultSet rs) throws SQLException {
         Mantenimiento m = new Mantenimiento();
-
         m.setIdMantenimiento(rs.getInt("id_mantenimiento"));
-
-        // Convertimos el valor String de la BD al Enum correspondiente
         String tipoStr = rs.getString("tipo");
         try {
             m.setTipo(TipoMantenimiento.valueOf(tipoStr));

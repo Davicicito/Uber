@@ -55,9 +55,9 @@ public class ClienteController {
     // --- DAOS Y DATOS ---
     private final VehiculoDAO vehiculoDAO = new VehiculoDAO();
     private final ReservaDAO reservaDAO = new ReservaDAO();
-    private final UsuarioDAO usuarioDAO = new UsuarioDAO(); // Necesario para editar perfil
+    private final UsuarioDAO usuarioDAO = new UsuarioDAO();
 
-    private List<Vehiculo> listaVehiculosCompleta; // Para filtrar sin recargar BD
+    private List<Vehiculo> listaVehiculosCompleta;
 
     /**
      * Método de inicialización. Carga los datos del usuario y la lista de vehículos.
@@ -68,11 +68,8 @@ public class ClienteController {
         if (usuario != null) {
             actualizarHeader(usuario);
         }
-
-        // Cargar vehículos iniciales
         listaVehiculosCompleta = vehiculoDAO.getAll();
 
-        // Mostrar vista inicial
         mostrarVistaVehiculos();
         cargarVehiculos(listaVehiculosCompleta);
     }
@@ -102,7 +99,6 @@ public class ClienteController {
         panelFiltros.setVisible(true);
         actualizarEstiloBotones(btnNavVehiculos);
 
-        // Refrescar lista por si un coche se ha liberado
         listaVehiculosCompleta = vehiculoDAO.getAll();
         filtrarTodos();
     }
@@ -450,10 +446,23 @@ public class ClienteController {
      * @param r La reserva a finalizar.
      */
     private void finalizarReserva(Reserva r) {
+        Usuario u = Sesion.getInstancia().getUsuarioLogueado();
         double costeFinal = r.getCoste();
-        if (reservaDAO.finalizarReserva(r.getIdReserva(), r.getVehiculo().getIdVehiculo(), costeFinal)) {
+
+        if (u.getSaldo() < costeFinal) {
+            mostrarAlerta(Alert.AlertType.ERROR, "Sin fondos", "No tienes saldo suficiente para pagar este viaje.");
+            return;
+        }
+
+        if (reservaDAO.finalizarReserva(r.getIdReserva(), r.getVehiculo().getIdVehiculo(), u.getIdUsuario(), costeFinal)) {
+
+            // ACTUALIZAMOS EL SALDO EN LA APP (Memoria y Vista)
+            u.setSaldo(u.getSaldo() - costeFinal);
+            actualizarHeader(u);
+
             cargarReservas();
-            mostrarAlerta(Alert.AlertType.INFORMATION, "Viaje Finalizado", "Gracias por viajar con nosotros.\nSe ha realizado el cobro de: " + String.format("%.2f€", costeFinal));
+            mostrarAlerta(Alert.AlertType.INFORMATION, "Viaje Finalizado",
+                    "Cobro realizado correctamente: " + String.format("%.2f€", costeFinal));
         } else {
             mostrarAlerta(Alert.AlertType.ERROR, "Error", "No se pudo finalizar la reserva.");
         }
@@ -518,22 +527,27 @@ public class ClienteController {
         VBox content = new VBox(15);
         content.getStyleClass().add("dialog-content-box");
 
+        // Campos
         TextField txtNombre = new TextField(u.getNombre());
         TextField txtApellidos = new TextField(u.getApellidos());
-        TextField txtTelefono = new TextField(u.getTelefono());
+        TextField txtTelefono = new TextField(u.getTelefono() != null ? u.getTelefono() : "");
         TextField txtEmail = new TextField(u.getEmail());
+        PasswordField txtPassword = new PasswordField();
+        txtPassword.setPromptText("Dejar vacía para mantener la actual");
 
         // Estilos
         txtNombre.getStyleClass().add("dialog-textfield");
         txtApellidos.getStyleClass().add("dialog-textfield");
         txtTelefono.getStyleClass().add("dialog-textfield");
         txtEmail.getStyleClass().add("dialog-textfield");
+        txtPassword.getStyleClass().add("dialog-textfield");
 
         content.getChildren().addAll(
-                crearCampoEdicion("Nombre", txtNombre),
-                crearCampoEdicion("Apellidos", txtApellidos),
-                crearCampoEdicion("Teléfono", txtTelefono),
-                crearCampoEdicion("Email", txtEmail)
+                crearCampoEdicion("Nombre *", txtNombre),
+                crearCampoEdicion("Apellidos *", txtApellidos),
+                crearCampoEdicion("Teléfono (Opcional)", txtTelefono),
+                crearCampoEdicion("Email *", txtEmail),
+                crearCampoEdicion("Nueva Contraseña", txtPassword)
         );
 
         dialog.getDialogPane().setContent(content);
@@ -545,19 +559,54 @@ public class ClienteController {
 
         dialog.showAndWait().ifPresent(response -> {
             if (response == btnGuardar) {
-                // ✅ VALIDACIÓN: TELÉFONO 9 DÍGITOS
-                if (!txtTelefono.getText().matches("^\\d{9}$")) {
-                    mostrarAlerta(Alert.AlertType.ERROR, "Formato Incorrecto", "El teléfono debe tener 9 dígitos numéricos.");
+                String nombre = txtNombre.getText().trim();
+                String apellidos = txtApellidos.getText().trim();
+                String email = txtEmail.getText().trim();
+                String telefono = txtTelefono.getText().trim();
+                String nuevaPass = txtPassword.getText().trim();
+
+                // 1. Validaciones básicas (Nombre, Apellidos, Email)
+                if (nombre.isEmpty() || apellidos.isEmpty() || email.isEmpty()) {
+                    mostrarAlerta(Alert.AlertType.ERROR, "Campos Incompletos",
+                            "El Nombre, Apellidos y Email son obligatorios.");
                     return;
                 }
 
-                u.setNombre(txtNombre.getText());
-                u.setApellidos(txtApellidos.getText());
-                u.setTelefono(txtTelefono.getText());
-                u.setEmail(txtEmail.getText());
+                if (!email.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
+                    mostrarAlerta(Alert.AlertType.ERROR, "Email Inválido",
+                            "Introduce un correo real.");
+                    return;
+                }
 
+                if (!telefono.isEmpty() && !telefono.matches("^\\d{9}$")) {
+                    mostrarAlerta(Alert.AlertType.ERROR, "Teléfono Incorrecto",
+                            "El teléfono debe tener 9 dígitos.");
+                    return;
+                }
+
+                if (!nuevaPass.isEmpty()) {
+                    //Al menos 6 caracteres, al menos una letra y al menos un número
+                    if (!nuevaPass.matches("^(?=.*[0-9])(?=.*[a-zA-Z]).{6,}$")) {
+                        mostrarAlerta(Alert.AlertType.ERROR, "Contraseña Débil",
+                                "La contraseña debe tener al menos 6 caracteres, incluyendo letras y números.");
+                        return;
+                    }
+
+                    u.setContrasena(nuevaPass);
+                }
+
+                // Guardamos el resto de datos
+                u.setNombre(nombre);
+                u.setApellidos(apellidos);
+                u.setTelefono(telefono);
+                u.setEmail(email);
+
+                // Actualizamos en BD
                 if (usuarioDAO.update(u)) {
-                    mostrarAlerta(Alert.AlertType.INFORMATION, "Perfil Actualizado", "Datos guardados correctamente.");
+                    String mensaje = "Datos guardados correctamente.";
+                    if(!nuevaPass.isEmpty()) mensaje += "\n¡Contraseña actualizada!";
+
+                    mostrarAlerta(Alert.AlertType.INFORMATION, "Perfil Actualizado", mensaje);
                     cargarDatosPerfil();
                     actualizarHeader(u);
                 } else {
@@ -588,7 +637,6 @@ public class ClienteController {
     private void onAnadirSaldo() {
         Usuario u = Sesion.getInstancia().getUsuarioLogueado();
 
-        // NO DEJAR AÑADIR SALDO SIN MÉTODO DE PAGO
         if (u.getMetodoPago() == null || "SIN DEFINIR".equals(u.getMetodoPago()) || u.getMetodoPago().isBlank()) {
             mostrarAlerta(Alert.AlertType.WARNING, "Método de Pago Requerido",
                     "Debes establecer un método de pago antes de añadir saldo.");
@@ -629,7 +677,7 @@ public class ClienteController {
      */
     @FXML
     private void onCambiarMetodoPago() {
-        List<String> metodos = List.of("TARJETA", "PAYPAL", "BIZUM", "EFECTIVO");
+        List<String> metodos = List.of("TARJETA", "PAYPAL", "BIZUM");
 
         ChoiceDialog<String> dialog = new ChoiceDialog<>("TARJETA", metodos);
         dialog.setTitle("Método de Pago");

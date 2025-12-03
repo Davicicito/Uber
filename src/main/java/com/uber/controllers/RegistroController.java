@@ -19,7 +19,6 @@ import java.io.IOException;
  */
 public class RegistroController {
 
-    // --- Elementos de la interfaz ---
     @FXML private TextField txtNombre;
     @FXML private TextField txtApellidos;
     @FXML private TextField txtEmail;
@@ -28,7 +27,6 @@ public class RegistroController {
     @FXML private ImageView imgLogo;
     @FXML private Button btnRegistrar;
 
-    // --- Objeto de acceso a datos ---
     private final UsuarioDAO usuarioDAO = new UsuarioDAO();
 
     /**
@@ -50,40 +48,55 @@ public class RegistroController {
      */
     @FXML
     private void onRegistrar() {
-        // 1. Limpiar mensajes de error previos
         lblError.setText("");
 
-        String nombre = txtNombre.getText();
-        String apellidos = txtApellidos.getText();
-        String email = txtEmail.getText();
-        String password = txtPassword.getText();
+        String nombre = txtNombre.getText().trim();
+        String apellidos = txtApellidos.getText().trim();
+        String email = txtEmail.getText().trim();
+        String password = txtPassword.getText().trim();
 
-        // 2. Validar que no haya campos vacíos
-        if (nombre.isBlank() || apellidos.isBlank() || email.isBlank() || password.isBlank()) {
+
+        // 1. Campos vacíos
+        if (nombre.isEmpty() || apellidos.isEmpty() || email.isEmpty() || password.isEmpty()) {
             lblError.setText("⚠️ Rellena todos los campos");
             lblError.setStyle("-fx-text-fill: red;");
             return;
         }
 
-        // 3. Comprobar si el email ya existe en la base de datos
-        if (usuarioDAO.emailExiste(email)) {
-            lblError.setText("❌ El email ya está registrado");
+        // 2. Validación de Email
+        if (!email.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
+            lblError.setText("❌ El email no es válido");
             lblError.setStyle("-fx-text-fill: red;");
             return;
         }
 
-        // 4. Crear objeto Usuario con los datos del formulario
+        // 3. Validación de Contraseña (Mínimo 6 caracteres, letras y números)
+        if (!password.matches("^(?=.*[0-9])(?=.*[a-zA-Z]).{6,}$")) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Contraseña Insegura");
+            alert.setHeaderText(null);
+            alert.setContentText("La contraseña debe tener al menos 6 caracteres, incluyendo letras y números.");
+            alert.showAndWait();
+            return;
+        }
+
+        // 4. Comprobar si el email ya existe en la BD
+        if (usuarioDAO.emailExiste(email)) {
+            lblError.setText("❌ Ese email ya está registrado");
+            lblError.setStyle("-fx-text-fill: red;");
+            return;
+        }
+
         Usuario nuevoUsuario = new Usuario();
         nuevoUsuario.setNombre(nombre);
         nuevoUsuario.setApellidos(apellidos);
         nuevoUsuario.setEmail(email);
         nuevoUsuario.setContrasena(password);
-        nuevoUsuario.setMetodoPago("SIN DEFINIR"); // Valor por defecto
+        nuevoUsuario.setMetodoPago("SIN DEFINIR");
         nuevoUsuario.setSaldo(0.0);
-        nuevoUsuario.setRol(Rol.CLIENTE);          // Rol por defecto para nuevos registros
+        nuevoUsuario.setRol(Rol.CLIENTE);
         nuevoUsuario.setEstadoCuenta(EstadoCuenta.ACTIVO);
 
-        // 5. Insertar en la Base de Datos
         if (usuarioDAO.insert(nuevoUsuario)) {
             mostrarAlertaExito();
             volverAlLogin();
@@ -91,7 +104,6 @@ public class RegistroController {
             lblError.setText("❌ Error de conexión al guardar");
         }
     }
-
     /**
      * Gestiona el evento del enlace para volver al login.
      */

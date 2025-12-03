@@ -12,7 +12,6 @@ import java.util.List;
 
 public class VehiculoDAO {
 
-    // Consultas SQL
     private static final String SELECT_ALL =
             "SELECT v.*, e.id_estacion, e.nombre_estacion, e.direccion, e.capacidad, e.ciudad " +
                     "FROM Vehiculo v INNER JOIN Estacion e ON v.id_estacion = e.id_estacion";
@@ -74,8 +73,6 @@ public class VehiculoDAO {
         v.setEstadoVehiculo(EstadoVehiculo.valueOf(rs.getString("estado_vehiculo")));
         v.setNivelBateria(rs.getDouble("nivel_bateria"));
         v.setKilometraje(rs.getDouble("kilometraje"));
-
-        // También carga la estación
         v.setEstacion(mapEstacion(rs));
 
         return v;

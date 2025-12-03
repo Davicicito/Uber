@@ -11,7 +11,6 @@ import java.util.List;
 
 public class UsuarioDAO {
 
-    // Consultas SQL
     private static final String SELECT_ALL = "SELECT * FROM Usuario";
     private static final String SELECT_BY_ID = "SELECT * FROM Usuario WHERE id_usuario = ?";
 

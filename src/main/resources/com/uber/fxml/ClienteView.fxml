@@ -88,7 +88,7 @@
                                     <Label fx:id="lblMetodoPago" text="PAYPAL" styleClass="info-value"/>
                                 </HBox>
                             </VBox>
-                            <Button text="Cambiar" styleClass="link-action" onAction="#onCambiarMetodoPago"/>
+                            <Button text="Cambiar" styleClass="btn-small-dark" onAction="#onCambiarMetodoPago"/>
                         </HBox>
 
                         <HBox styleClass="info-box" alignment="CENTER_LEFT" spacing="10">

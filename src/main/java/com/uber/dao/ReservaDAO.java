@@ -13,7 +13,6 @@ import java.util.List;
 
 public class ReservaDAO {
 
-    // Consultas SQL
     private static final String SELECT_ALL = "SELECT * FROM Reserva";
     private static final String SELECT_BY_ID = "SELECT * FROM Reserva WHERE id_reserva = ?";
     private static final String INSERT = "INSERT INTO Reserva (id_usuario, id_vehiculo, fecha_hora_inicio, fecha_hora_fin, coste, estado) VALUES (?, ?, ?, ?, ?, ?)";
@@ -26,6 +25,7 @@ public class ReservaDAO {
     private static final String RELEASE_VEHICULO_SQL = "UPDATE Vehiculo SET estado_vehiculo = 'DISPONIBLE' WHERE id_vehiculo = ?";
     private static final String UPDATE_VEHICULO_OCUPADO = "UPDATE Vehiculo SET estado_vehiculo = 'EN_USO' WHERE id_vehiculo = ?";
     private static final String FINALIZE_RESERVA_SQL = "UPDATE Reserva SET estado = 'FINALIZADA', fecha_hora_fin = NOW(), coste = ? WHERE id_reserva = ?";
+    private static final String DEDUCT_SALDO_SQL = "UPDATE Usuario SET saldo = saldo - ? WHERE id_usuario = ?";
 
     private final Connection conn;
 
@@ -314,10 +314,9 @@ public class ReservaDAO {
      * @param costeFinal coste calculado al terminar
      * @return true si se completó correctamente
      */
-    public boolean finalizarReserva(int idReserva, int idVehiculo, double costeFinal) {
+    public boolean finalizarReserva(int idReserva, int idVehiculo, int idUsuario, double costeFinal) {
         try {
             conn.setAutoCommit(false);
-
             PreparedStatement psReserva = conn.prepareStatement(FINALIZE_RESERVA_SQL);
             psReserva.setDouble(1, costeFinal);
             psReserva.setInt(2, idReserva);
@@ -326,6 +325,11 @@ public class ReservaDAO {
             PreparedStatement psVehiculo = conn.prepareStatement(RELEASE_VEHICULO_SQL);
             psVehiculo.setInt(1, idVehiculo);
             psVehiculo.executeUpdate();
+
+            PreparedStatement psSaldo = conn.prepareStatement(DEDUCT_SALDO_SQL);
+            psSaldo.setDouble(1, costeFinal);
+            psSaldo.setInt(2, idUsuario);
+            psSaldo.executeUpdate();
 
             conn.commit();
             return true;

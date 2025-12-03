@@ -12,7 +12,6 @@ import java.util.List;
 
 public class TieneDAO {
 
-    // Consultas SQL
     private static final String SELECT_ALL = "SELECT * FROM Tiene";
 
     private static final String SELECT_BY_VEHICULO =

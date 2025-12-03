@@ -27,7 +27,6 @@ public class EstacionDAO {
 
     private static final String DELETE = "DELETE FROM Estacion WHERE id_estacion = ?";
 
-    // Consulta avanzada con JOIN y agrupación
     private static final String SELECT_ESTACION_CON_VEHICULOS = "SELECT e.id_estacion, e.nombre_estacion, COUNT(v.id_vehiculo) AS totalVehiculos " +
             "FROM Estacion e LEFT JOIN Vehiculo v ON e.id_estacion = v.id_estacion " +
             "WHERE e.id_estacion = ? GROUP BY e.id_estacion";

@@ -19,7 +19,6 @@ import javafx.stage.Stage;
  */
 public class LoginController {
 
-    // Elementos de la interfaz gráfica
     @FXML private TextField txtEmail;
     @FXML private PasswordField txtPassword;
     @FXML private Label lblError;
@@ -27,7 +26,6 @@ public class LoginController {
     @FXML private Button btnLogin;
     @FXML private Hyperlink linkRegistro;
 
-    // Objeto para acceder a la base de datos de usuarios
     private final UsuarioDAO usuarioDAO = new UsuarioDAO();
 
     /**
@@ -37,7 +35,6 @@ public class LoginController {
     @FXML
     public void initialize() {
         try {
-            // Intentamos cargar la imagen del logo
             imgLogo.setImage(new Image(getClass().getResourceAsStream("/com/uber/img/logouber.jpg")));
         } catch (Exception e) {
             System.out.println("Error al cargar la imagen del logo: " + e.getMessage());
@@ -54,25 +51,19 @@ public class LoginController {
         String email = txtEmail.getText();
         String pass = txtPassword.getText();
 
-        // Validamos que los campos no estén vacíos
         if (email.isEmpty() || pass.isEmpty()) {
             lblError.setText("Introduce email y contraseña");
             return;
         }
-
-        // Consultamos a la base de datos
         Usuario u = usuarioDAO.login(email, pass);
 
-        // Si el usuario es null, es que no existe o la contraseña está mal
         if (u == null) {
             lblError.setText("❌ Credenciales incorrectas");
             return;
         }
 
-        // Si llegamos aquí, el login es correcto. Guardamos la sesión.
         Sesion.getInstancia().logIn(u);
 
-        // Redirigimos a la pantalla correspondiente según si es Admin o Cliente
         switch (u.getRol()) {
             case ADMIN:
                 abrirVista("/com/uber/fxml/AdminView.fxml");
@@ -101,14 +92,9 @@ public class LoginController {
      */
     private void abrirVista(String ruta) {
         try {
-            // Obtenemos la ventana (Stage) actual a través de uno de los componentes
             Stage stage = (Stage) txtEmail.getScene().getWindow();
-
-            // Cargamos la nueva vista
             FXMLLoader loader = new FXMLLoader(getClass().getResource(ruta));
             Scene scene = new Scene(loader.load());
-
-            // Cambiamos la escena y la mostramos
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
