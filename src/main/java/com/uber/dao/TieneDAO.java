@@ -15,7 +15,7 @@ public class TieneDAO {
     private static final String SELECT_ALL = "SELECT * FROM Tiene";
 
     private static final String SELECT_BY_VEHICULO =
-            "SELECT t.*, m.nombre_mantenimiento, m.descripcion " +
+            "SELECT t.*, m.tipo, m.descripcion " +
                     "FROM Tiene t INNER JOIN Mantenimiento m ON t.id_mantenimiento = m.id_mantenimiento " +
                     "WHERE t.id_vehiculo = ?";
 
@@ -32,7 +32,7 @@ public class TieneDAO {
             "SELECT COUNT(*) AS total FROM Tiene WHERE id_vehiculo = ?";
 
     private static final String SELECT_ULTIMO_MANTENIMIENTO =
-            "SELECT t.*, m.nombre_mantenimiento, m.descripcion " +
+            "SELECT t.*, m.tipo, m.descripcion " +
                     "FROM Tiene t INNER JOIN Mantenimiento m ON t.id_mantenimiento = m.id_mantenimiento " +
                     "WHERE t.id_vehiculo = ? ORDER BY t.fecha_hora DESC LIMIT 1";
 
@@ -107,9 +107,14 @@ public class TieneDAO {
             while (rs.next()) {
                 Tiene t = map(rs);
 
-                String nombreMant = rs.getString("nombre_mantenimiento");
+                // CORREGIDO: Recuperamos la columna 'tipo' en lugar de 'nombre_mantenimiento'
+                String nombreMant = rs.getString("tipo");
                 if (nombreMant != null) {
-                    t.getMantenimiento().setTipo(TipoMantenimiento.valueOf(nombreMant));
+                    try {
+                        t.getMantenimiento().setTipo(TipoMantenimiento.valueOf(nombreMant));
+                    } catch (IllegalArgumentException e) {
+                        System.err.println("Tipo de mantenimiento desconocido: " + nombreMant);
+                    }
                 }
 
                 t.getMantenimiento().setDescripcion(rs.getString("descripcion"));
@@ -227,10 +232,13 @@ public class TieneDAO {
 
             if (rs.next()) {
                 Tiene t = map(rs);
-
-                String nombreMant = rs.getString("nombre_mantenimiento");
+                String nombreMant = rs.getString("tipo");
                 if (nombreMant != null) {
-                    t.getMantenimiento().setTipo(TipoMantenimiento.valueOf(nombreMant));
+                    try {
+                        t.getMantenimiento().setTipo(TipoMantenimiento.valueOf(nombreMant));
+                    } catch (IllegalArgumentException e) {
+                        System.err.println("Tipo de mantenimiento desconocido: " + nombreMant);
+                    }
                 }
 
                 t.getMantenimiento().setDescripcion(rs.getString("descripcion"));

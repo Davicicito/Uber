@@ -1,10 +1,7 @@
 package com.uber;
 
 import com.uber.dao.*;
-import com.uber.enums.EstadoReserva;
-import com.uber.enums.EstadoVehiculo;
-import com.uber.enums.TipoMantenimiento;
-import com.uber.enums.TipoVehiculo;
+import com.uber.enums.*;
 import com.uber.model.*;
 
 import java.time.LocalDateTime;
@@ -16,7 +13,6 @@ public class TestDAO {
         System.out.println("=== TEST DAO - Inicio ===");
 
         try {
-            // Instanciar DAOs (usan ConnectionBD internamente)
             UsuarioDAO usuarioDAO = new UsuarioDAO();
             EstacionDAO estacionDAO = new EstacionDAO();
             VehiculoDAO vehiculoDAO = new VehiculoDAO();
@@ -24,13 +20,12 @@ public class TestDAO {
             TieneDAO tieneDAO = new TieneDAO();
             ReservaDAO reservaDAO = new ReservaDAO();
 
-            // 1) LISTAR todos los usuarios (SELECT *)
             System.out.println("\n-- Usuarios (getAll) --");
             List<Usuario> usuarios = usuarioDAO.getAll();
             System.out.println("Total usuarios: " + usuarios.size());
             usuarios.stream().limit(5).forEach(u -> System.out.println("  " + u));
 
-            // 2) INSERTAR un usuario de prueba
+            // INSERTAR un usuario de prueba
             System.out.println("\n-- Insertar Usuario de prueba --");
             Usuario nuevo = new Usuario();
             nuevo.setNombre("Prueba");
@@ -41,6 +36,7 @@ public class TestDAO {
             nuevo.setMetodoPago("Tarjeta");
             nuevo.setSaldo(5.0);
             nuevo.setEstadoCuenta(com.uber.enums.EstadoCuenta.ACTIVO);
+            nuevo.setRol(Rol.CLIENTE);
 
             boolean inserted = usuarioDAO.insert(nuevo);
             System.out.println("Insertado: " + inserted);
@@ -62,11 +58,11 @@ public class TestDAO {
                 System.out.println("Usuario de prueba no encontrado (posible duplicado ya presente)");
             }
 
-            // 4) Listar estaciones y mostrar una (EAGER test via VehiculoDAO)
+            // 4) Listar estaciones y mostrar una
             System.out.println("\n-- Estaciones (getAll) --");
             estacionDAO.getAll().forEach(e -> System.out.println("  " + e));
 
-            // 5) VEHÍCULO EAGER: getById devuelve Vehiculo con Estacion cargada
+            // getById devuelve Vehiculo con Estacion cargada
             System.out.println("\n-- Vehiculo EAGER (getById) --");
             List<Vehiculo> vehs = vehiculoDAO.getAll();
             if (!vehs.isEmpty()) {
@@ -128,7 +124,7 @@ public class TestDAO {
                 boolean creada = reservaDAO.crearReserva(r);
                 System.out.println("Reserva creada (transacción): " + creada);
 
-                // Leer la reserva más reciente (lista) para comprobar
+                // Leer la reserva más reciente para comprobar
                 List<Reserva> reservasUsuario = reservaDAO.getAll();
                 System.out.println("Total reservas tras crear: " + reservasUsuario.size());
             } else {
@@ -137,13 +133,33 @@ public class TestDAO {
 
             // 8) Lazy VS Eager demonstration:
             System.out.println("\n-- Lazy vs Eager demo --");
-            // Reserva.getById en nuestro DAO mapea solo IDs (lazy),
-            // mientras que mostrarReservaCompleta usa JOIN (eager-ish).
             if (!reservaDAO.getAll().isEmpty()) {
                 Reserva sample = reservaDAO.getAll().get(0);
                 System.out.println("Reserva (lazy mapping): " + sample);
                 System.out.println("Mostrar reserva completa (JOIN):");
                 reservaDAO.mostrarReservaCompleta(sample.getIdReserva());
+            }
+            // 9) PRUEBA DE CONSULTA AVANZADA (GROUP BY)
+            System.out.println("\n-- Consulta Avanzada (GROUP BY): Vehículos por Estación --");
+            // Probamos con la primera estación que exista
+            if (!estacionDAO.getAll().isEmpty()) {
+                int idEstacionPrueba = estacionDAO.getAll().get(0).getIdEstacion();
+                estacionDAO.mostrarEstacionConCantidadVehiculos(idEstacionPrueba);
+            }
+
+            // 10) PRUEBA DE JOINS AVANZADOS (Consultas de Reporte)
+            System.out.println("\n-- Consultas de Reporte (JOINs) --");
+
+            if (!usuarios.isEmpty()) {
+                int idUserPrueba = usuarios.get(0).getIdUsuario();
+                System.out.println("-> Reporte de reservas para el usuario ID " + idUserPrueba + ":");
+                usuarioDAO.mostrarUsuarioConReservas(idUserPrueba);
+            }
+
+            if (!vehs.isEmpty()) {
+                int idVehPrueba = vehs.get(0).getIdVehiculo();
+                System.out.println("\n-> Reporte de reservas para el vehículo ID " + idVehPrueba + ":");
+                vehiculoDAO.mostrarReservasDelVehiculo(idVehPrueba);
             }
 
             System.out.println("\n=== TEST DAO - Fin ===");
